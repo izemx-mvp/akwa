@@ -551,8 +551,8 @@ function Pricing() {
                   "h-2 w-2 rounded-full",
                   agent.state === "idle" && "bg-white/60",
                   ["analyzing", "applying", "reviewing", "simulating"].includes(agent.state) &&
-                    "bg-yellow-300 animate-pulse",
-                  ["ready", "applied"].includes(agent.state) && "bg-green-400"
+                    "bg-warning animate-pulse",
+                  ["ready", "applied"].includes(agent.state) && "bg-success"
                 )}
               />
               {agent.state === "idle" && "En veille"}
