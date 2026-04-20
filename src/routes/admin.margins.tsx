@@ -9,19 +9,18 @@ export const Route = createFileRoute("/admin/margins")({
 });
 
 function Margins() {
-  const alerts = clients.filter((c) => c.trend < 0);
   return (
     <div className="space-y-6 max-w-[1500px]">
       <div className="flex items-end justify-between flex-wrap gap-3">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight flex items-center gap-3">Margins <AgentBadge name="Margin Analyst" icon={BarChart3} /></h1>
-          <p className="text-sm text-muted-foreground">Profitability intelligence across clients, products and corridors.</p>
+          <h1 className="text-2xl font-bold tracking-tight flex items-center gap-3">Marges <AgentBadge name="Margin Analyst" icon={BarChart3} /></h1>
+          <p className="text-sm text-muted-foreground">Intelligence de rentabilité par client, produit et corridor.</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 rounded-xl border border-border bg-card shadow-card p-5">
-          <h3 className="font-semibold mb-4">Margin trend (6 months)</h3>
+          <h3 className="font-semibold mb-4">Tendance de marge (6 mois)</h3>
           <ResponsiveContainer width="100%" height={260}>
             <LineChart data={monthlyRevenue}>
               <CartesianGrid strokeDasharray="3 3" stroke="oklch(0.92 0.015 245)" />
@@ -36,30 +35,30 @@ function Margins() {
         <div className="rounded-xl border border-warning/40 bg-warning/5 p-5">
           <div className="flex items-center gap-2 mb-3">
             <AlertTriangle className="h-4 w-4 text-warning" />
-            <h3 className="font-semibold text-warning">AI alerts</h3>
+            <h3 className="font-semibold text-warning">Alertes IA</h3>
           </div>
           <div className="space-y-3">
-            <div className="text-sm">Client <strong>Dakar Energy Supply</strong> margin dropped by <span className="text-destructive font-semibold">6.2%</span></div>
-            <div className="text-sm">Product <strong>Aviation Fuel Pack</strong> is underperforming this quarter</div>
-            <div className="text-sm">Margin in <strong>Côte d'Ivoire</strong> decreased by 4%</div>
-            <button className="text-xs text-warning font-medium hover:underline mt-2">View full report →</button>
+            <div className="text-sm">Le client <strong>Dakar Energy Supply</strong> a perdu <span className="text-destructive font-semibold">6,2 %</span> de marge</div>
+            <div className="text-sm">Le produit <strong>Pack Carburant Aviation</strong> est sous-performant ce trimestre</div>
+            <div className="text-sm">La marge en <strong>Côte d'Ivoire</strong> a baissé de 4 %</div>
+            <button className="text-xs text-warning font-medium hover:underline mt-2">Voir le rapport complet →</button>
           </div>
         </div>
       </div>
 
       <div className="rounded-xl border border-border bg-card shadow-card overflow-hidden">
         <div className="px-5 py-4 border-b border-border">
-          <h3 className="font-semibold">Client profitability</h3>
+          <h3 className="font-semibold">Rentabilité par client</h3>
         </div>
         <table className="w-full text-sm">
           <thead className="bg-muted/40 text-xs uppercase tracking-wider text-muted-foreground">
             <tr>
               <th className="text-left px-5 py-3 font-medium">Client</th>
-              <th className="text-left px-5 py-3 font-medium">Country</th>
+              <th className="text-left px-5 py-3 font-medium">Pays</th>
               <th className="text-left px-5 py-3 font-medium">Segment</th>
-              <th className="text-right px-5 py-3 font-medium">YTD Revenue</th>
-              <th className="text-right px-5 py-3 font-medium">Margin</th>
-              <th className="text-right px-5 py-3 font-medium">Trend</th>
+              <th className="text-right px-5 py-3 font-medium">Revenu YTD</th>
+              <th className="text-right px-5 py-3 font-medium">Marge</th>
+              <th className="text-right px-5 py-3 font-medium">Tendance</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border">

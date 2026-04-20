@@ -13,14 +13,14 @@ export const Route = createFileRoute("/client/new-order")({
   component: NewOrder,
 });
 
-const COUNTRIES: Country[] = ["Senegal", "Côte d'Ivoire", "Mauritania", "Mali", "Guinea"];
+const COUNTRIES: Country[] = ["Sénégal", "Côte d'Ivoire", "Mauritanie", "Mali", "Guinée"];
 
 function NewOrder() {
   const [cart, setCart] = useState<CartLine[]>([
     { productId: "p1", quantity: 200 },
     { productId: "p4", quantity: 150 },
   ]);
-  const [destination, setDestination] = useState<Country>("Senegal");
+  const [destination, setDestination] = useState<Country>("Sénégal");
 
   const { fill, totalValue, totalWeight, totalVolume, totalMargin } = useMemo(
     () => computeOrderInsights(cart, destination),
@@ -43,14 +43,17 @@ function NewOrder() {
 
   const applyRec = (id: string) => {
     if (id === "fill-low") {
-      addProduct("p4");
-      setCart((c) => c.map((l) => (l.productId === "p4" ? { ...l, quantity: l.quantity + 200 } : l)));
-      toast.success("AI suggestion applied: +200 units of Butane 6kg");
+      setCart((c) => {
+        const has = c.find((l) => l.productId === "p4");
+        if (has) return c.map((l) => (l.productId === "p4" ? { ...l, quantity: l.quantity + 200 } : l));
+        return [...c, { productId: "p4", quantity: 200 }];
+      });
+      toast.success("Suggestion IA appliquée : +200 unités de Butane 6kg");
     } else if (id === "fill-mid") {
       setCart((c) => c.map((l) => ({ ...l, quantity: l.quantity + 30 })));
-      toast.success("Order optimized");
+      toast.success("Commande optimisée");
     } else {
-      toast.success("Suggestion applied");
+      toast.success("Suggestion appliquée");
     }
   };
 
@@ -58,13 +61,13 @@ function NewOrder() {
     <div className="grid grid-cols-1 xl:grid-cols-[1fr_360px] gap-6 max-w-[1400px]">
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Create new order</h1>
-          <p className="text-sm text-muted-foreground">Build your shipment — AKWA AI optimizes pricing and container loading in real time.</p>
+          <h1 className="text-2xl font-bold tracking-tight">Nouvelle commande</h1>
+          <p className="text-sm text-muted-foreground">Construisez votre expédition — AKWA AI optimise pricing et chargement en temps réel.</p>
         </div>
 
         <div className="rounded-xl border border-border bg-card shadow-card">
           <div className="px-5 py-4 border-b border-border flex items-center justify-between flex-wrap gap-3">
-            <h3 className="font-semibold">Order details</h3>
+            <h3 className="font-semibold">Détails de la commande</h3>
             <div className="flex items-center gap-2">
               <span className="text-xs text-muted-foreground">Destination</span>
               <select
@@ -100,11 +103,11 @@ function NewOrder() {
 
         <div className="rounded-xl border border-border bg-card shadow-card">
           <div className="px-5 py-4 border-b border-border flex items-center justify-between">
-            <h3 className="font-semibold">Order lines</h3>
-            <span className="text-xs text-muted-foreground">{cart.length} items</span>
+            <h3 className="font-semibold">Lignes de commande</h3>
+            <span className="text-xs text-muted-foreground">{cart.length} articles</span>
           </div>
           {cart.length === 0 ? (
-            <div className="p-10 text-center text-sm text-muted-foreground">Your cart is empty. Pick a product above.</div>
+            <div className="p-10 text-center text-sm text-muted-foreground">Votre panier est vide. Choisissez un produit ci-dessus.</div>
           ) : (
             <div className="divide-y divide-border">
               {cart.map((l) => {
@@ -130,37 +133,36 @@ function NewOrder() {
           )}
           <div className="px-5 py-4 border-t border-border bg-muted/30 grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div><div className="text-[10px] uppercase text-muted-foreground">Total</div><div className="text-lg font-bold">{formatCurrency(totalValue)}</div></div>
-            <div><div className="text-[10px] uppercase text-muted-foreground">Margin</div><div className="text-lg font-bold text-success">{formatCurrency(totalMargin)}</div></div>
-            <div><div className="text-[10px] uppercase text-muted-foreground">Weight</div><div className="text-lg font-bold">{totalWeight.toFixed(0)} kg</div></div>
+            <div><div className="text-[10px] uppercase text-muted-foreground">Marge</div><div className="text-lg font-bold text-success">{formatCurrency(totalMargin)}</div></div>
+            <div><div className="text-[10px] uppercase text-muted-foreground">Poids</div><div className="text-lg font-bold">{totalWeight.toFixed(0)} kg</div></div>
             <div><div className="text-[10px] uppercase text-muted-foreground">Volume</div><div className="text-lg font-bold">{totalVolume.toFixed(2)} m³</div></div>
           </div>
           <div className="px-5 py-4 border-t border-border flex items-center justify-end gap-2">
-            <Button variant="outline">Save draft</Button>
-            <Button className="bg-gradient-primary shadow-elegant" onClick={() => toast.success("Order submitted to AKWA AI")}>Submit order</Button>
+            <Button variant="outline">Sauvegarder le brouillon</Button>
+            <Button className="bg-gradient-primary shadow-elegant" onClick={() => toast.success("Commande envoyée à AKWA AI")}>Soumettre la commande</Button>
           </div>
         </div>
       </div>
 
-      {/* AI Order Assistant — sticky right panel */}
       <aside className="space-y-4">
         <div className="rounded-xl bg-gradient-ai text-ai-foreground p-5 shadow-ai sticky top-20">
           <div className="flex items-center justify-between">
             <AgentBadge name="AI Order Assistant" pulse />
             <Sparkles className="h-4 w-4 text-white/80" />
           </div>
-          <h3 className="mt-3 text-base font-semibold">Live optimization</h3>
-          <p className="text-xs text-white/80 mt-1">I'm analyzing your order in real time.</p>
+          <h3 className="mt-3 text-base font-semibold">Optimisation en direct</h3>
+          <p className="text-xs text-white/80 mt-1">J'analyse votre commande en temps réel.</p>
 
           <div className="mt-4 rounded-lg bg-white/10 backdrop-blur p-3">
             <div className="flex items-center justify-between text-xs">
-              <span className="text-white/80 flex items-center gap-1.5"><Package2 className="h-3.5 w-3.5" /> Container fill</span>
+              <span className="text-white/80 flex items-center gap-1.5"><Package2 className="h-3.5 w-3.5" /> Remplissage conteneur</span>
               <span className="font-bold">{fill.toFixed(0)}%</span>
             </div>
             <div className="mt-2 h-2 rounded-full bg-white/20 overflow-hidden">
               <div className="h-full bg-white rounded-full transition-all" style={{ width: `${fill}%` }} />
             </div>
             <div className="mt-2 text-[10px] text-white/70">
-              {fill < 60 ? "Under-utilized — adding more units saves cost." : fill < 90 ? "Good. Almost optimal." : "Optimized ✓"}
+              {fill < 60 ? "Sous-utilisé — ajouter des unités réduit le coût." : fill < 90 ? "Bon. Presque optimal." : "Optimisé ✓"}
             </div>
           </div>
         </div>

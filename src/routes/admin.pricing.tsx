@@ -11,9 +11,9 @@ export const Route = createFileRoute("/admin/pricing")({
 });
 
 const recs = [
-  { id: "1", title: "Increase price by 2.5% for Senegal", message: "Demand elasticity is low and competitor average sits at +3.1%. Estimated extra margin: $4,210/month.", severity: "info" as const, cta: "Apply suggestion", delta: "+$4.2k" },
-  { id: "2", title: "Margin below target for Dakar Energy Supply", message: "Last 3 orders averaged 11.2% margin (target: 16%). Suggest renegotiation on Butane SKUs.", severity: "warning" as const, cta: "Review pricing" },
-  { id: "3", title: "Optimal price detected: $125.50 USD", message: "On Lubricant Pack XL — current avg sell $118.20. AI confidence: 87%.", severity: "info" as const, cta: "Simulate", delta: "+6.2%" },
+  { id: "1", title: "Augmenter le prix de 2,5 % pour le Sénégal", message: "L'élasticité de la demande est faible et la moyenne concurrentielle est à +3,1 %. Marge supplémentaire estimée : 4 210 $/mois.", severity: "info" as const, cta: "Appliquer", delta: "+4,2k $" },
+  { id: "2", title: "Marge sous la cible pour Dakar Energy Supply", message: "Les 3 dernières commandes ont une marge moyenne de 11,2 % (cible : 16 %). Renégociation suggérée sur les SKUs Butane.", severity: "warning" as const, cta: "Revoir le pricing" },
+  { id: "3", title: "Prix optimal détecté : 125,50 $", message: "Sur Lubrifiant Pack XL — prix moyen actuel 118,20 $. Confiance IA : 87 %.", severity: "info" as const, cta: "Simuler", delta: "+6,2 %" },
 ];
 
 function Pricing() {
@@ -23,20 +23,20 @@ function Pricing() {
         <div className="flex items-end justify-between flex-wrap gap-3">
           <div>
             <h1 className="text-2xl font-bold tracking-tight flex items-center gap-3">Pricing <AgentBadge name="Pricing Advisor" icon={TrendingUp} /></h1>
-            <p className="text-sm text-muted-foreground">Dynamic price optimization across products and corridors.</p>
+            <p className="text-sm text-muted-foreground">Optimisation dynamique des prix par produit et corridor.</p>
           </div>
-          <Button variant="outline" className="gap-1.5"><Sparkles className="h-4 w-4" /> Run simulation</Button>
+          <Button variant="outline" className="gap-1.5"><Sparkles className="h-4 w-4" /> Lancer une simulation</Button>
         </div>
 
         <div className="rounded-xl border border-border bg-card shadow-card overflow-hidden">
           <table className="w-full text-sm">
             <thead className="bg-muted/40 text-xs uppercase tracking-wider text-muted-foreground">
               <tr>
-                <th className="text-left px-5 py-3 font-medium">Product</th>
-                <th className="text-right px-5 py-3 font-medium">Current price</th>
-                <th className="text-right px-5 py-3 font-medium">Cost</th>
-                <th className="text-right px-5 py-3 font-medium">Margin</th>
-                <th className="text-right px-5 py-3 font-medium">AI Suggestion</th>
+                <th className="text-left px-5 py-3 font-medium">Produit</th>
+                <th className="text-right px-5 py-3 font-medium">Prix actuel</th>
+                <th className="text-right px-5 py-3 font-medium">Coût</th>
+                <th className="text-right px-5 py-3 font-medium">Marge</th>
+                <th className="text-right px-5 py-3 font-medium">Suggestion IA</th>
                 <th className="text-right px-5 py-3 font-medium">Action</th>
               </tr>
             </thead>
@@ -57,8 +57,8 @@ function Pricing() {
                       </span>
                     </td>
                     <td className="px-5 py-3 text-right">
-                      <Button size="sm" variant="outline" className="h-7 text-xs gap-1" onClick={() => toast.success(`Pricing updated for ${p.name}`)}>
-                        <Sparkles className="h-3 w-3" /> Apply
+                      <Button size="sm" variant="outline" className="h-7 text-xs gap-1" onClick={() => toast.success(`Pricing mis à jour pour ${p.name}`)}>
+                        <Sparkles className="h-3 w-3" /> Appliquer
                       </Button>
                     </td>
                   </tr>
@@ -69,7 +69,7 @@ function Pricing() {
         </div>
 
         <div className="rounded-xl border border-border bg-card shadow-card p-5">
-          <h3 className="font-semibold mb-4">Margin by country</h3>
+          <h3 className="font-semibold mb-4">Marge par pays</h3>
           <div className="space-y-3">
             {countryPerformance.map((c) => (
               <div key={c.country}>
@@ -89,11 +89,11 @@ function Pricing() {
       <aside className="space-y-3">
         <div className="rounded-xl bg-gradient-ai text-ai-foreground p-5 shadow-ai sticky top-20">
           <AgentBadge name="Pricing Advisor" icon={TrendingUp} />
-          <h3 className="mt-3 text-base font-semibold">3 high-value suggestions</h3>
-          <p className="text-xs text-white/80 mt-1">Estimated combined uplift: <span className="font-bold">+$11,840/month</span></p>
+          <h3 className="mt-3 text-base font-semibold">3 suggestions à fort impact</h3>
+          <p className="text-xs text-white/80 mt-1">Uplift combiné estimé : <span className="font-bold">+11 840 $/mois</span></p>
         </div>
         {recs.map((r) => (
-          <RecommendationCard key={r.id} rec={r} onApply={() => toast.success(`${r.title} applied`)} />
+          <RecommendationCard key={r.id} rec={r} onApply={() => toast.success(`${r.title} appliqué`)} />
         ))}
       </aside>
     </div>

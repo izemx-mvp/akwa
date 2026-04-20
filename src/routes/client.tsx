@@ -4,22 +4,21 @@ import { auth } from "@/lib/auth";
 import { LayoutDashboard, BookOpen, PlusCircle, ListOrdered, MessageSquare } from "lucide-react";
 
 const nav: NavItem[] = [
-  { to: "/client", label: "Dashboard", icon: LayoutDashboard },
-  { to: "/client/catalog", label: "Catalog", icon: BookOpen },
-  { to: "/client/new-order", label: "New Order", icon: PlusCircle, badge: "AI" },
-  { to: "/client/orders", label: "My Orders", icon: ListOrdered },
-  { to: "/client/ask", label: "Ask AKWA AI", icon: MessageSquare, badge: "AI" },
+  { to: "/client", label: "Tableau de bord", icon: LayoutDashboard },
+  { to: "/client/catalog", label: "Catalogue", icon: BookOpen },
+  { to: "/client/new-order", label: "Nouvelle commande", icon: PlusCircle, badge: "IA" },
+  { to: "/client/orders", label: "Mes commandes", icon: ListOrdered },
+  { to: "/client/ask", label: "Demander à AKWA AI", icon: MessageSquare, badge: "IA" },
 ];
 
 export const Route = createFileRoute("/client")({
   beforeLoad: () => {
     if (auth.role !== "client") {
-      // allow admin to preview too
       if (auth.role !== "admin") throw redirect({ to: "/login" });
     }
   },
   component: () => (
-    <AppShell nav={nav} title="Client Portal">
+    <AppShell nav={nav} title="Portail Client">
       <Outlet />
     </AppShell>
   ),

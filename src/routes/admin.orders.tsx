@@ -7,6 +7,14 @@ export const Route = createFileRoute("/admin/orders")({
   component: AdminOrders,
 });
 
+const statusLabel: Record<string, string> = {
+  Draft: "Brouillon",
+  Pending: "En attente",
+  Validated: "Validée",
+  Shipped: "Expédiée",
+  Delivered: "Livrée",
+};
+
 const statusColor: Record<string, string> = {
   Draft: "bg-muted text-muted-foreground",
   Pending: "bg-warning/15 text-warning",
@@ -20,31 +28,31 @@ function AdminOrders() {
     <div className="space-y-5 max-w-[1500px]">
       <div className="flex items-end justify-between flex-wrap gap-3">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Orders</h1>
-          <p className="text-sm text-muted-foreground">Validate, track and optimize every order.</p>
+          <h1 className="text-2xl font-bold tracking-tight">Commandes</h1>
+          <p className="text-sm text-muted-foreground">Validez, suivez et optimisez chaque commande.</p>
         </div>
-        <AgentBadge name="2 actions suggested" />
+        <AgentBadge name="2 actions suggérées" />
       </div>
 
       <div className="rounded-xl border border-border bg-card shadow-card overflow-hidden">
         <table className="w-full text-sm">
           <thead className="bg-muted/40 text-xs uppercase tracking-wider text-muted-foreground">
             <tr>
-              <th className="text-left px-5 py-3 font-medium">Reference</th>
+              <th className="text-left px-5 py-3 font-medium">Référence</th>
               <th className="text-left px-5 py-3 font-medium">Client</th>
               <th className="text-left px-5 py-3 font-medium">Destination</th>
-              <th className="text-right px-5 py-3 font-medium">Value</th>
-              <th className="text-right px-5 py-3 font-medium">Container</th>
-              <th className="text-right px-5 py-3 font-medium">Margin</th>
-              <th className="text-left px-5 py-3 font-medium">Status</th>
-              <th className="text-left px-5 py-3 font-medium">AI Note</th>
+              <th className="text-right px-5 py-3 font-medium">Valeur</th>
+              <th className="text-right px-5 py-3 font-medium">Conteneur</th>
+              <th className="text-right px-5 py-3 font-medium">Marge</th>
+              <th className="text-left px-5 py-3 font-medium">Statut</th>
+              <th className="text-left px-5 py-3 font-medium">Note IA</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border">
-            {orders.map((o, i) => {
+            {orders.map((o) => {
               const value = o.lines.reduce((s, l) => s + l.quantity * l.unitPrice, 0);
               const client = clients.find((c) => c.id === o.clientId);
-              const note = o.containerFillPct < 60 ? "Consolidate to save $640" : o.marginPct < 12 ? "Apply pricing +1.8%" : "Optimal ✓";
+              const note = o.containerFillPct < 60 ? "Consolider pour économiser 640 $" : o.marginPct < 12 ? "Appliquer pricing +1,8 %" : "Optimal ✓";
               return (
                 <tr key={o.id} className="hover:bg-muted/30 transition-smooth">
                   <td className="px-5 py-3 font-medium">{o.reference}</td>
@@ -56,7 +64,7 @@ function AdminOrders() {
                   </td>
                   <td className="px-5 py-3 text-right text-success font-semibold">{o.marginPct}%</td>
                   <td className="px-5 py-3">
-                    <span className={cn("text-[11px] font-medium px-2 py-0.5 rounded", statusColor[o.status])}>{o.status}</span>
+                    <span className={cn("text-[11px] font-medium px-2 py-0.5 rounded", statusColor[o.status])}>{statusLabel[o.status]}</span>
                   </td>
                   <td className="px-5 py-3 text-xs">
                     <span className={cn("inline-flex items-center gap-1.5", note === "Optimal ✓" ? "text-success" : "text-ai font-medium")}>

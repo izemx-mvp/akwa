@@ -4,15 +4,15 @@ import { auth } from "@/lib/auth";
 import { LayoutDashboard, ShoppingCart, Tag, BarChart3, Package, Ship, Bot, MessageSquare, Settings } from "lucide-react";
 
 const nav: NavItem[] = [
-  { to: "/admin", label: "Dashboard", icon: LayoutDashboard },
-  { to: "/admin/orders", label: "Orders", icon: ShoppingCart },
-  { to: "/admin/pricing", label: "Pricing", icon: Tag, badge: "AI" },
-  { to: "/admin/margins", label: "Margins", icon: BarChart3, badge: "AI" },
-  { to: "/admin/container", label: "Container Optimization", icon: Package, badge: "AI" },
+  { to: "/admin", label: "Tableau de bord", icon: LayoutDashboard },
+  { to: "/admin/orders", label: "Commandes", icon: ShoppingCart },
+  { to: "/admin/pricing", label: "Pricing", icon: Tag, badge: "IA" },
+  { to: "/admin/margins", label: "Marges", icon: BarChart3, badge: "IA" },
+  { to: "/admin/container", label: "Optimisation Conteneur", icon: Package, badge: "IA" },
   { to: "/admin/export", label: "Export", icon: Ship },
-  { to: "/admin/agents", label: "AI Agents", icon: Bot, badge: "5" },
-  { to: "/admin/copilot", label: "Copilot", icon: MessageSquare, badge: "AI" },
-  { to: "/admin/settings", label: "Settings", icon: Settings },
+  { to: "/admin/agents", label: "Agents IA", icon: Bot, badge: "5" },
+  { to: "/admin/copilot", label: "Copilot", icon: MessageSquare, badge: "IA" },
+  { to: "/admin/settings", label: "Paramètres", icon: Settings },
 ];
 
 export const Route = createFileRoute("/admin")({
@@ -22,7 +22,7 @@ export const Route = createFileRoute("/admin")({
     }
   },
   component: () => (
-    <AppShell nav={nav} title="Admin Cockpit">
+    <AppShell nav={nav} title="Cockpit Admin">
       <Outlet />
     </AppShell>
   ),

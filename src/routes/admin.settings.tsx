@@ -3,29 +3,29 @@ import { agents } from "@/lib/agents";
 import { Switch } from "@/components/ui/switch";
 
 export const Route = createFileRoute("/admin/settings")({
-  component: Settings,
+  component: SettingsPage,
 });
 
-function Settings() {
+function SettingsPage() {
   return (
     <div className="space-y-6 max-w-3xl">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Settings</h1>
-        <p className="text-sm text-muted-foreground">Configure your workspace and AI agents.</p>
+        <h1 className="text-2xl font-bold tracking-tight">Paramètres</h1>
+        <p className="text-sm text-muted-foreground">Configurez votre espace de travail et vos agents IA.</p>
       </div>
 
       <div className="rounded-xl border border-border bg-card shadow-card p-5">
-        <h3 className="font-semibold mb-4">Workspace</h3>
+        <h3 className="font-semibold mb-4">Espace de travail</h3>
         <div className="space-y-4 text-sm">
           <div className="flex items-center justify-between">
             <div>
-              <div className="font-medium">Organization</div>
-              <div className="text-xs text-muted-foreground">AKWA Group — Export Division</div>
+              <div className="font-medium">Organisation</div>
+              <div className="text-xs text-muted-foreground">AKWA Group — Division Export</div>
             </div>
           </div>
           <div className="flex items-center justify-between">
             <div>
-              <div className="font-medium">Default currency</div>
+              <div className="font-medium">Devise par défaut</div>
               <div className="text-xs text-muted-foreground">USD</div>
             </div>
           </div>
@@ -33,7 +33,7 @@ function Settings() {
       </div>
 
       <div className="rounded-xl border border-border bg-card shadow-card p-5">
-        <h3 className="font-semibold mb-4">AI Agents</h3>
+        <h3 className="font-semibold mb-4">Agents IA</h3>
         <div className="divide-y divide-border">
           {agents.map((a) => (
             <div key={a.id} className="py-3 flex items-center gap-3">

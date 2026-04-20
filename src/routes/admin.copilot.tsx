@@ -12,25 +12,25 @@ export const Route = createFileRoute("/admin/copilot")({
 type Msg = { role: "user" | "ai"; text: string };
 
 const SUGGESTIONS = [
-  "Best client this month",
-  "How to improve margins in Mali",
-  "Optimize next shipment to Senegal",
-  "Show pricing anomalies",
-  "Forecast Q3 revenue",
+  "Meilleur client ce mois-ci",
+  "Comment améliorer les marges au Mali",
+  "Optimiser la prochaine expédition vers le Sénégal",
+  "Montrer les anomalies de pricing",
+  "Prévision revenu T3",
 ];
 
 const replies: Record<string, string> = {
-  default: "I've cross-referenced your operational data. Three opportunities surface this week: container under-utilization on AKW-2410-0184 (78% → 94% possible), pricing gap on Senegal corridor (+$4.2k/month), and 2 documents missing for Mauritania shipment.",
-  best: "**Abidjan Logistics Co.** is your top performer this month — $1.55M revenue, 19.2% margin, +3.4% trend. They've consolidated 4 shipments at 91%+ container fill. Recommend offering tier upgrade.",
-  mali: "Mali margin is strong (21.0%) but volume is limited. To grow profitably:\n• Increase Lubricant Pack XL allocation (+30% suggested)\n• Consolidate orders bi-weekly to maintain 90%+ container fill\n• Apply +1.5% pricing — elasticity allows it\nProjected uplift: **+$8,400/quarter**",
-  optimize: "Next shipment to Senegal (AKW-2410-0182): currently 87% fill, 18.2% margin. Adding 80 units of Butane 6kg lifts fill to 96% with +$640 margin. Container Optimizer ready to apply.",
-  pricing: "3 pricing anomalies detected:\n1. Butane 12kg in Senegal under-priced by 2.5% vs market\n2. Aviation Fuel Pack margin dropped 4.1% — review costs\n3. Lubricant Pack XL accepts +6% based on demand elasticity",
-  forecast: "Based on order velocity and seasonal patterns: **Q3 revenue forecast $4.1M** (+14% YoY), assuming current AI optimizations hold. Risk factor: Mauritania corridor volatility (±8%).",
+  default: "J'ai croisé vos données opérationnelles. Trois opportunités émergent cette semaine : sous-utilisation conteneur sur AKW-2410-0184 (78 % → 94 % possible), écart pricing sur le corridor Sénégal (+4,2k $/mois) et 2 documents manquants pour l'expédition Mauritanie.",
+  best: "**Abidjan Logistics Co.** est votre meilleur performeur ce mois — 1,55 M$ de revenu, 19,2 % de marge, tendance +3,4 %. Ils ont consolidé 4 expéditions à 91 %+ de remplissage. Recommandation : proposer une montée de palier.",
+  mali: "La marge Mali est forte (21,0 %) mais les volumes sont limités. Pour croître rentablement :\n• Augmenter l'allocation Lubrifiant Pack XL (+30 % suggéré)\n• Consolider les commandes en bi-mensuel pour maintenir 90 %+ de remplissage\n• Appliquer +1,5 % de pricing — l'élasticité le permet\nUplift projeté : **+8 400 $/trimestre**",
+  optimize: "Prochaine expédition Sénégal (AKW-2410-0182) : actuellement 87 % de remplissage, 18,2 % de marge. Ajouter 80 unités de Butane 6kg porte le remplissage à 96 % avec +640 $ de marge. Container Optimizer prêt à appliquer.",
+  pricing: "3 anomalies de pricing détectées :\n1. Butane 12kg sous-évalué de 2,5 % au Sénégal vs marché\n2. Pack Carburant Aviation : marge en baisse de 4,1 % — revoir les coûts\n3. Lubrifiant Pack XL accepte +6 % selon l'élasticité de la demande",
+  forecast: "D'après la vélocité des commandes et les tendances saisonnières : **revenu T3 prévu 4,1 M$** (+14 % YoY), si les optimisations IA actuelles tiennent. Facteur de risque : volatilité du corridor Mauritanie (±8 %).",
 };
 
 function Copilot() {
   const [messages, setMessages] = useState<Msg[]>([
-    { role: "ai", text: "Hello — I'm your Internal Copilot. I have full access to orders, pricing, margins, shipments and customs data. Ask me anything." },
+    { role: "ai", text: "Bonjour — je suis votre Copilot interne. J'ai accès complet aux commandes, pricing, marges, expéditions et données douanières. Posez-moi n'importe quelle question." },
   ]);
   const [input, setInput] = useState("");
 
@@ -38,11 +38,11 @@ function Copilot() {
     if (!text.trim()) return;
     const lower = text.toLowerCase();
     let reply = replies.default;
-    if (lower.includes("best")) reply = replies.best;
+    if (lower.includes("meilleur") || lower.includes("best")) reply = replies.best;
     else if (lower.includes("mali")) reply = replies.mali;
-    else if (lower.includes("optimize") || lower.includes("shipment")) reply = replies.optimize;
-    else if (lower.includes("pricing") || lower.includes("anomal")) reply = replies.pricing;
-    else if (lower.includes("forecast") || lower.includes("q3")) reply = replies.forecast;
+    else if (lower.includes("optimis") || lower.includes("expédition")) reply = replies.optimize;
+    else if (lower.includes("pricing") || lower.includes("anomal") || lower.includes("prix")) reply = replies.pricing;
+    else if (lower.includes("prévision") || lower.includes("t3") || lower.includes("forecast")) reply = replies.forecast;
 
     setMessages((m) => [...m, { role: "user", text }, { role: "ai", text: reply }]);
     setInput("");
@@ -55,8 +55,8 @@ function Copilot() {
           <MessageSquare className="h-5 w-5 text-ai-foreground" />
         </div>
         <div>
-          <h1 className="text-xl font-bold tracking-tight flex items-center gap-2">Internal Copilot <AgentBadge name="Always on" /></h1>
-          <p className="text-xs text-muted-foreground">Conversational interface to all your operational data.</p>
+          <h1 className="text-xl font-bold tracking-tight flex items-center gap-2">Copilot interne <AgentBadge name="Toujours actif" /></h1>
+          <p className="text-xs text-muted-foreground">Interface conversationnelle vers toutes vos données opérationnelles.</p>
         </div>
       </div>
 
@@ -80,8 +80,8 @@ function Copilot() {
       </div>
 
       <form onSubmit={(e) => { e.preventDefault(); send(input); }} className="mt-3 flex gap-2">
-        <Input value={input} onChange={(e) => setInput(e.target.value)} placeholder="Ask about orders, pricing, margins, shipments…" className="flex-1" />
-        <Button type="submit" className="bg-gradient-ai gap-1.5"><Send className="h-4 w-4" /> Send</Button>
+        <Input value={input} onChange={(e) => setInput(e.target.value)} placeholder="Posez une question sur commandes, pricing, marges, expéditions…" className="flex-1" />
+        <Button type="submit" className="bg-gradient-ai gap-1.5"><Send className="h-4 w-4" /> Envoyer</Button>
       </form>
     </div>
   );
