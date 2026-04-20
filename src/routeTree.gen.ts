@@ -10,11 +10,22 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as ClientRouteImport } from './routes/client'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ClientIndexRouteImport } from './routes/client.index'
+import { Route as ClientOrdersRouteImport } from './routes/client.orders'
+import { Route as ClientNewOrderRouteImport } from './routes/client.new-order'
+import { Route as ClientCatalogRouteImport } from './routes/client.catalog'
+import { Route as ClientAskRouteImport } from './routes/client.ask'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClientRoute = ClientRouteImport.update({
+  id: '/client',
+  path: '/client',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -22,30 +33,97 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ClientIndexRoute = ClientIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ClientRoute,
+} as any)
+const ClientOrdersRoute = ClientOrdersRouteImport.update({
+  id: '/orders',
+  path: '/orders',
+  getParentRoute: () => ClientRoute,
+} as any)
+const ClientNewOrderRoute = ClientNewOrderRouteImport.update({
+  id: '/new-order',
+  path: '/new-order',
+  getParentRoute: () => ClientRoute,
+} as any)
+const ClientCatalogRoute = ClientCatalogRouteImport.update({
+  id: '/catalog',
+  path: '/catalog',
+  getParentRoute: () => ClientRoute,
+} as any)
+const ClientAskRoute = ClientAskRouteImport.update({
+  id: '/ask',
+  path: '/ask',
+  getParentRoute: () => ClientRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/client': typeof ClientRouteWithChildren
   '/login': typeof LoginRoute
+  '/client/ask': typeof ClientAskRoute
+  '/client/catalog': typeof ClientCatalogRoute
+  '/client/new-order': typeof ClientNewOrderRoute
+  '/client/orders': typeof ClientOrdersRoute
+  '/client/': typeof ClientIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/client/ask': typeof ClientAskRoute
+  '/client/catalog': typeof ClientCatalogRoute
+  '/client/new-order': typeof ClientNewOrderRoute
+  '/client/orders': typeof ClientOrdersRoute
+  '/client': typeof ClientIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/client': typeof ClientRouteWithChildren
   '/login': typeof LoginRoute
+  '/client/ask': typeof ClientAskRoute
+  '/client/catalog': typeof ClientCatalogRoute
+  '/client/new-order': typeof ClientNewOrderRoute
+  '/client/orders': typeof ClientOrdersRoute
+  '/client/': typeof ClientIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login'
+  fullPaths:
+    | '/'
+    | '/client'
+    | '/login'
+    | '/client/ask'
+    | '/client/catalog'
+    | '/client/new-order'
+    | '/client/orders'
+    | '/client/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login'
-  id: '__root__' | '/' | '/login'
+  to:
+    | '/'
+    | '/login'
+    | '/client/ask'
+    | '/client/catalog'
+    | '/client/new-order'
+    | '/client/orders'
+    | '/client'
+  id:
+    | '__root__'
+    | '/'
+    | '/client'
+    | '/login'
+    | '/client/ask'
+    | '/client/catalog'
+    | '/client/new-order'
+    | '/client/orders'
+    | '/client/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ClientRoute: typeof ClientRouteWithChildren
   LoginRoute: typeof LoginRoute
 }
 
@@ -58,6 +136,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/client': {
+      id: '/client'
+      path: '/client'
+      fullPath: '/client'
+      preLoaderRoute: typeof ClientRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -65,11 +150,66 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/client/': {
+      id: '/client/'
+      path: '/'
+      fullPath: '/client/'
+      preLoaderRoute: typeof ClientIndexRouteImport
+      parentRoute: typeof ClientRoute
+    }
+    '/client/orders': {
+      id: '/client/orders'
+      path: '/orders'
+      fullPath: '/client/orders'
+      preLoaderRoute: typeof ClientOrdersRouteImport
+      parentRoute: typeof ClientRoute
+    }
+    '/client/new-order': {
+      id: '/client/new-order'
+      path: '/new-order'
+      fullPath: '/client/new-order'
+      preLoaderRoute: typeof ClientNewOrderRouteImport
+      parentRoute: typeof ClientRoute
+    }
+    '/client/catalog': {
+      id: '/client/catalog'
+      path: '/catalog'
+      fullPath: '/client/catalog'
+      preLoaderRoute: typeof ClientCatalogRouteImport
+      parentRoute: typeof ClientRoute
+    }
+    '/client/ask': {
+      id: '/client/ask'
+      path: '/ask'
+      fullPath: '/client/ask'
+      preLoaderRoute: typeof ClientAskRouteImport
+      parentRoute: typeof ClientRoute
+    }
   }
 }
 
+interface ClientRouteChildren {
+  ClientAskRoute: typeof ClientAskRoute
+  ClientCatalogRoute: typeof ClientCatalogRoute
+  ClientNewOrderRoute: typeof ClientNewOrderRoute
+  ClientOrdersRoute: typeof ClientOrdersRoute
+  ClientIndexRoute: typeof ClientIndexRoute
+}
+
+const ClientRouteChildren: ClientRouteChildren = {
+  ClientAskRoute: ClientAskRoute,
+  ClientCatalogRoute: ClientCatalogRoute,
+  ClientNewOrderRoute: ClientNewOrderRoute,
+  ClientOrdersRoute: ClientOrdersRoute,
+  ClientIndexRoute: ClientIndexRoute,
+}
+
+const ClientRouteWithChildren =
+  ClientRoute._addFileChildren(ClientRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ClientRoute: ClientRouteWithChildren,
   LoginRoute: LoginRoute,
 }
 export const routeTree = rootRouteImport
