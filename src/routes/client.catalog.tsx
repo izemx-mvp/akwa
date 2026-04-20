@@ -16,13 +16,13 @@ function Catalog() {
   return (
     <div className="space-y-5 max-w-7xl">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Catalog</h1>
-        <p className="text-sm text-muted-foreground">Browse exportable products with live pricing.</p>
+        <h1 className="text-2xl font-bold tracking-tight">Catalogue</h1>
+        <p className="text-sm text-muted-foreground">Parcourez les produits exportables avec pricing en temps réel.</p>
       </div>
 
       <div className="relative max-w-sm">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-        <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search by name or SKU…" className="pl-9" />
+        <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Rechercher par nom ou SKU…" className="pl-9" />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -37,11 +37,11 @@ function Catalog() {
             <div className="mt-3 flex items-end justify-between">
               <div>
                 <div className="text-lg font-bold">{formatCurrency(p.unitPrice)}</div>
-                <div className="text-[11px] text-muted-foreground">per unit · {p.unitWeightKg}kg</div>
+                <div className="text-[11px] text-muted-foreground">par unité · {p.unitWeightKg}kg</div>
               </div>
             </div>
             <Button size="sm" variant="outline" className="mt-4 gap-1.5">
-              <Plus className="h-3.5 w-3.5" /> Add to order
+              <Plus className="h-3.5 w-3.5" /> Ajouter
             </Button>
           </div>
         ))}

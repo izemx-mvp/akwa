@@ -23,84 +23,84 @@ export const agents: Agent[] = [
   {
     id: "pricing-advisor",
     name: "Pricing Advisor",
-    role: "Dynamic price optimization",
-    description: "Continuously analyzes margins, competitor signals and order patterns to suggest optimal export prices per country and client.",
+    role: "Optimisation dynamique des prix",
+    description: "Analyse en continu les marges, signaux concurrentiels et historiques pour suggérer les prix d'export optimaux par pays et par client.",
     icon: TrendingUp,
-    capabilities: ["Margin anomaly detection", "Country-based pricing", "Discount simulation", "Competitive benchmarking"],
+    capabilities: ["Détection d'anomalies de marge", "Pricing par pays", "Simulation de remises", "Benchmark concurrentiel"],
     recentActions: [
-      "Suggested +2.5% on Butane 12kg for Senegal",
-      "Flagged margin <12% for Dakar Energy Supply",
-      "Recommended optimal price 125.50 USD on Lubricant Pack XL",
+      "Suggestion +2,5 % sur Butane 12kg pour le Sénégal",
+      "Marge < 12 % détectée pour Dakar Energy Supply",
+      "Prix optimal recommandé : 125,50 USD sur Lubrifiant Pack XL",
     ],
     status: "active",
   },
   {
     id: "container-optimizer",
     name: "Container Optimizer",
-    role: "3D loading & shipment optimization",
-    description: "Computes the most profitable container configuration based on weight, volume, destination and product mix.",
+    role: "Optimisation de chargement & expédition",
+    description: "Calcule la configuration de conteneur la plus rentable selon poids, volume, destination et mix produits.",
     icon: Package,
-    capabilities: ["Volume/weight balancing", "Mixed-product loading", "Scenario simulation", "Cost-per-unit reduction"],
+    capabilities: ["Équilibrage volume/poids", "Chargement multi-produits", "Simulation de scénarios", "Réduction du coût/unité"],
     recentActions: [
-      "Improved fill from 78% to 94% on AKW-2410-0184",
-      "Suggested +120 units of Butane 6kg",
-      "Saved $1,380 on Mali shipment",
+      "Remplissage amélioré 78 % → 94 % sur AKW-2410-0184",
+      "+120 unités de Butane 6kg suggérées",
+      "1 380 $ économisés sur l'expédition Mali",
     ],
     status: "analyzing",
   },
   {
     id: "margin-analyst",
     name: "Margin Analyst",
-    role: "Profitability intelligence",
-    description: "Detects unprofitable clients, declining trends and underperforming SKUs across all export corridors.",
+    role: "Intelligence de rentabilité",
+    description: "Détecte les clients non rentables, les tendances en baisse et les SKUs sous-performants sur tous les corridors export.",
     icon: BarChart3,
-    capabilities: ["Client P&L drill-down", "Trend detection", "SKU performance", "Proactive alerts"],
+    capabilities: ["Drill-down P&L client", "Détection de tendances", "Performance SKU", "Alertes proactives"],
     recentActions: [
-      "Margin in Côte d'Ivoire decreased by 4%",
-      "Client Dakar Energy Supply dropped 6%",
-      "Product Aviation Fuel Pack underperforming",
+      "Marge en Côte d'Ivoire en baisse de 4 %",
+      "Client Dakar Energy Supply : −6 %",
+      "Produit Carburant Aviation sous-performant",
     ],
     status: "active",
   },
   {
     id: "export-assistant",
     name: "Export Assistant",
-    role: "Customs & documentation copilot",
-    description: "Verifies documentation, customs requirements and compliance for every shipment in real time.",
+    role: "Copilote douane & documentation",
+    description: "Vérifie en temps réel la documentation, les exigences douanières et la conformité de chaque expédition.",
     icon: FileCheck,
-    capabilities: ["Document checklist", "Customs intelligence", "Country-specific rules", "Risk scoring"],
+    capabilities: ["Checklist documents", "Intelligence douanière", "Règles par pays", "Score de risque"],
     recentActions: [
-      "Missing Certificate of Origin on AKW-2410-0185",
-      "Verified customs requirement for Mauritania",
-      "Flagged HS code mismatch on lubricants",
+      "Certificat d'origine manquant sur AKW-2410-0185",
+      "Exigence douanière vérifiée pour la Mauritanie",
+      "Code SH non concordant signalé sur lubrifiants",
     ],
     status: "idle",
   },
   {
     id: "internal-copilot",
     name: "Internal Copilot",
-    role: "Conversational data assistant",
-    description: "Ask anything about your operations — from best clients to optimal shipment configurations.",
+    role: "Assistant conversationnel data",
+    description: "Posez n'importe quelle question sur vos opérations — meilleurs clients, optimisation d'expédition, etc.",
     icon: MessageSquare,
-    capabilities: ["Natural-language queries", "Cross-data analysis", "Forecasting", "Decision support"],
+    capabilities: ["Requêtes en langage naturel", "Analyse cross-données", "Prévisions", "Aide à la décision"],
     recentActions: [
-      "Answered: 'Best client this month'",
-      "Explained margin drop in Mauritania",
-      "Generated weekly executive brief",
+      "A répondu : « Meilleur client du mois »",
+      "A expliqué la baisse de marge en Mauritanie",
+      "A généré le brief exécutif hebdomadaire",
     ],
     status: "active",
   },
   {
     id: "order-assistant",
     name: "AI Order Assistant",
-    role: "Smart order companion (client-facing)",
-    description: "Helps clients build profitable, well-loaded orders with real-time recommendations.",
+    role: "Assistant intelligent de commande (côté client)",
+    description: "Aide les clients à construire des commandes rentables et bien chargées avec des recommandations en temps réel.",
     icon: Sparkles,
-    capabilities: ["Live recommendations", "Container fill check", "Alternative products", "Cost reduction tips"],
+    capabilities: ["Recommandations live", "Vérification du remplissage", "Produits alternatifs", "Astuces de réduction des coûts"],
     recentActions: [
-      "Recommended +200 units to fill container",
-      "Suggested Lubricant Pack XL alternative",
-      "Estimated saving: $740",
+      "+200 unités recommandées pour remplir le conteneur",
+      "Alternative Lubrifiant Pack XL suggérée",
+      "Économie estimée : 740 $",
     ],
     status: "active",
   },
@@ -139,8 +139,8 @@ export function computeOrderInsights(cart: CartLine[], destination: string) {
     const p = products.find((p) => p.id === l.productId);
     return s + ((p?.unitPrice ?? 0) - (p?.cost ?? 0)) * l.quantity;
   }, 0);
-  const containerVolume = 33; // m3 (20ft container)
-  const containerWeight = 26000; // kg
+  const containerVolume = 33;
+  const containerWeight = 26000;
   const fillByVolume = Math.min(100, (totalVolume / containerVolume) * 100);
   const fillByWeight = Math.min(100, (totalWeight / containerWeight) * 100);
   const fill = Math.max(fillByVolume, fillByWeight);
@@ -158,8 +158,8 @@ export function generateOrderRecommendations(
   if (cart.length === 0) {
     recs.push({
       id: "start",
-      title: "Start building your order",
-      message: "Add products from the catalog. I'll suggest optimizations as you go.",
+      title: "Commencez votre commande",
+      message: "Ajoutez des produits depuis le catalogue. Je suggérerai des optimisations à mesure que vous avancez.",
       severity: "info",
     });
     return recs;
@@ -168,25 +168,25 @@ export function generateOrderRecommendations(
   if (fill < 60) {
     recs.push({
       id: "fill-low",
-      title: "Container under-utilized",
-      message: `Current load is ${fill.toFixed(0)}%. Adding 200 units of Butane 6kg would raise fill to ~85% and reduce shipping cost per unit by 14%.`,
+      title: "Conteneur sous-utilisé",
+      message: `Chargement actuel à ${fill.toFixed(0)} %. Ajouter 200 unités de Butane 6kg porterait le remplissage à ~85 % et réduirait le coût d'expédition par unité de 14 %.`,
       severity: "warning",
-      cta: "Apply suggestion",
+      cta: "Appliquer la suggestion",
       delta: `+${(85 - fill).toFixed(0)}%`,
     });
   } else if (fill < 90) {
     recs.push({
       id: "fill-mid",
-      title: "Almost optimal",
-      message: `You're at ${fill.toFixed(0)}%. Adding 80 units more would maximize the container.`,
+      title: "Presque optimal",
+      message: `Vous êtes à ${fill.toFixed(0)} %. Ajouter 80 unités de plus maximiserait le conteneur.`,
       severity: "info",
-      cta: "Optimize",
+      cta: "Optimiser",
     });
   } else {
     recs.push({
       id: "fill-ok",
-      title: "Container optimized ✓",
-      message: `Excellent — ${fill.toFixed(0)}% utilization. Cost per unit is at its lowest.`,
+      title: "Conteneur optimisé ✓",
+      message: `Excellent — ${fill.toFixed(0)} % d'utilisation. Le coût par unité est au plus bas.`,
       severity: "success",
     });
   }
@@ -195,19 +195,19 @@ export function generateOrderRecommendations(
   if (!hasPremium && totalValue > 5000) {
     recs.push({
       id: "alt-product",
-      title: "Better margin alternative",
-      message: "Replacing 30% of standard lubricants with Lubricant Pack XL would improve total margin by ~$420.",
+      title: "Alternative à meilleure marge",
+      message: "Remplacer 30 % des lubrifiants standard par Lubrifiant Pack XL améliorerait la marge totale d'environ 420 $.",
       severity: "info",
-      cta: "Compare",
-      delta: "+$420",
+      cta: "Comparer",
+      delta: "+420 $",
     });
   }
 
-  if (destination === "Mauritania") {
+  if (destination === "Mauritanie") {
     recs.push({
       id: "customs",
-      title: "Customs notice",
-      message: "Mauritania requires Certificate of Origin + HS code 2710 for lubricants. Export Assistant will prepare them automatically.",
+      title: "Avis douanier",
+      message: "La Mauritanie exige un Certificat d'origine + code SH 2710 pour les lubrifiants. L'Export Assistant les préparera automatiquement.",
       severity: "info",
     });
   }
@@ -215,10 +215,10 @@ export function generateOrderRecommendations(
   if (totalMargin / Math.max(totalValue, 1) < 0.12 && totalValue > 0) {
     recs.push({
       id: "margin-low",
-      title: "Margin below target",
-      message: `Order margin is ${((totalMargin / totalValue) * 100).toFixed(1)}%. Pricing Advisor suggests +1.8% on Butane 12kg for this destination.`,
+      title: "Marge en dessous de la cible",
+      message: `Marge de la commande : ${((totalMargin / totalValue) * 100).toFixed(1)} %. Pricing Advisor suggère +1,8 % sur Butane 12kg pour cette destination.`,
       severity: "warning",
-      cta: "Apply pricing",
+      cta: "Appliquer le pricing",
     });
   }
 

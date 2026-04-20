@@ -70,7 +70,7 @@ export function AppShell({
             className="w-full flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-white/70 hover:bg-sidebar-accent/60 hover:text-white transition-smooth"
           >
             <LogOut className="h-4 w-4" />
-            Sign out
+            Se déconnecter
           </button>
         </div>
       </aside>

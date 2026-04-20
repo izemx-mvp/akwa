@@ -1,19 +1,24 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { agents } from "@/lib/agents";
-import { AgentBadge } from "@/components/AgentBadge";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/admin/agents")({
-  head: () => ({ meta: [{ title: "AI Agents — AKWA AI" }] }),
+  head: () => ({ meta: [{ title: "Agents IA — AKWA AI" }] }),
   component: AgentsPage,
 });
+
+const statusLabel: Record<string, string> = {
+  active: "actif",
+  analyzing: "analyse",
+  idle: "veille",
+};
 
 function AgentsPage() {
   return (
     <div className="space-y-6 max-w-[1500px]">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">AI Agents</h1>
-        <p className="text-sm text-muted-foreground">Your autonomous workforce — analyzing, recommending, optimizing 24/7.</p>
+        <h1 className="text-2xl font-bold tracking-tight">Agents IA</h1>
+        <p className="text-sm text-muted-foreground">Votre force de travail autonome — analyse, recommandation, optimisation 24/7.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
@@ -36,7 +41,7 @@ function AgentsPage() {
                     a.status === "analyzing" && "bg-white animate-pulse",
                     a.status === "idle" && "bg-white/50"
                   )} />
-                  {a.status}
+                  {statusLabel[a.status]}
                 </span>
               </div>
               <h3 className="mt-4 text-lg font-bold relative z-10">{a.name}</h3>
@@ -47,7 +52,7 @@ function AgentsPage() {
               <p className="text-xs text-muted-foreground leading-relaxed">{a.description}</p>
 
               <div className="mt-4">
-                <div className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-2">Capabilities</div>
+                <div className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-2">Capacités</div>
                 <div className="flex flex-wrap gap-1.5">
                   {a.capabilities.map((c) => (
                     <span key={c} className="text-[10px] px-2 py-0.5 rounded bg-secondary text-secondary-foreground">{c}</span>
@@ -58,7 +63,7 @@ function AgentsPage() {
               <div className="mt-4 rounded-lg bg-muted/40 p-3 relative overflow-hidden">
                 <div className="absolute inset-x-0 top-0 h-px animate-shimmer" />
                 <div className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-2 flex items-center gap-1.5">
-                  <span className="h-1.5 w-1.5 rounded-full bg-ai animate-pulse" /> Recent actions
+                  <span className="h-1.5 w-1.5 rounded-full bg-ai animate-pulse" /> Actions récentes
                 </div>
                 <ul className="space-y-1.5">
                   {a.recentActions.map((r) => (

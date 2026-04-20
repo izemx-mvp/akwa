@@ -12,22 +12,22 @@ export const Route = createFileRoute("/client/ask")({
 type Msg = { role: "user" | "ai"; text: string };
 
 const SUGGESTIONS = [
-  "What's my best margin product?",
-  "When will my last order arrive?",
-  "How can I reduce shipping cost to Mali?",
-  "Show me alternatives for Butane 12kg",
+  "Quel est mon produit à plus forte marge ?",
+  "Quand ma dernière commande arrivera-t-elle ?",
+  "Comment réduire le coût d'expédition vers le Mali ?",
+  "Montre-moi des alternatives au Butane 12kg",
 ];
 
 const replies: Record<string, string> = {
-  default: "Based on your account history, I'd recommend reviewing your last 3 shipments — average container fill was 64%. Combining Butane 12kg with Lubricant Pack XL on your next order would unlock optimal loading.",
-  margin: "Your highest-margin product this quarter is **Lubricant Pack XL** (28.6%). Volumes are still low — increasing your order by 80 units would significantly improve overall account profitability.",
-  arrive: "Your shipment **AKW-2410-0186** is currently in transit to Conakry — ETA April 26. Customs clearance is pre-validated by the Export Assistant.",
-  mali: "To reduce shipping cost to Mali: combine smaller SKUs (Butane 6kg) with bulk lubricants in the same container. Estimated saving: **$1,180 per shipment** at 92% fill.",
+  default: "D'après votre historique, je recommande de revoir vos 3 dernières expéditions — remplissage moyen 64 %. Combiner Butane 12kg avec Lubrifiant Pack XL sur la prochaine commande débloquerait un chargement optimal.",
+  margin: "Votre produit à plus forte marge ce trimestre est **Lubrifiant Pack XL** (28,6 %). Les volumes restent faibles — augmenter la commande de 80 unités améliorerait significativement la rentabilité globale.",
+  arrive: "Votre expédition **AKW-2410-0186** est en transit vers Conakry — ETA 26 avril. Le dédouanement est pré-validé par l'Export Assistant.",
+  mali: "Pour réduire le coût d'expédition vers le Mali : combinez petits SKUs (Butane 6kg) avec lubrifiants en vrac dans le même conteneur. Économie estimée : **1 180 $ par expédition** à 92 % de remplissage.",
 };
 
 function AskAkwa() {
   const [messages, setMessages] = useState<Msg[]>([
-    { role: "ai", text: "Hi 👋 I'm AKWA AI, your personal export copilot. Ask me anything about your account, shipments, pricing or products." },
+    { role: "ai", text: "Bonjour 👋 Je suis AKWA AI, votre copilote export personnel. Posez-moi n'importe quelle question sur votre compte, vos expéditions, le pricing ou les produits." },
   ]);
   const [input, setInput] = useState("");
 
@@ -35,8 +35,8 @@ function AskAkwa() {
     if (!text.trim()) return;
     const lower = text.toLowerCase();
     let reply = replies.default;
-    if (lower.includes("margin")) reply = replies.margin;
-    else if (lower.includes("arrive") || lower.includes("when")) reply = replies.arrive;
+    if (lower.includes("marge")) reply = replies.margin;
+    else if (lower.includes("arriv") || lower.includes("quand")) reply = replies.arrive;
     else if (lower.includes("mali")) reply = replies.mali;
 
     setMessages((m) => [...m, { role: "user", text }, { role: "ai", text: reply }]);
@@ -50,8 +50,8 @@ function AskAkwa() {
           <MessageSquare className="h-5 w-5 text-ai-foreground" />
         </div>
         <div>
-          <h1 className="text-xl font-bold tracking-tight flex items-center gap-2">Ask AKWA AI <AgentBadge name="Online" /></h1>
-          <p className="text-xs text-muted-foreground">Conversational copilot — your data, your operations.</p>
+          <h1 className="text-xl font-bold tracking-tight flex items-center gap-2">Demander à AKWA AI <AgentBadge name="En ligne" /></h1>
+          <p className="text-xs text-muted-foreground">Copilote conversationnel — vos données, vos opérations.</p>
         </div>
       </div>
 
@@ -75,8 +75,8 @@ function AskAkwa() {
       </div>
 
       <form onSubmit={(e) => { e.preventDefault(); send(input); }} className="mt-3 flex gap-2">
-        <Input value={input} onChange={(e) => setInput(e.target.value)} placeholder="Ask anything about your operations…" className="flex-1" />
-        <Button type="submit" className="bg-gradient-ai gap-1.5"><Send className="h-4 w-4" /> Send</Button>
+        <Input value={input} onChange={(e) => setInput(e.target.value)} placeholder="Posez une question sur vos opérations…" className="flex-1" />
+        <Button type="submit" className="bg-gradient-ai gap-1.5"><Send className="h-4 w-4" /> Envoyer</Button>
       </form>
     </div>
   );

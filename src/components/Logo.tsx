@@ -13,7 +13,7 @@ export function Logo({ className, variant = "dark" }: { className?: string; vari
           AKWA <span className="text-gradient-ai">AI</span>
         </span>
         <span className={cn("text-[10px] uppercase tracking-wider", variant === "light" ? "text-white/60" : "text-muted-foreground")}>
-          Export Intelligence
+          Intelligence Export
         </span>
       </div>
     </div>
