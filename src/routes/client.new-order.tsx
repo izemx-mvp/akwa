@@ -20,7 +20,8 @@ export const Route = createFileRoute("/client/new-order")({
 const COUNTRIES: Country[] = ["Sénégal", "Côte d'Ivoire", "Mauritanie", "Mali", "Guinée"];
 
 function NewOrder() {
-  const [cart, setCart] = useState<CartLine[]>([
+  const navigate = useNavigate();
+  const [cart, setCart] = useState<LocalLine[]>([
     { productId: "p1", quantity: 200 },
     { productId: "p4", quantity: 150 },
   ]);
@@ -40,10 +41,55 @@ function NewOrder() {
       return [...c, { productId: id, quantity: q }];
     });
 
+  const setProposedPrice = (id: string, price: number | undefined) =>
+    setCart((c) => c.map((l) => (l.productId === id ? { ...l, proposedPrice: price } : l)));
+
+  const setPriceNote = (id: string, note: string) =>
+    setCart((c) => c.map((l) => (l.productId === id ? { ...l, priceNote: note } : l)));
+
   const addProduct = (id: string) => {
     const exists = cart.find((l) => l.productId === id);
     setQty(id, (exists?.quantity ?? 0) + 50);
   };
+
+  const submitOrder = () => {
+    if (cart.length === 0) {
+      toast.error("Votre panier est vide");
+      return;
+    }
+    const ref = `AKW-${new Date().getFullYear().toString().slice(2)}${(new Date().getMonth() + 1).toString().padStart(2, "0")}-${Math.floor(1000 + Math.random() * 9000)}`;
+    const lines = cart.map((l) => {
+      const p = products.find((x) => x.id === l.productId)!;
+      return {
+        productId: l.productId,
+        quantity: l.quantity,
+        unitPrice: p.unitPrice,
+        proposedPrice: l.proposedPrice,
+        priceNote: l.priceNote,
+      };
+    });
+    const hasProposed = lines.some((l) => l.proposedPrice !== undefined);
+    ordersStore.add({
+      id: `o-${Date.now()}`,
+      reference: ref,
+      clientId: "c1", // client connecté simulé
+      destination,
+      createdAt: new Date().toISOString().slice(0, 10),
+      status: "Pending",
+      lines,
+      containerFillPct: Math.round(fill),
+      marginPct: Number(((totalMargin / Math.max(totalValue, 1)) * 100).toFixed(1)),
+      submittedAt: new Date().toISOString(),
+      source: "client",
+    });
+    toast.success(
+      hasProposed
+        ? `Commande ${ref} envoyée avec proposition de prix — en attente de validation admin`
+        : `Commande ${ref} envoyée à AKWA AI`
+    );
+    navigate({ to: "/client/orders" });
+  };
+
 
   const applyRec = (id: string) => {
     if (id === "fill-low") {
