@@ -19,8 +19,8 @@ import { Route as ClientOrdersRouteImport } from './routes/client.orders'
 import { Route as ClientNewOrderRouteImport } from './routes/client.new-order'
 import { Route as ClientCatalogRouteImport } from './routes/client.catalog'
 import { Route as ClientAskRouteImport } from './routes/client.ask'
-import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
+import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminPricingRouteImport } from './routes/admin.pricing'
 import { Route as AdminOrdersRouteImport } from './routes/admin.orders'
 import { Route as AdminMarginsRouteImport } from './routes/admin.margins'
@@ -80,14 +80,14 @@ const ClientAskRoute = ClientAskRouteImport.update({
   path: '/ask',
   getParentRoute: () => ClientRoute,
 } as any)
-const AdminSettingsRoute = AdminSettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => AdminRoute,
-} as any)
 const AdminUsersRoute = AdminUsersRouteImport.update({
   id: '/users',
   path: '/users',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSettingsRoute = AdminSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminPricingRoute = AdminPricingRouteImport.update({
