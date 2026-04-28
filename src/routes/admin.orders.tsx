@@ -1,3 +1,4 @@
+// route: liste des commandes
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useSyncExternalStore } from "react";
 import { clients, formatCurrency, products } from "@/lib/mock-data";
