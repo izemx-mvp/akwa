@@ -12,18 +12,24 @@ export type SubmittedOrder = Order & {
 };
 
 // Store en mémoire (mock) avec abonnement basique
-let store: SubmittedOrder[] = [];
+let submitted: SubmittedOrder[] = [];
+let cachedAll: (Order | SubmittedOrder)[] = [...submitted, ...seedOrders];
 const listeners = new Set<() => void>();
+
+function recompute() {
+  cachedAll = [...submitted, ...seedOrders];
+}
 
 export const ordersStore = {
   getAll(): (Order | SubmittedOrder)[] {
-    return [...store, ...seedOrders];
+    return cachedAll;
   },
   getSubmitted(): SubmittedOrder[] {
-    return store;
+    return submitted;
   },
   add(order: SubmittedOrder) {
-    store = [order, ...store];
+    submitted = [order, ...submitted];
+    recompute();
     listeners.forEach((l) => l());
   },
   subscribe(fn: () => void) {
