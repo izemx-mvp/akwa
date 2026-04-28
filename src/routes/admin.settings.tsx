@@ -1,6 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { agents } from "@/lib/agents";
 import { Switch } from "@/components/ui/switch";
+import { Users, ChevronRight } from "lucide-react";
 
 export const Route = createFileRoute("/admin/settings")({
   component: SettingsPage,
@@ -13,6 +14,24 @@ function SettingsPage() {
         <h1 className="text-2xl font-bold tracking-tight">Paramètres</h1>
         <p className="text-sm text-muted-foreground">Configurez votre espace de travail et vos agents IA.</p>
       </div>
+
+      <Link
+        to="/admin/users"
+        className="block rounded-xl border border-border bg-card shadow-card p-5 hover:border-primary transition-colors"
+      >
+        <div className="flex items-center gap-3">
+          <div className="h-10 w-10 rounded-lg bg-gradient-primary text-primary-foreground flex items-center justify-center">
+            <Users className="h-5 w-5" />
+          </div>
+          <div className="flex-1">
+            <div className="font-semibold">Utilisateurs & Accès</div>
+            <div className="text-xs text-muted-foreground">
+              Gérer les utilisateurs, rôles, permissions et la matrice des accès.
+            </div>
+          </div>
+          <ChevronRight className="h-5 w-5 text-muted-foreground" />
+        </div>
+      </Link>
 
       <div className="rounded-xl border border-border bg-card shadow-card p-5">
         <h3 className="font-semibold mb-4">Espace de travail</h3>
