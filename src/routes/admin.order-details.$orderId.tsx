@@ -30,7 +30,7 @@ import {
   Wand2,
 } from "lucide-react";
 
-export const Route = createFileRoute("/admin/orders/$orderId")({
+export const Route = createFileRoute("/admin/order-details/$orderId")({
   component: OrderSynthesis,
 });
 
