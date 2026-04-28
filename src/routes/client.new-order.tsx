@@ -151,34 +151,104 @@ function NewOrder() {
           </div>
         </div>
 
-        <div className="rounded-xl border border-border bg-card shadow-card">
+        <div className="rounded-xl border border-border bg-card shadow-card overflow-hidden">
           <div className="px-5 py-4 border-b border-border flex items-center justify-between">
             <h3 className="font-semibold">Lignes de commande</h3>
-            <span className="text-xs text-muted-foreground">{cart.length} articles</span>
+            <span className="text-xs text-muted-foreground">{cart.length} articles · proposez votre prix si besoin</span>
           </div>
           {cart.length === 0 ? (
             <div className="p-10 text-center text-sm text-muted-foreground">Votre panier est vide. Choisissez un produit ci-dessus.</div>
           ) : (
-            <div className="divide-y divide-border">
-              {cart.map((l) => {
-                const p = products.find((p) => p.id === l.productId)!;
-                return (
-                  <div key={l.productId} className="px-5 py-3 flex items-center gap-3">
-                    <div className="text-2xl">{p.image}</div>
-                    <div className="flex-1 min-w-0">
-                      <div className="text-sm font-medium">{p.name}</div>
-                      <div className="text-xs text-muted-foreground">{formatCurrency(p.unitPrice)} · {p.unitWeightKg}kg</div>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Button size="icon" variant="outline" className="h-7 w-7" onClick={() => setQty(l.productId, l.quantity - 50)}><Minus className="h-3 w-3" /></Button>
-                      <Input type="number" value={l.quantity} onChange={(e) => setQty(l.productId, Number(e.target.value))} className="w-20 h-7 text-center text-xs" />
-                      <Button size="icon" variant="outline" className="h-7 w-7" onClick={() => setQty(l.productId, l.quantity + 50)}><Plus className="h-3 w-3" /></Button>
-                    </div>
-                    <div className="w-24 text-right text-sm font-semibold">{formatCurrency(l.quantity * p.unitPrice)}</div>
-                    <Button size="icon" variant="ghost" className="h-7 w-7 text-muted-foreground" onClick={() => setQty(l.productId, 0)}><Trash2 className="h-3.5 w-3.5" /></Button>
-                  </div>
-                );
-              })}
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="bg-muted/30 text-[10px] uppercase tracking-wider text-muted-foreground">
+                  <tr>
+                    <th className="text-left px-4 py-2 font-medium">Produit</th>
+                    <th className="text-center px-2 py-2 font-medium">Quantité</th>
+                    <th className="text-right px-2 py-2 font-medium">Prix proposé</th>
+                    <th className="text-left px-2 py-2 font-medium">Prix client (optionnel)</th>
+                    <th className="text-right px-2 py-2 font-medium">Total ligne</th>
+                    <th className="px-2 py-2"></th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border">
+                  {cart.map((l) => {
+                    const p = products.find((p) => p.id === l.productId)!;
+                    const effectivePrice = l.proposedPrice ?? p.unitPrice;
+                    const diff = l.proposedPrice !== undefined ? l.proposedPrice - p.unitPrice : 0;
+                    const diffPct = p.unitPrice ? (diff / p.unitPrice) * 100 : 0;
+                    return (
+                      <tr key={l.productId} className="align-middle">
+                        <td className="px-4 py-3">
+                          <div className="flex items-center gap-3">
+                            <div className="text-2xl">{p.image}</div>
+                            <div>
+                              <div className="text-sm font-medium">{p.name}</div>
+                              <div className="text-xs text-muted-foreground">{p.unitWeightKg}kg · {p.sku}</div>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-2 py-3">
+                          <div className="flex items-center justify-center gap-1">
+                            <Button size="icon" variant="outline" className="h-7 w-7" onClick={() => setQty(l.productId, l.quantity - 50)}><Minus className="h-3 w-3" /></Button>
+                            <Input type="number" value={l.quantity} onChange={(e) => setQty(l.productId, Number(e.target.value))} className="w-16 h-7 text-center text-xs" />
+                            <Button size="icon" variant="outline" className="h-7 w-7" onClick={() => setQty(l.productId, l.quantity + 50)}><Plus className="h-3 w-3" /></Button>
+                          </div>
+                        </td>
+                        <td className="px-2 py-3 text-right text-xs text-muted-foreground">
+                          <div className="flex items-center justify-end gap-1">
+                            <Tag className="h-3 w-3" /> {formatCurrency(p.unitPrice)}
+                          </div>
+                        </td>
+                        <td className="px-2 py-3">
+                          <div className="flex flex-col gap-1">
+                            <div className="flex items-center gap-2">
+                              <Input
+                                type="number"
+                                step="0.01"
+                                placeholder={`${p.unitPrice}`}
+                                value={l.proposedPrice ?? ""}
+                                onChange={(e) => {
+                                  const v = e.target.value;
+                                  setProposedPrice(l.productId, v === "" ? undefined : Number(v));
+                                }}
+                                className="w-24 h-7 text-xs"
+                              />
+                              {l.proposedPrice !== undefined && (
+                                <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${diff < 0 ? "bg-warning/15 text-warning" : "bg-ai/15 text-ai"}`}>
+                                  {diff > 0 ? "+" : ""}{diffPct.toFixed(1)}%
+                                </span>
+                              )}
+                            </div>
+                            {l.proposedPrice !== undefined && (
+                              <div className="flex items-center gap-1">
+                                <MessageSquare className="h-3 w-3 text-muted-foreground" />
+                                <Input
+                                  placeholder="Justification (volume, accord…)"
+                                  value={l.priceNote ?? ""}
+                                  onChange={(e) => setPriceNote(l.productId, e.target.value)}
+                                  className="h-6 text-[11px]"
+                                />
+                              </div>
+                            )}
+                          </div>
+                        </td>
+                        <td className="px-2 py-3 text-right text-sm font-semibold">
+                          {formatCurrency(l.quantity * effectivePrice)}
+                          {l.proposedPrice !== undefined && (
+                            <div className="text-[10px] text-muted-foreground line-through">
+                              {formatCurrency(l.quantity * p.unitPrice)}
+                            </div>
+                          )}
+                        </td>
+                        <td className="px-2 py-3 text-right">
+                          <Button size="icon" variant="ghost" className="h-7 w-7 text-muted-foreground" onClick={() => setQty(l.productId, 0)}><Trash2 className="h-3.5 w-3.5" /></Button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
             </div>
           )}
           <div className="px-5 py-4 border-t border-border bg-muted/30 grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -189,7 +259,7 @@ function NewOrder() {
           </div>
           <div className="px-5 py-4 border-t border-border flex items-center justify-end gap-2">
             <Button variant="outline">Sauvegarder le brouillon</Button>
-            <Button className="bg-gradient-primary shadow-elegant" onClick={() => toast.success("Commande envoyée à AKWA AI")}>Soumettre la commande</Button>
+            <Button className="bg-gradient-primary shadow-elegant" onClick={submitOrder}>Soumettre la commande</Button>
           </div>
         </div>
       </div>
