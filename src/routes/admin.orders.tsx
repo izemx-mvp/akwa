@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useSyncExternalStore } from "react";
 import { clients, formatCurrency, products } from "@/lib/mock-data";
 import { ordersStore, type SubmittedOrder } from "@/lib/orders-store";
@@ -37,6 +37,7 @@ function useOrders() {
 
 function AdminOrders() {
   const orders = useOrders();
+  const navigate = useNavigate();
   const proposedCount = orders.filter((o) =>
     (o as SubmittedOrder).lines?.some((l: any) => l.proposedPrice !== undefined)
   ).length;
@@ -91,7 +92,11 @@ function AdminOrders() {
                     : "Optimal ✓";
 
                 return (
-                  <tr key={o.id} className={cn("hover:bg-muted/30 transition-smooth", isNew && "bg-ai/5")}>
+                  <tr
+                    key={o.id}
+                    onClick={() => navigate({ to: "/admin/orders/$orderId", params: { orderId: o.id } })}
+                    className={cn("hover:bg-muted/30 transition-smooth cursor-pointer", isNew && "bg-ai/5")}
+                  >
                     <td className="px-5 py-3 font-medium">
                       <div className="flex items-center gap-2">
                         {o.reference}
