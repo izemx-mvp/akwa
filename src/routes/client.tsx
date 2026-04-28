@@ -1,5 +1,6 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { AppShell, type NavItem } from "@/components/AppShell";
+import { FloatingAssistant } from "@/components/FloatingAssistant";
 import { auth } from "@/lib/auth";
 import { LayoutDashboard, BookOpen, PlusCircle, ListOrdered, MessageSquare } from "lucide-react";
 
@@ -20,6 +21,7 @@ export const Route = createFileRoute("/client")({
   component: () => (
     <AppShell nav={nav} title="Portail Client">
       <Outlet />
+      <FloatingAssistant />
     </AppShell>
   ),
 });
