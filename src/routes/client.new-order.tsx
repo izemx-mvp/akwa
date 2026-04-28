@@ -2,12 +2,16 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { products, formatCurrency, type Country } from "@/lib/mock-data";
 import { computeOrderInsights, generateOrderRecommendations, type CartLine } from "@/lib/agents";
+import { ordersStore } from "@/lib/orders-store";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Plus, Minus, Trash2, Sparkles, Package2 } from "lucide-react";
+import { Plus, Minus, Trash2, Sparkles, Package2, Tag, MessageSquare } from "lucide-react";
 import { AgentBadge } from "@/components/AgentBadge";
 import { RecommendationCard } from "@/components/RecommendationCard";
+import { useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
+
+type LocalLine = CartLine & { proposedPrice?: number; priceNote?: string };
 
 export const Route = createFileRoute("/client/new-order")({
   component: NewOrder,
