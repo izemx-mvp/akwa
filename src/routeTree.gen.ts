@@ -21,6 +21,7 @@ import { Route as ClientCatalogRouteImport } from './routes/client.catalog'
 import { Route as ClientAskRouteImport } from './routes/client.ask'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
+import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as AdminPricingRouteImport } from './routes/admin.pricing'
 import { Route as AdminOrdersRouteImport } from './routes/admin.orders'
 import { Route as AdminMarginsRouteImport } from './routes/admin.margins'
@@ -88,6 +89,11 @@ const AdminUsersRoute = AdminUsersRouteImport.update({
 const AdminSettingsRoute = AdminSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminUsersRoute = AdminUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminPricingRoute = AdminPricingRouteImport.update({
@@ -166,6 +172,7 @@ export interface FileRoutesByTo {
   '/admin/pricing': typeof AdminPricingRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/users': typeof AdminUsersRoute
+  '/admin/users': typeof AdminUsersRoute
   '/client/ask': typeof ClientAskRoute
   '/client/catalog': typeof ClientCatalogRoute
   '/client/new-order': typeof ClientNewOrderRoute
@@ -188,6 +195,7 @@ export interface FileRoutesById {
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/pricing': typeof AdminPricingRoute
   '/admin/settings': typeof AdminSettingsRoute
+  '/admin/users': typeof AdminUsersRoute
   '/admin/users': typeof AdminUsersRoute
   '/client/ask': typeof ClientAskRoute
   '/client/catalog': typeof ClientCatalogRoute
@@ -213,6 +221,7 @@ export interface FileRouteTypes {
     | '/admin/pricing'
     | '/admin/settings'
     | '/admin/users'
+    | '/admin/users'
     | '/client/ask'
     | '/client/catalog'
     | '/client/new-order'
@@ -232,6 +241,7 @@ export interface FileRouteTypes {
     | '/admin/orders'
     | '/admin/pricing'
     | '/admin/settings'
+    | '/admin/users'
     | '/admin/users'
     | '/client/ask'
     | '/client/catalog'
@@ -254,6 +264,7 @@ export interface FileRouteTypes {
     | '/admin/orders'
     | '/admin/pricing'
     | '/admin/settings'
+    | '/admin/users'
     | '/admin/users'
     | '/client/ask'
     | '/client/catalog'
