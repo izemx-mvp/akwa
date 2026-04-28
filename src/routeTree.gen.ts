@@ -166,7 +166,6 @@ export interface FileRoutesByTo {
   '/admin/pricing': typeof AdminPricingRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/users': typeof AdminUsersRoute
-  '/admin/users': typeof AdminUsersRoute
   '/client/ask': typeof ClientAskRoute
   '/client/catalog': typeof ClientCatalogRoute
   '/client/new-order': typeof ClientNewOrderRoute
@@ -189,7 +188,6 @@ export interface FileRoutesById {
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/pricing': typeof AdminPricingRoute
   '/admin/settings': typeof AdminSettingsRoute
-  '/admin/users': typeof AdminUsersRoute
   '/admin/users': typeof AdminUsersRoute
   '/client/ask': typeof ClientAskRoute
   '/client/catalog': typeof ClientCatalogRoute
@@ -215,7 +213,6 @@ export interface FileRouteTypes {
     | '/admin/pricing'
     | '/admin/settings'
     | '/admin/users'
-    | '/admin/users'
     | '/client/ask'
     | '/client/catalog'
     | '/client/new-order'
@@ -235,7 +232,6 @@ export interface FileRouteTypes {
     | '/admin/orders'
     | '/admin/pricing'
     | '/admin/settings'
-    | '/admin/users'
     | '/admin/users'
     | '/client/ask'
     | '/client/catalog'
@@ -258,7 +254,6 @@ export interface FileRouteTypes {
     | '/admin/orders'
     | '/admin/pricing'
     | '/admin/settings'
-    | '/admin/users'
     | '/admin/users'
     | '/client/ask'
     | '/client/catalog'
