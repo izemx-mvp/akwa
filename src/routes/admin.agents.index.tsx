@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { agents } from "@/lib/agents";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/admin/agents")({
+export const Route = createFileRoute("/admin/agents/")({
   head: () => ({ meta: [{ title: "Agents IA — AKWA AI" }] }),
   component: AgentsPage,
 });
