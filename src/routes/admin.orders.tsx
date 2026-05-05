@@ -1,12 +1,12 @@
 // route: liste des commandes
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useSyncExternalStore } from "react";
-import { clients, formatCurrency, products } from "@/lib/mock-data";
+import { clients, formatCurrency } from "@/lib/mock-data";
 import { ordersStore, type SubmittedOrder } from "@/lib/orders-store";
 import { cn } from "@/lib/utils";
 import { AgentBadge } from "@/components/AgentBadge";
 import { Badge } from "@/components/ui/badge";
-import { Sparkles, Tag, Wand2 } from "lucide-react";
+import { Sparkles, Wand2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/admin/orders")({
@@ -40,9 +40,7 @@ function useOrders() {
 function AdminOrders() {
   const orders = useOrders();
   const navigate = useNavigate();
-  const proposedCount = orders.filter((o) =>
-    (o as SubmittedOrder).lines?.some((l: any) => l.proposedPrice !== undefined)
-  ).length;
+  const bcCount = orders.filter((o) => (o as SubmittedOrder).stage === "BC_Provisoire").length;
 
   return (
     <div className="space-y-5 max-w-[1500px]">
@@ -52,9 +50,9 @@ function AdminOrders() {
           <p className="text-sm text-muted-foreground">Validez, suivez et optimisez chaque commande.</p>
         </div>
         <div className="flex items-center gap-2">
-          {proposedCount > 0 && (
+          {bcCount > 0 && (
             <Badge className="gap-1 bg-ai text-ai-foreground">
-              <Tag className="h-3 w-3" /> {proposedCount} prix proposé(s) client
+              <Wand2 className="h-3 w-3" /> {bcCount} BC provisoire(s) à traiter
             </Badge>
           )}
           <AgentBadge name="2 actions suggérées" />
@@ -70,7 +68,6 @@ function AdminOrders() {
                 <th className="text-left px-5 py-3 font-medium">Client</th>
                 <th className="text-left px-5 py-3 font-medium">Destination</th>
                 <th className="text-right px-5 py-3 font-medium">Valeur</th>
-                <th className="text-left px-5 py-3 font-medium">Prix proposé client</th>
                 <th className="text-right px-5 py-3 font-medium">Conteneur</th>
                 <th className="text-right px-5 py-3 font-medium">Marge</th>
                 <th className="text-left px-5 py-3 font-medium">Statut</th>
@@ -80,19 +77,20 @@ function AdminOrders() {
             </thead>
             <tbody className="divide-y divide-border">
               {orders.map((o) => {
-                const value = o.lines.reduce((s, l: any) => s + l.quantity * (l.proposedPrice ?? l.unitPrice), 0);
-                const refValue = o.lines.reduce((s, l) => s + l.quantity * l.unitPrice, 0);
+                const stage = (o as SubmittedOrder).stage;
+                const isBcProvisoire = stage === "BC_Provisoire";
+                const value = isBcProvisoire
+                  ? 0
+                  : o.lines.reduce((s, l: any) => s + l.quantity * (l.pricedUnit ?? l.unitPrice), 0);
                 const client = clients.find((c) => c.id === o.clientId);
-                const proposedLines = (o.lines as any[]).filter((l) => l.proposedPrice !== undefined);
                 const isNew = (o as SubmittedOrder).source === "client";
-                const note =
-                  proposedLines.length > 0
-                    ? "Validation prix client requise"
-                    : o.containerFillPct < 60
-                    ? "Consolider pour économiser 640 $"
-                    : o.marginPct < 12
-                    ? "Appliquer pricing +1,8 %"
-                    : "Optimal ✓";
+                const note = isBcProvisoire
+                  ? "Pricing IA requis"
+                  : o.containerFillPct < 60
+                  ? "Consolider pour économiser 640 $"
+                  : o.marginPct < 12
+                  ? "Appliquer pricing +1,8 %"
+                  : "Optimal ✓";
 
                 return (
                   <tr
@@ -109,42 +107,18 @@ function AdminOrders() {
                     <td className="px-5 py-3">{client?.name}</td>
                     <td className="px-5 py-3 text-muted-foreground">{o.destination}</td>
                     <td className="px-5 py-3 text-right font-semibold">
-                      {formatCurrency(value)}
-                      {proposedLines.length > 0 && value !== refValue && (
-                        <div className="text-[10px] text-muted-foreground line-through">{formatCurrency(refValue)}</div>
-                      )}
-                    </td>
-                    <td className="px-5 py-3">
-                      {proposedLines.length === 0 ? (
-                        <span className="text-xs text-muted-foreground">—</span>
+                      {isBcProvisoire ? (
+                        <span className="text-xs text-muted-foreground italic">À pricer</span>
                       ) : (
-                        <div className="space-y-1">
-                          {proposedLines.map((l: any) => {
-                            const p = products.find((x) => x.id === l.productId);
-                            const diffPct = ((l.proposedPrice - l.unitPrice) / l.unitPrice) * 100;
-                            return (
-                              <div key={l.productId} className="flex items-center gap-2 text-xs">
-                                <span className="text-muted-foreground truncate max-w-[120px]">{p?.sku}</span>
-                                <span className="font-semibold">{formatCurrency(l.proposedPrice)}</span>
-                                <span className="text-muted-foreground line-through text-[10px]">{formatCurrency(l.unitPrice)}</span>
-                                <span className={cn("text-[10px] font-semibold px-1.5 py-0.5 rounded", diffPct < 0 ? "bg-warning/15 text-warning" : "bg-ai/15 text-ai")}>
-                                  {diffPct > 0 ? "+" : ""}{diffPct.toFixed(1)}%
-                                </span>
-                                {l.priceNote && (
-                                  <span className="text-[10px] text-muted-foreground italic truncate max-w-[140px]" title={l.priceNote}>
-                                    « {l.priceNote} »
-                                  </span>
-                                )}
-                              </div>
-                            );
-                          })}
-                        </div>
+                        formatCurrency(value)
                       )}
                     </td>
                     <td className="px-5 py-3 text-right">
                       <span className={cn("text-xs font-semibold", o.containerFillPct >= 85 ? "text-success" : o.containerFillPct >= 60 ? "text-warning" : "text-destructive")}>{o.containerFillPct}%</span>
                     </td>
-                    <td className="px-5 py-3 text-right text-success font-semibold">{o.marginPct}%</td>
+                    <td className="px-5 py-3 text-right text-success font-semibold">
+                      {isBcProvisoire ? <span className="text-muted-foreground">—</span> : `${o.marginPct}%`}
+                    </td>
                     <td className="px-5 py-3">
                       {(o as SubmittedOrder).stage ? (
                         <Badge className="text-[10px]" variant="secondary">
@@ -161,7 +135,7 @@ function AdminOrders() {
                       </span>
                     </td>
                     <td className="px-5 py-3 text-right" onClick={(e) => e.stopPropagation()}>
-                      {isNew && (o as SubmittedOrder).stage === "BC_Provisoire" ? (
+                      {isBcProvisoire ? (
                         <Button
                           size="sm"
                           className="bg-gradient-ai text-ai-foreground"
