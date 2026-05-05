@@ -33,6 +33,7 @@ import { Route as AdminAgentsRouteImport } from './routes/admin.agents'
 import { Route as AdminPricingWorkflowOrderIdRouteImport } from './routes/admin.pricing-workflow.$orderId'
 import { Route as AdminOrderDetailsOrderIdRouteImport } from './routes/admin.order-details.$orderId'
 import { Route as AdminContainerOrderIdRouteImport } from './routes/admin.container.$orderId'
+import { Route as AdminContainerOrderIdRouteImport } from './routes/admin.container.$orderId'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -149,6 +150,12 @@ const AdminOrderDetailsOrderIdRoute =
   AdminOrderDetailsOrderIdRouteImport.update({
     id: '/order-details/$orderId',
     path: '/order-details/$orderId',
+    getParentRoute: () => AdminRoute,
+  } as any)
+const AdminContainerOrderIdRoute =
+  AdminContainerOrderIdRouteImport.update({
+    id: '/container/$orderId',
+    path: '/container/$orderId',
     getParentRoute: () => AdminRoute,
   } as any)
 const AdminContainerOrderIdRoute = AdminContainerOrderIdRouteImport.update({
