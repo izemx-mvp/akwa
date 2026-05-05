@@ -116,7 +116,9 @@ function AdminOrders() {
                     <td className="px-5 py-3 text-right">
                       <span className={cn("text-xs font-semibold", o.containerFillPct >= 85 ? "text-success" : o.containerFillPct >= 60 ? "text-warning" : "text-destructive")}>{o.containerFillPct}%</span>
                     </td>
-                    <td className="px-5 py-3 text-right text-success font-semibold">{o.marginPct}%</td>
+                    <td className="px-5 py-3 text-right text-success font-semibold">
+                      {isBcProvisoire ? <span className="text-muted-foreground">—</span> : `${o.marginPct}%`}
+                    </td>
                     <td className="px-5 py-3">
                       {(o as SubmittedOrder).stage ? (
                         <Badge className="text-[10px]" variant="secondary">
@@ -133,7 +135,7 @@ function AdminOrders() {
                       </span>
                     </td>
                     <td className="px-5 py-3 text-right" onClick={(e) => e.stopPropagation()}>
-                      {isNew && (o as SubmittedOrder).stage === "BC_Provisoire" ? (
+                      {isBcProvisoire ? (
                         <Button
                           size="sm"
                           className="bg-gradient-ai text-ai-foreground"
