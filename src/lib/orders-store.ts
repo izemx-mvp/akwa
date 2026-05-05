@@ -40,7 +40,27 @@ export type SubmittedOrder = Order & {
   quotes: Quote[];
 };
 
-let submitted: SubmittedOrder[] = [];
+const exampleBC: SubmittedOrder = {
+  id: "bc-demo-1",
+  reference: "AKW-2410-0190",
+  clientId: "c1",
+  destination: "Sénégal",
+  createdAt: new Date().toISOString().slice(0, 10),
+  status: "Pending",
+  containerFillPct: 72,
+  marginPct: 0,
+  submittedAt: new Date().toISOString(),
+  source: "client",
+  stage: "BC_Provisoire",
+  quotes: [],
+  lines: [
+    { productId: "p1", quantity: 600, unitPrice: 0 },
+    { productId: "p4", quantity: 350, unitPrice: 0 },
+    { productId: "p5", quantity: 80, unitPrice: 0 },
+  ],
+};
+
+let submitted: SubmittedOrder[] = [exampleBC];
 let cachedAll: (Order | SubmittedOrder)[] = [...submitted, ...seedOrders];
 const listeners = new Set<() => void>();
 
