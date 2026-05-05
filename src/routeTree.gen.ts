@@ -29,11 +29,13 @@ import { Route as AdminKnowledgeRouteImport } from './routes/admin.knowledge'
 import { Route as AdminExportRouteImport } from './routes/admin.export'
 import { Route as AdminCopilotRouteImport } from './routes/admin.copilot'
 import { Route as AdminContainerRouteImport } from './routes/admin.container'
+import { Route as AdminAgentsRouteImport } from './routes/admin.agents'
 import { Route as AdminContainerIndexRouteImport } from './routes/admin.container.index'
 import { Route as AdminAgentsIndexRouteImport } from './routes/admin.agents.index'
 import { Route as AdminPricingWorkflowOrderIdRouteImport } from './routes/admin.pricing-workflow.$orderId'
 import { Route as AdminOrderDetailsOrderIdRouteImport } from './routes/admin.order-details.$orderId'
 import { Route as AdminContainerOrderIdRouteImport } from './routes/admin.container.$orderId'
+import { Route as AdminAgentsAgentIdRouteImport } from './routes/admin.agents.$agentId'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -135,15 +137,20 @@ const AdminContainerRoute = AdminContainerRouteImport.update({
   path: '/container',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminAgentsRoute = AdminAgentsRouteImport.update({
+  id: '/agents',
+  path: '/agents',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminContainerIndexRoute = AdminContainerIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AdminContainerRoute,
 } as any)
 const AdminAgentsIndexRoute = AdminAgentsIndexRouteImport.update({
-  id: '/agents/',
-  path: '/agents/',
-  getParentRoute: () => AdminRoute,
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminAgentsRoute,
 } as any)
 const AdminPricingWorkflowOrderIdRoute =
   AdminPricingWorkflowOrderIdRouteImport.update({
@@ -162,12 +169,18 @@ const AdminContainerOrderIdRoute = AdminContainerOrderIdRouteImport.update({
   path: '/$orderId',
   getParentRoute: () => AdminContainerRoute,
 } as any)
+const AdminAgentsAgentIdRoute = AdminAgentsAgentIdRouteImport.update({
+  id: '/$agentId',
+  path: '/$agentId',
+  getParentRoute: () => AdminAgentsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
   '/client': typeof ClientRouteWithChildren
   '/login': typeof LoginRoute
+  '/admin/agents': typeof AdminAgentsRouteWithChildren
   '/admin/container': typeof AdminContainerRouteWithChildren
   '/admin/copilot': typeof AdminCopilotRoute
   '/admin/export': typeof AdminExportRoute
@@ -184,6 +197,7 @@ export interface FileRoutesByFullPath {
   '/client/quotes': typeof ClientQuotesRoute
   '/admin/': typeof AdminIndexRoute
   '/client/': typeof ClientIndexRoute
+  '/admin/agents/$agentId': typeof AdminAgentsAgentIdRoute
   '/admin/container/$orderId': typeof AdminContainerOrderIdRoute
   '/admin/order-details/$orderId': typeof AdminOrderDetailsOrderIdRoute
   '/admin/pricing-workflow/$orderId': typeof AdminPricingWorkflowOrderIdRoute
@@ -208,6 +222,7 @@ export interface FileRoutesByTo {
   '/client/quotes': typeof ClientQuotesRoute
   '/admin': typeof AdminIndexRoute
   '/client': typeof ClientIndexRoute
+  '/admin/agents/$agentId': typeof AdminAgentsAgentIdRoute
   '/admin/container/$orderId': typeof AdminContainerOrderIdRoute
   '/admin/order-details/$orderId': typeof AdminOrderDetailsOrderIdRoute
   '/admin/pricing-workflow/$orderId': typeof AdminPricingWorkflowOrderIdRoute
@@ -220,6 +235,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteWithChildren
   '/client': typeof ClientRouteWithChildren
   '/login': typeof LoginRoute
+  '/admin/agents': typeof AdminAgentsRouteWithChildren
   '/admin/container': typeof AdminContainerRouteWithChildren
   '/admin/copilot': typeof AdminCopilotRoute
   '/admin/export': typeof AdminExportRoute
@@ -236,6 +252,7 @@ export interface FileRoutesById {
   '/client/quotes': typeof ClientQuotesRoute
   '/admin/': typeof AdminIndexRoute
   '/client/': typeof ClientIndexRoute
+  '/admin/agents/$agentId': typeof AdminAgentsAgentIdRoute
   '/admin/container/$orderId': typeof AdminContainerOrderIdRoute
   '/admin/order-details/$orderId': typeof AdminOrderDetailsOrderIdRoute
   '/admin/pricing-workflow/$orderId': typeof AdminPricingWorkflowOrderIdRoute
@@ -249,6 +266,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/client'
     | '/login'
+    | '/admin/agents'
     | '/admin/container'
     | '/admin/copilot'
     | '/admin/export'
@@ -265,6 +283,7 @@ export interface FileRouteTypes {
     | '/client/quotes'
     | '/admin/'
     | '/client/'
+    | '/admin/agents/$agentId'
     | '/admin/container/$orderId'
     | '/admin/order-details/$orderId'
     | '/admin/pricing-workflow/$orderId'
@@ -289,6 +308,7 @@ export interface FileRouteTypes {
     | '/client/quotes'
     | '/admin'
     | '/client'
+    | '/admin/agents/$agentId'
     | '/admin/container/$orderId'
     | '/admin/order-details/$orderId'
     | '/admin/pricing-workflow/$orderId'
@@ -300,6 +320,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/client'
     | '/login'
+    | '/admin/agents'
     | '/admin/container'
     | '/admin/copilot'
     | '/admin/export'
@@ -316,6 +337,7 @@ export interface FileRouteTypes {
     | '/client/quotes'
     | '/admin/'
     | '/client/'
+    | '/admin/agents/$agentId'
     | '/admin/container/$orderId'
     | '/admin/order-details/$orderId'
     | '/admin/pricing-workflow/$orderId'
@@ -472,6 +494,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminContainerRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/agents': {
+      id: '/admin/agents'
+      path: '/agents'
+      fullPath: '/admin/agents'
+      preLoaderRoute: typeof AdminAgentsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/container/': {
       id: '/admin/container/'
       path: '/'
@@ -481,10 +510,10 @@ declare module '@tanstack/react-router' {
     }
     '/admin/agents/': {
       id: '/admin/agents/'
-      path: '/agents'
+      path: '/'
       fullPath: '/admin/agents/'
       preLoaderRoute: typeof AdminAgentsIndexRouteImport
-      parentRoute: typeof AdminRoute
+      parentRoute: typeof AdminAgentsRoute
     }
     '/admin/pricing-workflow/$orderId': {
       id: '/admin/pricing-workflow/$orderId'
@@ -507,8 +536,29 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminContainerOrderIdRouteImport
       parentRoute: typeof AdminContainerRoute
     }
+    '/admin/agents/$agentId': {
+      id: '/admin/agents/$agentId'
+      path: '/$agentId'
+      fullPath: '/admin/agents/$agentId'
+      preLoaderRoute: typeof AdminAgentsAgentIdRouteImport
+      parentRoute: typeof AdminAgentsRoute
+    }
   }
 }
+
+interface AdminAgentsRouteChildren {
+  AdminAgentsAgentIdRoute: typeof AdminAgentsAgentIdRoute
+  AdminAgentsIndexRoute: typeof AdminAgentsIndexRoute
+}
+
+const AdminAgentsRouteChildren: AdminAgentsRouteChildren = {
+  AdminAgentsAgentIdRoute: AdminAgentsAgentIdRoute,
+  AdminAgentsIndexRoute: AdminAgentsIndexRoute,
+}
+
+const AdminAgentsRouteWithChildren = AdminAgentsRoute._addFileChildren(
+  AdminAgentsRouteChildren,
+)
 
 interface AdminContainerRouteChildren {
   AdminContainerOrderIdRoute: typeof AdminContainerOrderIdRoute
@@ -525,6 +575,7 @@ const AdminContainerRouteWithChildren = AdminContainerRoute._addFileChildren(
 )
 
 interface AdminRouteChildren {
+  AdminAgentsRoute: typeof AdminAgentsRouteWithChildren
   AdminContainerRoute: typeof AdminContainerRouteWithChildren
   AdminCopilotRoute: typeof AdminCopilotRoute
   AdminExportRoute: typeof AdminExportRoute
@@ -537,10 +588,10 @@ interface AdminRouteChildren {
   AdminIndexRoute: typeof AdminIndexRoute
   AdminOrderDetailsOrderIdRoute: typeof AdminOrderDetailsOrderIdRoute
   AdminPricingWorkflowOrderIdRoute: typeof AdminPricingWorkflowOrderIdRoute
-  AdminAgentsIndexRoute: typeof AdminAgentsIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminAgentsRoute: AdminAgentsRouteWithChildren,
   AdminContainerRoute: AdminContainerRouteWithChildren,
   AdminCopilotRoute: AdminCopilotRoute,
   AdminExportRoute: AdminExportRoute,
@@ -553,7 +604,6 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminIndexRoute: AdminIndexRoute,
   AdminOrderDetailsOrderIdRoute: AdminOrderDetailsOrderIdRoute,
   AdminPricingWorkflowOrderIdRoute: AdminPricingWorkflowOrderIdRoute,
-  AdminAgentsIndexRoute: AdminAgentsIndexRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
