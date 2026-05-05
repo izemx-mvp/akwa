@@ -33,7 +33,6 @@ import { Route as AdminAgentsRouteImport } from './routes/admin.agents'
 import { Route as AdminPricingWorkflowOrderIdRouteImport } from './routes/admin.pricing-workflow.$orderId'
 import { Route as AdminOrderDetailsOrderIdRouteImport } from './routes/admin.order-details.$orderId'
 import { Route as AdminContainerOrderIdRouteImport } from './routes/admin.container.$orderId'
-import { Route as AdminContainerOrderIdRouteImport } from './routes/admin.container.$orderId'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -150,12 +149,6 @@ const AdminOrderDetailsOrderIdRoute =
   AdminOrderDetailsOrderIdRouteImport.update({
     id: '/order-details/$orderId',
     path: '/order-details/$orderId',
-    getParentRoute: () => AdminRoute,
-  } as any)
-const AdminContainerOrderIdRoute =
-  AdminContainerOrderIdRouteImport.update({
-    id: '/container/$orderId',
-    path: '/container/$orderId',
     getParentRoute: () => AdminRoute,
   } as any)
 const AdminContainerOrderIdRoute = AdminContainerOrderIdRouteImport.update({
@@ -514,7 +507,7 @@ const AdminContainerRouteWithChildren = AdminContainerRoute._addFileChildren(
 
 interface AdminRouteChildren {
   AdminAgentsRoute: typeof AdminAgentsRoute
-  AdminContainerRoute: typeof AdminContainerRouteWithChildren
+  AdminContainerRoute: typeof AdminContainerRoute
   AdminCopilotRoute: typeof AdminCopilotRoute
   AdminExportRoute: typeof AdminExportRoute
   AdminKnowledgeRoute: typeof AdminKnowledgeRoute
@@ -526,11 +519,12 @@ interface AdminRouteChildren {
   AdminIndexRoute: typeof AdminIndexRoute
   AdminOrderDetailsOrderIdRoute: typeof AdminOrderDetailsOrderIdRoute
   AdminPricingWorkflowOrderIdRoute: typeof AdminPricingWorkflowOrderIdRoute
+  AdminContainerOrderIdRoute: typeof AdminContainerOrderIdRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminAgentsRoute: AdminAgentsRoute,
-  AdminContainerRoute: AdminContainerRouteWithChildren,
+  AdminContainerRoute: AdminContainerRoute,
   AdminCopilotRoute: AdminCopilotRoute,
   AdminExportRoute: AdminExportRoute,
   AdminKnowledgeRoute: AdminKnowledgeRoute,
@@ -542,6 +536,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminIndexRoute: AdminIndexRoute,
   AdminOrderDetailsOrderIdRoute: AdminOrderDetailsOrderIdRoute,
   AdminPricingWorkflowOrderIdRoute: AdminPricingWorkflowOrderIdRoute,
+  AdminContainerOrderIdRoute: AdminContainerOrderIdRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
