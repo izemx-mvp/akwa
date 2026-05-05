@@ -24,6 +24,7 @@ import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminPricingRouteImport } from './routes/admin.pricing'
 import { Route as AdminOrdersRouteImport } from './routes/admin.orders'
 import { Route as AdminMarginsRouteImport } from './routes/admin.margins'
+import { Route as AdminKnowledgeRouteImport } from './routes/admin.knowledge'
 import { Route as AdminExportRouteImport } from './routes/admin.export'
 import { Route as AdminCopilotRouteImport } from './routes/admin.copilot'
 import { Route as AdminContainerRouteImport } from './routes/admin.container'
@@ -105,6 +106,11 @@ const AdminMarginsRoute = AdminMarginsRouteImport.update({
   path: '/margins',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminKnowledgeRoute = AdminKnowledgeRouteImport.update({
+  id: '/knowledge',
+  path: '/knowledge',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminExportRoute = AdminExportRouteImport.update({
   id: '/export',
   path: '/export',
@@ -141,6 +147,7 @@ export interface FileRoutesByFullPath {
   '/admin/container': typeof AdminContainerRoute
   '/admin/copilot': typeof AdminCopilotRoute
   '/admin/export': typeof AdminExportRoute
+  '/admin/knowledge': typeof AdminKnowledgeRoute
   '/admin/margins': typeof AdminMarginsRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/pricing': typeof AdminPricingRoute
@@ -161,6 +168,7 @@ export interface FileRoutesByTo {
   '/admin/container': typeof AdminContainerRoute
   '/admin/copilot': typeof AdminCopilotRoute
   '/admin/export': typeof AdminExportRoute
+  '/admin/knowledge': typeof AdminKnowledgeRoute
   '/admin/margins': typeof AdminMarginsRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/pricing': typeof AdminPricingRoute
@@ -184,6 +192,7 @@ export interface FileRoutesById {
   '/admin/container': typeof AdminContainerRoute
   '/admin/copilot': typeof AdminCopilotRoute
   '/admin/export': typeof AdminExportRoute
+  '/admin/knowledge': typeof AdminKnowledgeRoute
   '/admin/margins': typeof AdminMarginsRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/pricing': typeof AdminPricingRoute
@@ -208,6 +217,7 @@ export interface FileRouteTypes {
     | '/admin/container'
     | '/admin/copilot'
     | '/admin/export'
+    | '/admin/knowledge'
     | '/admin/margins'
     | '/admin/orders'
     | '/admin/pricing'
@@ -228,6 +238,7 @@ export interface FileRouteTypes {
     | '/admin/container'
     | '/admin/copilot'
     | '/admin/export'
+    | '/admin/knowledge'
     | '/admin/margins'
     | '/admin/orders'
     | '/admin/pricing'
@@ -250,6 +261,7 @@ export interface FileRouteTypes {
     | '/admin/container'
     | '/admin/copilot'
     | '/admin/export'
+    | '/admin/knowledge'
     | '/admin/margins'
     | '/admin/orders'
     | '/admin/pricing'
@@ -378,6 +390,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminMarginsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/knowledge': {
+      id: '/admin/knowledge'
+      path: '/knowledge'
+      fullPath: '/admin/knowledge'
+      preLoaderRoute: typeof AdminKnowledgeRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/export': {
       id: '/admin/export'
       path: '/export'
@@ -421,6 +440,7 @@ interface AdminRouteChildren {
   AdminContainerRoute: typeof AdminContainerRoute
   AdminCopilotRoute: typeof AdminCopilotRoute
   AdminExportRoute: typeof AdminExportRoute
+  AdminKnowledgeRoute: typeof AdminKnowledgeRoute
   AdminMarginsRoute: typeof AdminMarginsRoute
   AdminOrdersRoute: typeof AdminOrdersRoute
   AdminPricingRoute: typeof AdminPricingRoute
@@ -435,6 +455,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminContainerRoute: AdminContainerRoute,
   AdminCopilotRoute: AdminCopilotRoute,
   AdminExportRoute: AdminExportRoute,
+  AdminKnowledgeRoute: AdminKnowledgeRoute,
   AdminMarginsRoute: AdminMarginsRoute,
   AdminOrdersRoute: AdminOrdersRoute,
   AdminPricingRoute: AdminPricingRoute,
