@@ -23,7 +23,12 @@ function AgentsPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
         {agents.map((a) => (
-          <div key={a.id} className="rounded-xl border border-border bg-card shadow-card hover:shadow-elegant transition-smooth overflow-hidden">
+          <Link
+            key={a.id}
+            to="/admin/agents/$agentId"
+            params={{ agentId: a.id }}
+            className="rounded-xl border border-border bg-card shadow-card hover:shadow-elegant transition-smooth overflow-hidden block"
+          >
             <div className="bg-gradient-ai p-5 text-ai-foreground relative overflow-hidden">
               <div className="absolute -top-12 -right-12 h-32 w-32 rounded-full bg-white/10 blur-2xl" />
               <div className="relative z-10 flex items-center justify-between">
@@ -74,7 +79,7 @@ function AgentsPage() {
                 </ul>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
