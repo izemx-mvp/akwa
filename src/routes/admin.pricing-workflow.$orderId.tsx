@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useMemo, useState, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { toast } from "sonner";
-import { ArrowLeft, Sparkles, Wand2, FileText, TrendingUp, Container, Layers } from "lucide-react";
+import { ArrowLeft, Sparkles, Wand2, FileText, TrendingUp, Container, Layers, Loader2, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -37,6 +37,34 @@ function PricingWorkflow() {
   const [strategy, setStrategy] = useState<Strategy>("equilibre");
   const [selectedScenario, setSelectedScenario] = useState<string | null>(null);
   const [appliedPrices, setAppliedPrices] = useState<Record<string, number> | null>(null);
+  const [analyzing, setAnalyzing] = useState(false);
+  const [analysisStep, setAnalysisStep] = useState(0);
+  const [analyzed, setAnalyzed] = useState(false);
+
+  const analysisSteps = [
+    "Analyse de l'historique client…",
+    "Calcul des coûts (transport + charges)…",
+    "Évaluation du remplissage conteneur…",
+    "Génération des scénarios IA…",
+  ];
+
+  const runAnalysis = () => {
+    setAnalyzing(true);
+    setAnalysisStep(0);
+    setAnalyzed(false);
+  };
+
+  useEffect(() => {
+    if (!analyzing) return;
+    if (analysisStep >= analysisSteps.length) {
+      setAnalyzing(false);
+      setAnalyzed(true);
+      toast.success("Analyse IA terminée — 4 scénarios générés");
+      return;
+    }
+    const t = setTimeout(() => setAnalysisStep((s) => s + 1), 700);
+    return () => clearTimeout(t);
+  }, [analyzing, analysisStep]);
 
   const enriched = useMemo(() => {
     if (!order) return [];
@@ -82,11 +110,15 @@ function PricingWorkflow() {
       };
     };
     return [
-      mk("Scénario 1", baseMargin + 3, 1, "Marge élevée", "Risque refus client modéré"),
-      mk("Scénario 2", baseMargin, fillPct < 90 ? 1.2 : 1, "Recommandé — équilibré", "Risque faible"),
-      mk("Scénario 3", baseMargin - 4, 1.3, "Volume maximisé", "Marge réduite"),
+      mk("Scénario 1", baseMargin, fillPct < 90 ? 1.15 : 1, "Optimal — recommandé", "Conteneur optimisé, risque faible"),
+      mk("Scénario 2", baseMargin - 1, 1.3, "Augmenter le volume (+80 unités)", "PU ↓, marge globale ↑, remplissage ↑"),
+      mk("Scénario 3", baseMargin - 4, 1, "Réduire la marge", "Prix compétitif, risque commercial faible"),
+      mk("Scénario 4", baseMargin + 4, 1, "Maximiser la marge", "Prix élevé, risque commercial"),
     ];
   }, [enriched, strategy, targetMarginPct, transportCost, variableCharges, totalUnits, fillPct]);
+
+  const recoScenario = scenarios[0];
+  const overheadPerUnit = totalUnits > 0 ? (transportCost + variableCharges) / totalUnits : 0;
 
   if (!order) {
     return (
