@@ -6,7 +6,9 @@ import { ordersStore, type SubmittedOrder } from "@/lib/orders-store";
 import { cn } from "@/lib/utils";
 import { AgentBadge } from "@/components/AgentBadge";
 import { Badge } from "@/components/ui/badge";
-import { Sparkles, Tag } from "lucide-react";
+import { Sparkles, Tag, Wand2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import type { SubmittedOrder as _SO } from "@/lib/orders-store";
 
 export const Route = createFileRoute("/admin/orders")({
   component: AdminOrders,
