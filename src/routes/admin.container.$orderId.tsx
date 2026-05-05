@@ -292,56 +292,12 @@ function ContainerDetail() {
               ))}
             </div>
           </div>
-          <Container3D
-            fill={scenario.fill}
-            pallets={scenario.pallets}
-            viewMode={viewMode}
-            zoom={zoom[0]}
-            stacking={scenario.stacking}
-            container={scenario.container}
-            lines={order.lines.map((l) => {
-              const p = products.find((x) => x.id === l.productId);
-              return { name: p?.name ?? l.productId, qty: l.quantity };
-            })}
-          />
+          <Container3D fill={scenario.fill} pallets={scenario.pallets} viewMode={viewMode} zoom={zoom[0]} stacking={scenario.stacking} />
           <div className="mt-4 grid gap-3 md:grid-cols-[1fr_220px]">
             <div className="flex items-center gap-3 text-sm text-muted-foreground">
-              <Rotate3D className="h-4 w-4" /> Vue {viewMode} · <ZoomIn className="h-4 w-4" /> Zoom {zoom[0]}%
+              <Rotate3D className="h-4 w-4" /> Rotation simulée · <ZoomIn className="h-4 w-4" /> Zoom {zoom[0]}%
             </div>
             <Slider value={zoom} onValueChange={setZoom} min={50} max={100} step={1} />
-          </div>
-
-          {/* Dispatching */}
-          <div className="mt-5 rounded-lg border border-border bg-background p-4">
-            <h3 className="font-semibold text-sm mb-2 flex items-center gap-2">
-              <Package className="h-4 w-4 text-primary" /> Dispatching des palettes
-            </h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Le conteneur <strong className="text-foreground">{scenario.container.name}</strong> est chargé en{" "}
-              <strong className="text-foreground">{scenario.pallets} palettes</strong>{" "}
-              {palletType === "europe" ? "Europe (120×80 cm)" : "industrielles (100×120 cm)"}.
-              Les produits lourds sont positionnés au sol au fond du conteneur pour stabiliser la charge,
-              les produits légers en zone avant pour faciliter le déchargement.
-              {scenario.stacking
-                ? " Le gerbage est activé : les palettes compatibles sont empilées sur deux niveaux, gagnant ~12% d’espace utile."
-                : " Sans gerbage, chaque palette occupe une seule rangée au sol."}{" "}
-              Taux de remplissage atteint : <strong className="text-success">{scenario.fill}%</strong>{" "}
-              · Espace résiduel : <strong className="text-warning">{100 - scenario.fill}%</strong>.
-            </p>
-            <div className="mt-3 flex flex-wrap gap-2 text-xs">
-              {order.lines.map((l, i) => {
-                const p = products.find((x) => x.id === l.productId);
-                return (
-                  <div key={i} className="flex items-center gap-1.5 rounded-full border border-border bg-card px-2.5 py-1">
-                    <span className={cn("h-2.5 w-2.5 rounded-sm", palletColors[i % palletColors.length])} />
-                    <span className="font-medium">{p?.name ?? l.productId}</span>
-                    <span className="text-muted-foreground">
-                      · {Math.max(1, Math.round((l.quantity / Math.max(1, totals.qty)) * scenario.pallets))} pal.
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
           </div>
         </div>
       </section>
@@ -465,278 +421,51 @@ function ToggleRow({ label, checked, onCheckedChange }: { label: string; checked
   );
 }
 
-type ContainerSpec = { id: string; name: string; volume: number; weight: number };
-type LineInfo = { name: string; qty: number };
-
-const PALLET_HEX: Record<string, string> = {
-  "bg-primary": "hsl(var(--primary))",
-  "bg-ai": "hsl(var(--ai))",
-  "bg-success": "hsl(var(--success))",
-  "bg-warning": "hsl(var(--warning))",
-};
-
-function Container3D({
-  fill,
-  pallets,
-  viewMode,
-  zoom,
-  stacking,
-  container,
-  lines,
-}: {
-  fill: number;
-  pallets: number;
-  viewMode: ViewMode;
-  zoom: number;
-  stacking: boolean;
-  container: ContainerSpec;
-  lines: LineInfo[];
-}) {
-  const cols = container.id === "20" ? 10 : 20;
-  const rows = 2;
-  const totalSlots = cols * rows;
-  const filledSlots = Math.min(totalSlots, Math.max(0, Math.round((fill / 100) * totalSlots)));
-
-  const totalQty = lines.reduce((a, l) => a + l.qty, 0) || 1;
-  const slotProductIndex: number[] = [];
-  let cursor = 0;
-  lines.forEach((l, idx) => {
-    const share = Math.max(1, Math.round((l.qty / totalQty) * filledSlots));
-    for (let k = 0; k < share && cursor < filledSlots; k++) {
-      slotProductIndex[cursor++] = idx;
-    }
-  });
-  while (cursor < filledSlots) slotProductIndex[cursor++] = Math.max(0, lines.length - 1);
-
-  const slotW = container.id === "20" ? 56 : 32;
-  const slotD = 70;
-  const slotH = 60;
-  const floorW = cols * slotW;
-  const floorD = rows * slotD;
-
-  const rotation =
-    viewMode === "isométrique"
-      ? { rx: 55, rz: -25 }
-      : viewMode === "dessus"
-      ? { rx: 90, rz: 0 }
-      : { rx: 8, rz: 0 };
-
-  const scale = zoom / 100;
-
+function Container3D({ fill, pallets, viewMode, zoom, stacking }: { fill: number; pallets: number; viewMode: ViewMode; zoom: number; stacking: boolean }) {
+  const filled = Math.round((fill / 100) * 30);
   return (
-    <div
-      className="mt-5 h-[460px] overflow-hidden rounded-xl border border-border p-6 relative"
-      style={{
-        background:
-          "radial-gradient(circle at 30% 20%, hsl(var(--primary) / 0.08), transparent 60%), linear-gradient(135deg, hsl(var(--background)), hsl(var(--muted)))",
-      }}
-    >
-      <div
-        className="absolute inset-0 opacity-[0.18] pointer-events-none"
-        style={{
-          backgroundImage:
-            "linear-gradient(hsl(var(--foreground) / 0.6) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground) / 0.6) 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
-          maskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
-        }}
-      />
-
-      <div
-        className="relative h-full w-full flex items-center justify-center"
-        style={{ perspective: "1400px", perspectiveOrigin: "50% 35%" }}
-      >
-        <div
-          style={{
-            transformStyle: "preserve-3d",
-            transform: `scale(${scale}) rotateX(${rotation.rx}deg) rotateZ(${rotation.rz}deg)`,
-            width: floorW,
-            height: floorD,
-            position: "relative",
-            transition: "transform 400ms ease",
-          }}
-        >
-          <div
-            className="absolute inset-0 rounded-sm"
-            style={{
-              background:
-                "repeating-linear-gradient(90deg, hsl(var(--muted-foreground) / 0.18) 0 2px, transparent 2px 30px), linear-gradient(135deg, hsl(var(--card)), hsl(var(--secondary)))",
-              border: "2px solid hsl(var(--primary) / 0.55)",
-              boxShadow: "0 25px 50px -20px hsl(var(--primary) / 0.45)",
-            }}
-          />
-          <div
-            className="absolute"
-            style={{
-              left: 0,
-              top: 0,
-              width: floorW,
-              height: slotH * (stacking ? 2.2 : 1.4),
-              transform: `rotateX(-90deg) translateZ(${slotH * (stacking ? 2.2 : 1.4)}px)`,
-              transformOrigin: "top",
-              background:
-                "linear-gradient(180deg, hsl(var(--primary) / 0.18), hsl(var(--primary) / 0.05))",
-              border: "1.5px solid hsl(var(--primary) / 0.45)",
-              borderTop: "none",
-            }}
-          />
-          <div
-            className="absolute"
-            style={{
-              left: 0,
-              top: 0,
-              width: floorD,
-              height: slotH * (stacking ? 2.2 : 1.4),
-              transform: `rotateY(90deg) rotateX(-90deg) translateZ(${slotH * (stacking ? 2.2 : 1.4)}px)`,
-              transformOrigin: "top left",
-              background:
-                "linear-gradient(180deg, hsl(var(--primary) / 0.12), hsl(var(--primary) / 0.04))",
-              border: "1.5px solid hsl(var(--primary) / 0.35)",
-              borderTop: "none",
-            }}
-          />
-
-          {Array.from({ length: totalSlots }).map((_, i) => {
-            const c = i % cols;
-            const r = Math.floor(i / cols);
-            const x = c * slotW;
-            const y = r * slotD;
-            const isFilled = i < filledSlots;
-            const productIdx = slotProductIndex[i] ?? 0;
-            const colorClass = palletColors[productIdx % palletColors.length];
-            const color = PALLET_HEX[colorClass] ?? "hsl(var(--primary))";
-            const stackTop = stacking && isFilled && i % 3 !== 2;
-
-            if (!isFilled) {
+    <div className="mt-5 h-[420px] overflow-hidden rounded-xl border border-border bg-gradient-to-br from-background via-secondary to-muted p-6">
+      <div className="relative mx-auto h-full max-w-4xl" style={{ transform: `scale(${zoom / 82})`, transformOrigin: "center" }}>
+        <div className={cn(
+          "absolute left-1/2 top-1/2 h-64 w-[620px] -translate-x-1/2 -translate-y-1/2 rounded-lg border-2 border-primary/50 bg-background/45 shadow-elegant",
+          viewMode === "isométrique" && "rotate-[-8deg] skew-x-[-12deg]",
+          viewMode === "latérale" && "h-48",
+          viewMode === "dessus" && "h-72",
+        )}>
+          <div className="absolute -left-5 top-6 h-52 w-8 skew-y-[35deg] border border-primary/35 bg-primary/10" />
+          <div className="absolute -top-5 left-4 h-8 w-[585px] skew-x-[48deg] border border-primary/35 bg-primary/10" />
+          <div className="absolute inset-4 grid grid-cols-10 grid-rows-3 gap-2">
+            {Array.from({ length: 30 }).map((_, i) => {
+              const isFilled = i < filled;
+              const colorIndex = i % palletColors.length;
               return (
                 <div
                   key={i}
-                  style={{
-                    position: "absolute",
-                    left: x + 3,
-                    top: y + 3,
-                    width: slotW - 6,
-                    height: slotD - 6,
-                    border: "1.5px dashed hsl(var(--muted-foreground) / 0.55)",
-                    background: "hsl(var(--background) / 0.4)",
-                    borderRadius: 3,
-                  }}
-                  title={`Emplacement libre ${i + 1}`}
-                />
+                  className={cn(
+                    "relative rounded-sm border",
+                    isFilled
+                      ? `${palletColors[colorIndex]}/80 border-foreground/20`
+                      : "border-dashed border-muted-foreground/25 bg-background/40",
+                  )}
+                  title={`Palette ${i + 1}`}
+                >
+                  {isFilled && stacking && i % 4 === 0 && (
+                    <div className="absolute -top-3 left-1 right-1 h-3 rounded-t-sm bg-foreground/20" />
+                  )}
+                </div>
               );
-            }
-
-            return (
-              <div
-                key={i}
-                style={{
-                  position: "absolute",
-                  left: x + 2,
-                  top: y + 2,
-                  width: slotW - 4,
-                  height: slotD - 4,
-                  transformStyle: "preserve-3d",
-                }}
-                title={`Palette ${i + 1}`}
-              >
-                <PalletBox w={slotW - 4} d={slotD - 4} h={slotH} color={color} z={0} />
-                {stackTop && (
-                  <PalletBox w={slotW - 4} d={slotD - 4} h={slotH} color={color} z={slotH + 4} dim />
-                )}
-              </div>
-            );
-          })}
+            })}
+          </div>
+          <div className="absolute bottom-3 right-3 rounded-lg border border-border bg-card/95 p-2 text-xs shadow-card">
+            <span className="text-muted-foreground">Zones vides</span>
+            <strong className="ml-2 text-warning">{100 - fill}%</strong>
+          </div>
+          <div className="absolute bottom-3 left-3 rounded-lg border border-border bg-card/95 p-2 text-xs shadow-card">
+            <span className="text-muted-foreground">Palettes</span>
+            <strong className="ml-2">{pallets}</strong>
+          </div>
         </div>
       </div>
-
-      <div className="absolute top-3 left-3 rounded-lg border border-border bg-card/95 px-3 py-2 text-xs shadow-card backdrop-blur">
-        <div className="font-semibold">{container.name}</div>
-        <div className="text-muted-foreground">
-          {cols} × {rows} emplacements · {stacking ? "gerbé" : "1 niveau"}
-        </div>
-      </div>
-      <div className="absolute top-3 right-3 rounded-lg border border-border bg-card/95 px-3 py-2 text-xs shadow-card backdrop-blur">
-        <div className="flex items-center gap-2">
-          <span className="text-muted-foreground">Remplissage</span>
-          <strong className="text-success">{fill}%</strong>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="text-muted-foreground">Palettes</span>
-          <strong>{pallets}</strong>
-        </div>
-      </div>
-      <div className="absolute bottom-3 right-3 rounded-lg border border-border bg-card/95 px-3 py-2 text-xs shadow-card backdrop-blur">
-        <span className="text-muted-foreground">Zones vides</span>
-        <strong className="ml-2 text-warning">{100 - fill}%</strong>
-      </div>
-    </div>
-  );
-}
-
-function PalletBox({
-  w,
-  d,
-  h,
-  color,
-  z,
-  dim = false,
-}: {
-  w: number;
-  d: number;
-  h: number;
-  color: string;
-  z: number;
-  dim?: boolean;
-}) {
-  const opacity = dim ? 0.78 : 1;
-  return (
-    <div
-      style={{
-        position: "absolute",
-        inset: 0,
-        transformStyle: "preserve-3d",
-        transform: `translateZ(${z}px)`,
-      }}
-    >
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background: `linear-gradient(135deg, ${color}, color-mix(in oklab, ${color} 70%, white))`,
-          border: "1px solid rgba(0,0,0,0.25)",
-          transform: `translateZ(${h}px)`,
-          opacity,
-          boxShadow: "inset 0 0 0 2px rgba(255,255,255,0.18)",
-          borderRadius: 2,
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          left: 0,
-          top: d,
-          width: w,
-          height: h,
-          background: `linear-gradient(180deg, color-mix(in oklab, ${color} 85%, black), color-mix(in oklab, ${color} 60%, black))`,
-          border: "1px solid rgba(0,0,0,0.35)",
-          transform: `rotateX(90deg)`,
-          transformOrigin: "top",
-          opacity,
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          left: w,
-          top: 0,
-          width: d,
-          height: h,
-          background: `linear-gradient(90deg, color-mix(in oklab, ${color} 75%, black), color-mix(in oklab, ${color} 55%, black))`,
-          border: "1px solid rgba(0,0,0,0.35)",
-          transform: `rotateY(-90deg) rotateZ(-90deg)`,
-          transformOrigin: "top left",
-          opacity,
-        }}
-      />
     </div>
   );
 }
