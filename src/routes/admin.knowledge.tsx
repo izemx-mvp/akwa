@@ -629,58 +629,256 @@ function PalettesModule() {
   );
 }
 
-// ---------- Historique & Alertes ----------
-function HistoriqueModule() {
-  const events = [
-    { date: "2026-04-30", type: "Prix", produit: "Huile hydraulique", detail: "Prix actuel 132 € → 135 €", trend: "up" as const },
-    { date: "2026-04-28", type: "Coût", produit: "Lubrifiant moteur 20L", detail: "Coût 83 € → 85 €", trend: "up" as const },
-    { date: "2026-04-25", type: "Marché", produit: "Huile industrielle 200L", detail: "Marché 1000 € → 1010 €", trend: "up" as const },
-    { date: "2026-04-20", type: "Prix", produit: "Additif carburant", detail: "Prix 40 € → 42 €", trend: "up" as const },
-  ];
+// ---------- Clients & Informations ----------
+type ClientRecord = {
+  id: string;
+  nom: string;
+  pays: string;
+  ville: string;
+  type: "Distributeur" | "Grossiste" | "Industriel";
+  paiement: "Virement" | "Crédit";
+  delai: 30 | 60;
+  devise: string;
+  limiteCredit: number;
+  remiseMax: number;
+  margeMoyenne: number;
+  priorite: "Haute" | "Moyenne" | "Basse";
+  statut: "Actif" | "Inactif";
+  volumeMensuel: number;
+  produitsPrincipaux: string;
+  sensibilitePrix: "faible" | "moyenne" | "élevée";
+  frequenceCommandes: string;
+  margeMin: number;
+  margeMax: number;
+  prixPlafond: number;
+  variationMaxPct: number;
+  insights: string[];
+  notes: string;
+  historiquePricing: { produit: string; prixMoyen: number; evolution: string }[];
+};
+
+const initialClients: ClientRecord[] = [
+  {
+    id: "cl1", nom: "Atlantic Trade SARL", pays: "Sénégal", ville: "Dakar",
+    type: "Distributeur", paiement: "Virement", delai: 30, devise: "EUR",
+    limiteCredit: 50000, remiseMax: 3, margeMoyenne: 14, priorite: "Haute", statut: "Actif",
+    volumeMensuel: 1200, produitsPrincipaux: "Lubrifiants, additifs", sensibilitePrix: "élevée",
+    frequenceCommandes: "Mensuelle",
+    margeMin: 12, margeMax: 18, prixPlafond: 130, variationMaxPct: 2,
+    insights: ["Client sensible aux prix", "Privilégie la stabilité", "Refuse les hausses rapides"],
+    notes: "Partenariat stratégique — ne pas dépasser 2% d'augmentation par trimestre.",
+    historiquePricing: [
+      { produit: "Lubrifiant 20L", prixMoyen: 118, evolution: "+1.5%" },
+      { produit: "Additif 5L", prixMoyen: 42, evolution: "stable" },
+    ],
+  },
+  {
+    id: "cl2", nom: "Dakar Energy Supply", pays: "Sénégal", ville: "Dakar",
+    type: "Grossiste", paiement: "Crédit", delai: 60, devise: "EUR",
+    limiteCredit: 120000, remiseMax: 5, margeMoyenne: 11, priorite: "Haute", statut: "Actif",
+    volumeMensuel: 2800, produitsPrincipaux: "Huiles industrielles, fûts 200L", sensibilitePrix: "moyenne",
+    frequenceCommandes: "Bimensuelle",
+    margeMin: 10, margeMax: 16, prixPlafond: 1050, variationMaxPct: 3,
+    insights: ["Accepte des volumes élevés", "Client préfère volume plutôt que marge"],
+    notes: "Gros volumes — privilégier remplissage conteneur 40' HC.",
+    historiquePricing: [
+      { produit: "Huile 200L", prixMoyen: 970, evolution: "+1%" },
+    ],
+  },
+  {
+    id: "cl3", nom: "Abidjan Retail Group", pays: "Côte d'Ivoire", ville: "Abidjan",
+    type: "Distributeur", paiement: "Virement", delai: 30, devise: "EUR",
+    limiteCredit: 35000, remiseMax: 2, margeMoyenne: 17, priorite: "Moyenne", statut: "Actif",
+    volumeMensuel: 850, produitsPrincipaux: "Lubrifiants moteurs", sensibilitePrix: "faible",
+    frequenceCommandes: "Mensuelle",
+    margeMin: 15, margeMax: 22, prixPlafond: 145, variationMaxPct: 4,
+    insights: ["Peu sensible au prix", "Recherche qualité et délai"],
+    notes: "Tolère hausses jusqu'à 4%. Marge confortable possible.",
+    historiquePricing: [
+      { produit: "Huile hydraulique", prixMoyen: 135, evolution: "+2%" },
+    ],
+  },
+  {
+    id: "cl4", nom: "Sahel Distribution", pays: "Mali", ville: "Bamako",
+    type: "Industriel", paiement: "Crédit", delai: 60, devise: "EUR",
+    limiteCredit: 80000, remiseMax: 4, margeMoyenne: 13, priorite: "Moyenne", statut: "Inactif",
+    volumeMensuel: 600, produitsPrincipaux: "Additifs, huiles", sensibilitePrix: "élevée",
+    frequenceCommandes: "Trimestrielle",
+    margeMin: 11, margeMax: 17, prixPlafond: 120, variationMaxPct: 2,
+    insights: ["Risque de refus si prix élevé", "Délai paiement long à surveiller"],
+    notes: "Compte en pause depuis 2 mois — relancer avec offre attractive.",
+    historiquePricing: [
+      { produit: "Additif 5L", prixMoyen: 40, evolution: "-1%" },
+    ],
+  },
+];
+
+function ClientsModule() {
+  const [clients] = useState<ClientRecord[]>(initialClients);
+  const [selected, setSelected] = useState<ClientRecord | null>(null);
+  const [importOpen, setImportOpen] = useState(false);
+  const [pays, setPays] = useState<string>("Tous");
+  const [type, setType] = useState<string>("Tous");
+  const [statut, setStatut] = useState<string>("Tous");
+
+  const paysOpts = useMemo(() => ["Tous", ...Array.from(new Set(clients.map((c) => c.pays)))], [clients]);
+
+  const filtered = clients.filter(
+    (c) =>
+      (pays === "Tous" || c.pays === pays) &&
+      (type === "Tous" || c.type === type) &&
+      (statut === "Tous" || c.statut === statut),
+  );
+
   return (
-    <div className="grid md:grid-cols-2 gap-4">
+    <div className="space-y-4">
+      <Card className="border-ai/30 bg-ai/5">
+        <CardContent className="p-4 flex items-center gap-3 text-sm">
+          <Sparkles className="h-4 w-4 text-ai" />
+          <span>
+            Ces données sont utilisées par les agents <strong>Pricing</strong>, <strong>Export</strong> et le{" "}
+            <strong>Copilot IA</strong> pour personnaliser leurs recommandations.
+          </span>
+        </CardContent>
+      </Card>
+
       <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2"><History className="h-4 w-4" /> Historique des modifications</CardTitle>
-          <CardDescription>Toutes les variations de prix, coûts et données marché.</CardDescription>
+        <CardHeader className="flex flex-row items-center justify-between gap-3 flex-wrap">
+          <div>
+            <CardTitle>Clients & Informations</CardTitle>
+            <CardDescription>Centralisez les conditions commerciales et les règles métier par client.</CardDescription>
+          </div>
+          <div className="flex flex-wrap gap-2 items-center">
+            <select className="h-9 rounded-md border bg-background px-2 text-sm" value={pays} onChange={(e) => setPays(e.target.value)}>
+              {paysOpts.map((p) => <option key={p}>{p}</option>)}
+            </select>
+            <select className="h-9 rounded-md border bg-background px-2 text-sm" value={type} onChange={(e) => setType(e.target.value)}>
+              {["Tous", "Distributeur", "Grossiste", "Industriel"].map((p) => <option key={p}>{p}</option>)}
+            </select>
+            <select className="h-9 rounded-md border bg-background px-2 text-sm" value={statut} onChange={(e) => setStatut(e.target.value)}>
+              {["Tous", "Actif", "Inactif"].map((p) => <option key={p}>{p}</option>)}
+            </select>
+            <Button onClick={() => setImportOpen(true)} className="gap-2">
+              <Upload className="h-4 w-4" /> Importer des clients
+            </Button>
+          </div>
         </CardHeader>
         <CardContent>
-          <ul className="space-y-3">
-            {events.map((e, i) => (
-              <li key={i} className="flex items-start gap-3 text-sm border-b pb-3 last:border-0 last:pb-0">
-                <Badge variant="outline">{e.type}</Badge>
-                <div className="flex-1">
-                  <div className="font-medium">{e.produit}</div>
-                  <div className="text-muted-foreground text-xs">{e.detail}</div>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Nom client</TableHead>
+                <TableHead>Pays</TableHead>
+                <TableHead>Type</TableHead>
+                <TableHead>Paiement</TableHead>
+                <TableHead className="text-right">Marge moy.</TableHead>
+                <TableHead>Priorité</TableHead>
+                <TableHead>Statut</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {filtered.map((c) => (
+                <TableRow key={c.id} className="cursor-pointer" onClick={() => setSelected(c)}>
+                  <TableCell className="font-medium">{c.nom}</TableCell>
+                  <TableCell>{c.pays}</TableCell>
+                  <TableCell>{c.type}</TableCell>
+                  <TableCell className="text-muted-foreground text-xs">{c.paiement} • {c.delai}j</TableCell>
+                  <TableCell className="text-right">{c.margeMoyenne}%</TableCell>
+                  <TableCell><Badge variant={c.priorite === "Haute" ? "default" : "outline"}>{c.priorite}</Badge></TableCell>
+                  <TableCell>
+                    <Badge variant={c.statut === "Actif" ? "secondary" : "outline"}>{c.statut}</Badge>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+
+      <Sheet open={!!selected} onOpenChange={(v) => !v && setSelected(null)}>
+        <SheetContent className="w-full sm:max-w-2xl overflow-y-auto">
+          {selected && (
+            <>
+              <SheetHeader>
+                <SheetTitle>{selected.nom}</SheetTitle>
+                <SheetDescription>{selected.ville}, {selected.pays} — {selected.type}</SheetDescription>
+              </SheetHeader>
+              <div className="mt-6 space-y-6">
+                <Section title="Informations générales">
+                  <Field label="Pays" value={selected.pays} />
+                  <Field label="Ville" value={selected.ville} />
+                  <Field label="Type client" value={selected.type} />
+                  <Field label="Statut" value={selected.statut} />
+                </Section>
+
+                <Section title="Données commerciales">
+                  <Field label="Volume mensuel" value={`${selected.volumeMensuel} unités`} />
+                  <Field label="Produits principaux" value={selected.produitsPrincipaux} />
+                  <Field label="Sensibilité prix" value={selected.sensibilitePrix} />
+                  <Field label="Fréquence commandes" value={selected.frequenceCommandes} />
+                </Section>
+
+                <Section title="Conditions commerciales">
+                  <Field label="Mode de paiement" value={selected.paiement} />
+                  <Field label="Délai de paiement" value={`${selected.delai} jours`} />
+                  <Field label="Devise" value={selected.devise} />
+                  <Field label="Limite de crédit" value={`${selected.limiteCredit.toLocaleString("fr-FR")} €`} />
+                  <Field label="Remise max" value={`${selected.remiseMax}%`} />
+                  <Field label="Marge moyenne" value={`${selected.margeMoyenne}%`} />
+                </Section>
+
+                <div>
+                  <h3 className="text-sm font-semibold mb-3">Historique pricing</h3>
+                  <div className="rounded-md border divide-y">
+                    {selected.historiquePricing.map((h, i) => (
+                      <div key={i} className="flex items-center justify-between p-3 text-sm">
+                        <span>{h.produit}</span>
+                        <span className="text-muted-foreground">Prix moyen <strong className="text-foreground">{h.prixMoyen} €</strong> · {h.evolution}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <div className="text-xs text-muted-foreground">{e.date}</div>
-                {e.trend === "up" ? (
-                  <TrendingUp className="h-4 w-4 text-emerald-500" />
-                ) : (
-                  <TrendingDown className="h-4 w-4 text-destructive" />
-                )}
-              </li>
-            ))}
-          </ul>
-        </CardContent>
-      </Card>
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2"><AlertTriangle className="h-4 w-4 text-amber-500" /> Alertes</CardTitle>
-          <CardDescription>Variations significatives détectées.</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-3 text-sm">
-          <div className="rounded-md border border-amber-500/30 bg-amber-500/5 p-3">
-            <strong>Hausse coût</strong> — Lubrifiant moteur 20L : +2,4% sur 30 jours.
-          </div>
-          <div className="rounded-md border border-amber-500/30 bg-amber-500/5 p-3">
-            <strong>Variation marché</strong> — Huile hydraulique : prix marché +1,4%.
-          </div>
-          <div className="rounded-md border border-primary/30 bg-primary/5 p-3">
-            <strong>Recommandation IA</strong> — réviser le prix de l'Additif carburant à la hausse.
-          </div>
-        </CardContent>
-      </Card>
+
+                <div>
+                  <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+                    <AlertTriangle className="h-4 w-4 text-amber-500" /> Règles métier client (utilisées par l'IA)
+                  </h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    <Field label="Marge minimale" value={`${selected.margeMin}%`} />
+                    <Field label="Marge maximale" value={`${selected.margeMax}%`} />
+                    <Field label="Prix plafond" value={`${selected.prixPlafond} €`} />
+                    <Field label="Remise maximale" value={`${selected.remiseMax}%`} />
+                    <Field label="Variation prix max" value={`${selected.variationMaxPct}%`} />
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+                    <Sparkles className="h-4 w-4 text-ai" /> Connaissance IA client
+                  </h3>
+                  <div className="space-y-2">
+                    {selected.insights.map((ins, i) => (
+                      <div key={i} className="rounded-md border border-ai/30 bg-ai/5 p-3 text-sm">💡 {ins}</div>
+                    ))}
+                    <div className="rounded-md border p-3">
+                      <div className="text-xs text-muted-foreground mb-1">Notes stratégiques</div>
+                      <p className="text-sm">{selected.notes}</p>
+                    </div>
+                    <div className="rounded-md border border-primary/30 bg-primary/5 p-3 text-xs">
+                      <strong>Agent Pricing :</strong> Marge limitée à {selected.margeMax}% — variation max {selected.variationMaxPct}%.
+                      <br />
+                      <strong>Copilot :</strong> Sensibilité prix <em>{selected.sensibilitePrix}</em> — adapter la stratégie.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+        </SheetContent>
+      </Sheet>
+
+      <ImportDialog label="Clients" open={importOpen} onOpenChange={setImportOpen} />
     </div>
   );
 }
+
