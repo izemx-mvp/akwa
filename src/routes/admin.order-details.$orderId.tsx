@@ -227,6 +227,16 @@ function OrderSynthesis() {
           <Badge className="gap-1 bg-ai text-ai-foreground">
             <Sparkles className="h-3 w-3" /> Agent IA actif
           </Badge>
+          {(order as SubmittedOrder).quotes && (
+            <Button
+              size="sm"
+              className="bg-gradient-ai text-ai-foreground"
+              onClick={() => navigate({ to: "/admin/pricing-workflow/$orderId", params: { orderId: order.id } })}
+            >
+              <Wand2 className="h-4 w-4" />
+              {(order as SubmittedOrder).quotes.length === 0 ? "Passer au pricing" : "Relancer pricing"}
+            </Button>
+          )}
         </div>
       </div>
 
