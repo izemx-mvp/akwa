@@ -507,7 +507,7 @@ const AdminContainerRouteWithChildren = AdminContainerRoute._addFileChildren(
 
 interface AdminRouteChildren {
   AdminAgentsRoute: typeof AdminAgentsRoute
-  AdminContainerRoute: typeof AdminContainerRoute
+  AdminContainerRoute: typeof AdminContainerRouteWithChildren
   AdminCopilotRoute: typeof AdminCopilotRoute
   AdminExportRoute: typeof AdminExportRoute
   AdminKnowledgeRoute: typeof AdminKnowledgeRoute
@@ -519,12 +519,11 @@ interface AdminRouteChildren {
   AdminIndexRoute: typeof AdminIndexRoute
   AdminOrderDetailsOrderIdRoute: typeof AdminOrderDetailsOrderIdRoute
   AdminPricingWorkflowOrderIdRoute: typeof AdminPricingWorkflowOrderIdRoute
-  AdminContainerOrderIdRoute: typeof AdminContainerOrderIdRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminAgentsRoute: AdminAgentsRoute,
-  AdminContainerRoute: AdminContainerRoute,
+  AdminContainerRoute: AdminContainerRouteWithChildren,
   AdminCopilotRoute: AdminCopilotRoute,
   AdminExportRoute: AdminExportRoute,
   AdminKnowledgeRoute: AdminKnowledgeRoute,
@@ -536,7 +535,6 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminIndexRoute: AdminIndexRoute,
   AdminOrderDetailsOrderIdRoute: AdminOrderDetailsOrderIdRoute,
   AdminPricingWorkflowOrderIdRoute: AdminPricingWorkflowOrderIdRoute,
-  AdminContainerOrderIdRoute: AdminContainerOrderIdRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
