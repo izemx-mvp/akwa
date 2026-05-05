@@ -34,6 +34,7 @@ const containers = [
 ];
 
 const palletColors = ["bg-primary", "bg-ai", "bg-success", "bg-warning"];
+const palletFillColors = ["bg-primary/80", "bg-ai/80", "bg-success/80", "bg-warning/80"];
 
 function useOrders() {
   return useSyncExternalStore(
@@ -437,20 +438,20 @@ function Container3D({ fill, pallets, viewMode, zoom, stacking }: { fill: number
           <div className="absolute inset-4 grid grid-cols-10 grid-rows-3 gap-2">
             {Array.from({ length: 30 }).map((_, i) => {
               const isFilled = i < filled;
-              const colorIndex = i % palletColors.length;
+              const colorIndex = i % palletFillColors.length;
               return (
                 <div
                   key={i}
                   className={cn(
                     "relative rounded-sm border",
                     isFilled
-                      ? `${palletColors[colorIndex]}/80 border-foreground/20`
-                      : "border-dashed border-muted-foreground/25 bg-background/40",
+                      ? `${palletFillColors[colorIndex]} border-foreground/30 shadow-sm`
+                      : "border-dashed border-muted-foreground/40 bg-white",
                   )}
-                  title={`Palette ${i + 1}`}
+                  title={isFilled ? `Palette ${i + 1}` : "Zone vide"}
                 >
                   {isFilled && stacking && i % 4 === 0 && (
-                    <div className="absolute -top-3 left-1 right-1 h-3 rounded-t-sm bg-foreground/20" />
+                    <div className="absolute -top-3 left-1 right-1 h-3 rounded-t-sm bg-foreground/30" />
                   )}
                 </div>
               );
