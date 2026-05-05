@@ -292,12 +292,56 @@ function ContainerDetail() {
               ))}
             </div>
           </div>
-          <Container3D fill={scenario.fill} pallets={scenario.pallets} viewMode={viewMode} zoom={zoom[0]} stacking={scenario.stacking} />
+          <Container3D
+            fill={scenario.fill}
+            pallets={scenario.pallets}
+            viewMode={viewMode}
+            zoom={zoom[0]}
+            stacking={scenario.stacking}
+            container={scenario.container}
+            lines={order.lines.map((l) => {
+              const p = products.find((x) => x.id === l.productId);
+              return { name: p?.name ?? l.productId, qty: l.quantity };
+            })}
+          />
           <div className="mt-4 grid gap-3 md:grid-cols-[1fr_220px]">
             <div className="flex items-center gap-3 text-sm text-muted-foreground">
-              <Rotate3D className="h-4 w-4" /> Rotation simulée · <ZoomIn className="h-4 w-4" /> Zoom {zoom[0]}%
+              <Rotate3D className="h-4 w-4" /> Vue {viewMode} · <ZoomIn className="h-4 w-4" /> Zoom {zoom[0]}%
             </div>
             <Slider value={zoom} onValueChange={setZoom} min={50} max={100} step={1} />
+          </div>
+
+          {/* Dispatching */}
+          <div className="mt-5 rounded-lg border border-border bg-background p-4">
+            <h3 className="font-semibold text-sm mb-2 flex items-center gap-2">
+              <Package className="h-4 w-4 text-primary" /> Dispatching des palettes
+            </h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Le conteneur <strong className="text-foreground">{scenario.container.name}</strong> est chargé en{" "}
+              <strong className="text-foreground">{scenario.pallets} palettes</strong>{" "}
+              {palletType === "europe" ? "Europe (120×80 cm)" : "industrielles (100×120 cm)"}.
+              Les produits lourds sont positionnés au sol au fond du conteneur pour stabiliser la charge,
+              les produits légers en zone avant pour faciliter le déchargement.
+              {scenario.stacking
+                ? " Le gerbage est activé : les palettes compatibles sont empilées sur deux niveaux, gagnant ~12% d’espace utile."
+                : " Sans gerbage, chaque palette occupe une seule rangée au sol."}{" "}
+              Taux de remplissage atteint : <strong className="text-success">{scenario.fill}%</strong>{" "}
+              · Espace résiduel : <strong className="text-warning">{100 - scenario.fill}%</strong>.
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2 text-xs">
+              {order.lines.map((l, i) => {
+                const p = products.find((x) => x.id === l.productId);
+                return (
+                  <div key={i} className="flex items-center gap-1.5 rounded-full border border-border bg-card px-2.5 py-1">
+                    <span className={cn("h-2.5 w-2.5 rounded-sm", palletColors[i % palletColors.length])} />
+                    <span className="font-medium">{p?.name ?? l.productId}</span>
+                    <span className="text-muted-foreground">
+                      · {Math.max(1, Math.round((l.quantity / Math.max(1, totals.qty)) * scenario.pallets))} pal.
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
