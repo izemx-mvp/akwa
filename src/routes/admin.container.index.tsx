@@ -8,7 +8,7 @@ import { clients, products } from "@/lib/mock-data";
 import { ordersStore, type SubmittedOrder } from "@/lib/orders-store";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/admin/container")({
+export const Route = createFileRoute("/admin/container/")({
   component: ContainerList,
 });
 
