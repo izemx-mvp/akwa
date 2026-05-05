@@ -34,6 +34,7 @@ const containers = [
 ];
 
 const palletColors = ["bg-primary", "bg-ai", "bg-success", "bg-warning"];
+const palletFillColors = ["bg-primary/80", "bg-ai/80", "bg-success/80", "bg-warning/80"];
 
 function useOrders() {
   return useSyncExternalStore(
