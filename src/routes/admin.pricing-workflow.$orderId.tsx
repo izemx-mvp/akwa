@@ -257,6 +257,7 @@ function PricingWorkflow() {
                     {s === "marge" ? "Max marge" : s === "volume" ? "Max volume" : "Équilibré"}
                   </button>
                 ))}
+              </div>
             </div>
             <div className="pt-2 border-t border-border space-y-1 text-xs">
               <div className="flex justify-between"><span className="text-muted-foreground">Coût produits</span><span>{formatCurrency(totalCost - transportCost - variableCharges)}</span></div>
