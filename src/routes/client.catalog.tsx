@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { products, formatCurrency } from "@/lib/mock-data";
+import { products } from "@/lib/mock-data";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search, Plus } from "lucide-react";
@@ -36,8 +36,7 @@ function Catalog() {
             <div className="text-xs text-muted-foreground">SKU {p.sku}</div>
             <div className="mt-3 flex items-end justify-between">
               <div>
-                <div className="text-lg font-bold">{formatCurrency(p.unitPrice)}</div>
-                <div className="text-[11px] text-muted-foreground">par unité · {p.unitWeightKg}kg</div>
+                <div className="text-[11px] text-muted-foreground">Conditionnement · {p.unitWeightKg}kg / unité</div>
               </div>
             </div>
             <Button size="sm" variant="outline" className="mt-4 gap-1.5">
