@@ -227,6 +227,13 @@ function OrderSynthesis() {
           <Badge className="gap-1 bg-ai text-ai-foreground">
             <Sparkles className="h-3 w-3" /> Agent IA actif
           </Badge>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => navigate({ to: "/admin/container/$orderId", params: { orderId: order.id } })}
+          >
+            <Container className="h-4 w-4" /> Voir optimisation conteneur
+          </Button>
           {(order as SubmittedOrder).quotes && (
             <Button
               size="sm"

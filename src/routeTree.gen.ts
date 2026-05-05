@@ -32,6 +32,7 @@ import { Route as AdminContainerRouteImport } from './routes/admin.container'
 import { Route as AdminAgentsRouteImport } from './routes/admin.agents'
 import { Route as AdminPricingWorkflowOrderIdRouteImport } from './routes/admin.pricing-workflow.$orderId'
 import { Route as AdminOrderDetailsOrderIdRouteImport } from './routes/admin.order-details.$orderId'
+import { Route as AdminContainerOrderIdRouteImport } from './routes/admin.container.$orderId'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -150,6 +151,11 @@ const AdminOrderDetailsOrderIdRoute =
     path: '/order-details/$orderId',
     getParentRoute: () => AdminRoute,
   } as any)
+const AdminContainerOrderIdRoute = AdminContainerOrderIdRouteImport.update({
+  id: '/$orderId',
+  path: '/$orderId',
+  getParentRoute: () => AdminContainerRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -157,7 +163,7 @@ export interface FileRoutesByFullPath {
   '/client': typeof ClientRouteWithChildren
   '/login': typeof LoginRoute
   '/admin/agents': typeof AdminAgentsRoute
-  '/admin/container': typeof AdminContainerRoute
+  '/admin/container': typeof AdminContainerRouteWithChildren
   '/admin/copilot': typeof AdminCopilotRoute
   '/admin/export': typeof AdminExportRoute
   '/admin/knowledge': typeof AdminKnowledgeRoute
@@ -173,6 +179,7 @@ export interface FileRoutesByFullPath {
   '/client/quotes': typeof ClientQuotesRoute
   '/admin/': typeof AdminIndexRoute
   '/client/': typeof ClientIndexRoute
+  '/admin/container/$orderId': typeof AdminContainerOrderIdRoute
   '/admin/order-details/$orderId': typeof AdminOrderDetailsOrderIdRoute
   '/admin/pricing-workflow/$orderId': typeof AdminPricingWorkflowOrderIdRoute
 }
@@ -180,7 +187,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/admin/agents': typeof AdminAgentsRoute
-  '/admin/container': typeof AdminContainerRoute
+  '/admin/container': typeof AdminContainerRouteWithChildren
   '/admin/copilot': typeof AdminCopilotRoute
   '/admin/export': typeof AdminExportRoute
   '/admin/knowledge': typeof AdminKnowledgeRoute
@@ -196,6 +203,7 @@ export interface FileRoutesByTo {
   '/client/quotes': typeof ClientQuotesRoute
   '/admin': typeof AdminIndexRoute
   '/client': typeof ClientIndexRoute
+  '/admin/container/$orderId': typeof AdminContainerOrderIdRoute
   '/admin/order-details/$orderId': typeof AdminOrderDetailsOrderIdRoute
   '/admin/pricing-workflow/$orderId': typeof AdminPricingWorkflowOrderIdRoute
 }
@@ -206,7 +214,7 @@ export interface FileRoutesById {
   '/client': typeof ClientRouteWithChildren
   '/login': typeof LoginRoute
   '/admin/agents': typeof AdminAgentsRoute
-  '/admin/container': typeof AdminContainerRoute
+  '/admin/container': typeof AdminContainerRouteWithChildren
   '/admin/copilot': typeof AdminCopilotRoute
   '/admin/export': typeof AdminExportRoute
   '/admin/knowledge': typeof AdminKnowledgeRoute
@@ -222,6 +230,7 @@ export interface FileRoutesById {
   '/client/quotes': typeof ClientQuotesRoute
   '/admin/': typeof AdminIndexRoute
   '/client/': typeof ClientIndexRoute
+  '/admin/container/$orderId': typeof AdminContainerOrderIdRoute
   '/admin/order-details/$orderId': typeof AdminOrderDetailsOrderIdRoute
   '/admin/pricing-workflow/$orderId': typeof AdminPricingWorkflowOrderIdRoute
 }
@@ -249,6 +258,7 @@ export interface FileRouteTypes {
     | '/client/quotes'
     | '/admin/'
     | '/client/'
+    | '/admin/container/$orderId'
     | '/admin/order-details/$orderId'
     | '/admin/pricing-workflow/$orderId'
   fileRoutesByTo: FileRoutesByTo
@@ -272,6 +282,7 @@ export interface FileRouteTypes {
     | '/client/quotes'
     | '/admin'
     | '/client'
+    | '/admin/container/$orderId'
     | '/admin/order-details/$orderId'
     | '/admin/pricing-workflow/$orderId'
   id:
@@ -297,6 +308,7 @@ export interface FileRouteTypes {
     | '/client/quotes'
     | '/admin/'
     | '/client/'
+    | '/admin/container/$orderId'
     | '/admin/order-details/$orderId'
     | '/admin/pricing-workflow/$orderId'
   fileRoutesById: FileRoutesById
@@ -471,12 +483,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminOrderDetailsOrderIdRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/container/$orderId': {
+      id: '/admin/container/$orderId'
+      path: '/$orderId'
+      fullPath: '/admin/container/$orderId'
+      preLoaderRoute: typeof AdminContainerOrderIdRouteImport
+      parentRoute: typeof AdminContainerRoute
+    }
   }
 }
 
+interface AdminContainerRouteChildren {
+  AdminContainerOrderIdRoute: typeof AdminContainerOrderIdRoute
+}
+
+const AdminContainerRouteChildren: AdminContainerRouteChildren = {
+  AdminContainerOrderIdRoute: AdminContainerOrderIdRoute,
+}
+
+const AdminContainerRouteWithChildren = AdminContainerRoute._addFileChildren(
+  AdminContainerRouteChildren,
+)
+
 interface AdminRouteChildren {
   AdminAgentsRoute: typeof AdminAgentsRoute
-  AdminContainerRoute: typeof AdminContainerRoute
+  AdminContainerRoute: typeof AdminContainerRouteWithChildren
   AdminCopilotRoute: typeof AdminCopilotRoute
   AdminExportRoute: typeof AdminExportRoute
   AdminKnowledgeRoute: typeof AdminKnowledgeRoute
@@ -492,7 +523,7 @@ interface AdminRouteChildren {
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminAgentsRoute: AdminAgentsRoute,
-  AdminContainerRoute: AdminContainerRoute,
+  AdminContainerRoute: AdminContainerRouteWithChildren,
   AdminCopilotRoute: AdminCopilotRoute,
   AdminExportRoute: AdminExportRoute,
   AdminKnowledgeRoute: AdminKnowledgeRoute,
