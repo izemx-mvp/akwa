@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useMemo, useState, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { toast } from "sonner";
-import { ArrowLeft, Sparkles, Wand2, FileText, TrendingUp, Container, Layers } from "lucide-react";
+import { ArrowLeft, Sparkles, Wand2, FileText, TrendingUp, Container, Layers, Loader2, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -37,6 +37,34 @@ function PricingWorkflow() {
   const [strategy, setStrategy] = useState<Strategy>("equilibre");
   const [selectedScenario, setSelectedScenario] = useState<string | null>(null);
   const [appliedPrices, setAppliedPrices] = useState<Record<string, number> | null>(null);
+  const [analyzing, setAnalyzing] = useState(false);
+  const [analysisStep, setAnalysisStep] = useState(0);
+  const [analyzed, setAnalyzed] = useState(false);
+
+  const analysisSteps = [
+    "Analyse de l'historique client…",
+    "Calcul des coûts (transport + charges)…",
+    "Évaluation du remplissage conteneur…",
+    "Génération des scénarios IA…",
+  ];
+
+  const runAnalysis = () => {
+    setAnalyzing(true);
+    setAnalysisStep(0);
+    setAnalyzed(false);
+  };
+
+  useEffect(() => {
+    if (!analyzing) return;
+    if (analysisStep >= analysisSteps.length) {
+      setAnalyzing(false);
+      setAnalyzed(true);
+      toast.success("Analyse IA terminée — 4 scénarios générés");
+      return;
+    }
+    const t = setTimeout(() => setAnalysisStep((s) => s + 1), 700);
+    return () => clearTimeout(t);
+  }, [analyzing, analysisStep]);
 
   const enriched = useMemo(() => {
     if (!order) return [];
@@ -82,11 +110,15 @@ function PricingWorkflow() {
       };
     };
     return [
-      mk("Scénario 1", baseMargin + 3, 1, "Marge élevée", "Risque refus client modéré"),
-      mk("Scénario 2", baseMargin, fillPct < 90 ? 1.2 : 1, "Recommandé — équilibré", "Risque faible"),
-      mk("Scénario 3", baseMargin - 4, 1.3, "Volume maximisé", "Marge réduite"),
+      mk("Scénario 1", baseMargin, fillPct < 90 ? 1.15 : 1, "Optimal — recommandé", "Conteneur optimisé, risque faible"),
+      mk("Scénario 2", baseMargin - 1, 1.3, "Augmenter le volume (+80 unités)", "PU ↓, marge globale ↑, remplissage ↑"),
+      mk("Scénario 3", baseMargin - 4, 1, "Réduire la marge", "Prix compétitif, risque commercial faible"),
+      mk("Scénario 4", baseMargin + 4, 1, "Maximiser la marge", "Prix élevé, risque commercial"),
     ];
   }, [enriched, strategy, targetMarginPct, transportCost, variableCharges, totalUnits, fillPct]);
+
+  const recoScenario = scenarios[0];
+  const overheadPerUnit = totalUnits > 0 ? (transportCost + variableCharges) / totalUnits : 0;
 
   if (!order) {
     return (
@@ -232,18 +264,50 @@ function PricingWorkflow() {
               <div className="flex justify-between"><span className="text-muted-foreground">Coût total</span><span className="font-semibold">{formatCurrency(totalCost)}</span></div>
               <div className="flex justify-between"><span className="text-muted-foreground">Remplissage</span><span>{fillPct}%</span></div>
             </div>
+            {!analyzed && !analyzing && (
+              <Button onClick={runAnalysis} className="w-full bg-gradient-ai text-ai-foreground">
+                <Sparkles className="h-4 w-4" /> Lancer l'analyse IA
+              </Button>
+            )}
+            {analyzed && (
+              <Button onClick={runAnalysis} variant="outline" className="w-full">
+                <Wand2 className="h-3.5 w-3.5" /> Recalculer
+              </Button>
+            )}
           </CardContent>
         </Card>
 
-        {/* Suggestions IA */}
+        {/* Loading IA ou Suggestions */}
         <Card className="lg:col-span-2">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-ai" /> Suggestions intelligentes
+              <Sparkles className="h-4 w-4 text-ai" />
+              {analyzing ? "Analyse en cours…" : analyzed ? "Suggestions intelligentes" : "Agent Pricing en attente"}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
-            {suggestions.map((s) => (
+            {analyzing && (
+              <div className="space-y-2 py-2">
+                {analysisSteps.map((step, i) => (
+                  <div key={i} className="flex items-center gap-3 text-sm">
+                    {i < analysisStep ? (
+                      <CheckCircle2 className="h-4 w-4 text-success" />
+                    ) : i === analysisStep ? (
+                      <Loader2 className="h-4 w-4 text-ai animate-spin" />
+                    ) : (
+                      <div className="h-4 w-4 rounded-full border border-border" />
+                    )}
+                    <span className={cn(i <= analysisStep ? "text-foreground" : "text-muted-foreground")}>{step}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+            {!analyzing && !analyzed && (
+              <div className="text-sm text-muted-foreground py-6 text-center">
+                Saisissez vos variables, puis lancez l'analyse IA pour générer les scénarios de pricing.
+              </div>
+            )}
+            {analyzed && suggestions.map((s) => (
               <div key={s.id} className="flex items-center gap-3 p-3 rounded-lg border border-border hover:border-ai/40 transition-smooth">
                 <div className="h-7 w-7 rounded-full bg-ai/15 text-ai flex items-center justify-center text-xs font-bold shrink-0">
                   {s.id}
@@ -256,119 +320,149 @@ function PricingWorkflow() {
         </Card>
       </div>
 
-      {/* Scénarios */}
-      <Card>
-        <CardHeader className="pb-3">
-          <CardTitle className="text-base flex items-center gap-2">
-            <Layers className="h-4 w-4" /> Scénarios de pricing
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
+      {analyzed && (
+        <>
+          {/* Résultat global du scénario recommandé */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            {scenarios.map((sc, idx) => {
-              const isReco = idx === 1;
-              const isSel = selectedScenario === sc.name;
-              return (
-                <div
-                  key={sc.name}
-                  className={cn(
-                    "rounded-xl border p-4 transition-smooth",
-                    isSel ? "border-primary shadow-elegant bg-primary/5" : isReco ? "border-ai/40 bg-ai/5" : "border-border",
-                  )}
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="font-semibold">{sc.name}</div>
-                    {isReco && <Badge className="bg-ai text-ai-foreground text-[10px]">Recommandé</Badge>}
-                  </div>
-                  <div className="text-xs text-muted-foreground mb-3">{sc.label}</div>
-                  <div className="space-y-1.5 text-sm">
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Total</span>
-                      <span className="font-bold">{formatCurrency(sc.total)}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Marge</span>
-                      <span className="font-semibold text-success">{sc.actualMarginPct.toFixed(1)} %</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Remplissage</span>
-                      <span>{sc.fillPct} %</span>
-                    </div>
-                    <div className="flex justify-between text-xs pt-1 border-t border-border mt-2">
-                      <span className="text-muted-foreground">Risque</span>
-                      <span>{sc.risk}</span>
-                    </div>
-                  </div>
-                  <Button
-                    size="sm"
-                    className={cn("w-full mt-3", isSel && "bg-primary")}
-                    variant={isSel ? "default" : "outline"}
-                    onClick={() => applyScenario(idx)}
-                  >
-                    <Wand2 className="h-3.5 w-3.5" /> {isSel ? "Appliqué" : "Appliquer"}
-                  </Button>
-                </div>
-              );
-            })}
+            <Card className="border-ai/30">
+              <CardContent className="p-4">
+                <div className="text-[10px] uppercase text-muted-foreground">Total commande</div>
+                <div className="text-xl font-bold mt-1">{formatCurrency(recoScenario.total)}</div>
+              </CardContent>
+            </Card>
+            <Card className="border-ai/30">
+              <CardContent className="p-4">
+                <div className="text-[10px] uppercase text-muted-foreground">Marge globale</div>
+                <div className="text-xl font-bold text-success mt-1">{recoScenario.actualMarginPct.toFixed(1)} %</div>
+              </CardContent>
+            </Card>
+            <Card className="border-ai/30">
+              <CardContent className="p-4">
+                <div className="text-[10px] uppercase text-muted-foreground">Remplissage conteneur</div>
+                <div className="text-xl font-bold text-ai mt-1">{recoScenario.fillPct} %</div>
+              </CardContent>
+            </Card>
           </div>
-        </CardContent>
-      </Card>
 
-      {/* Pricing par produit (après application) */}
-      {appliedPrices && (
-        <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-base flex items-center gap-2">
-              <TrendingUp className="h-4 w-4 text-success" /> Pricing appliqué — {selectedScenario}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-0">
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead className="bg-muted/40 text-xs uppercase tracking-wider text-muted-foreground">
-                  <tr>
-                    <th className="text-left px-5 py-3 font-medium">Produit</th>
-                    <th className="text-right px-5 py-3 font-medium">Quantité</th>
-                    <th className="text-right px-5 py-3 font-medium">Prix unitaire</th>
-                    <th className="text-right px-5 py-3 font-medium">Total ligne</th>
-                    <th className="text-right px-5 py-3 font-medium">Marge</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-border">
-                  {scenarios.find((s) => s.name === selectedScenario)!.lines.map((l) => {
-                    const p = products.find((x) => x.id === l.productId)!;
-                    const margin = (l.unitPrice - l.cost) * l.quantity;
-                    return (
-                      <tr key={l.productId}>
-                        <td className="px-5 py-3">
-                          <div className="flex items-center gap-2">
-                            <span className="text-lg">{p.image}</span>
-                            <div>
-                              <div className="font-medium">{p.name}</div>
-                              <div className="text-[11px] text-muted-foreground">{p.sku}</div>
+          {/* Tableau pricing complet */}
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-base flex items-center gap-2">
+                <TrendingUp className="h-4 w-4 text-success" />
+                Tableau de pricing — {selectedScenario ?? recoScenario.name}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-0">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead className="bg-muted/40 text-xs uppercase tracking-wider text-muted-foreground">
+                    <tr>
+                      <th className="text-left px-5 py-3 font-medium">Produit</th>
+                      <th className="text-right px-5 py-3 font-medium">Quantité</th>
+                      <th className="text-right px-5 py-3 font-medium">Coût produit</th>
+                      <th className="text-right px-5 py-3 font-medium">Charges var.</th>
+                      <th className="text-right px-5 py-3 font-medium">Marge %</th>
+                      <th className="text-right px-5 py-3 font-medium">Prix unitaire</th>
+                      <th className="text-right px-5 py-3 font-medium">Prix total</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border">
+                    {(scenarios.find((s) => s.name === selectedScenario) ?? recoScenario).lines.map((l) => {
+                      const p = products.find((x) => x.id === l.productId)!;
+                      const fullCost = l.cost + overheadPerUnit;
+                      const lineMarginPct = ((l.unitPrice - fullCost) / l.unitPrice) * 100;
+                      return (
+                        <tr key={l.productId}>
+                          <td className="px-5 py-3">
+                            <div className="flex items-center gap-2">
+                              <span className="text-lg">{p.image}</span>
+                              <div>
+                                <div className="font-medium">{p.name}</div>
+                                <div className="text-[11px] text-muted-foreground">{p.sku}</div>
+                              </div>
                             </div>
-                          </div>
-                        </td>
-                        <td className="px-5 py-3 text-right">{formatNumber(l.quantity)}</td>
-                        <td className="px-5 py-3 text-right font-semibold">{formatCurrency(l.unitPrice)}</td>
-                        <td className="px-5 py-3 text-right">{formatCurrency(l.unitPrice * l.quantity)}</td>
-                        <td className="px-5 py-3 text-right text-success font-semibold">{formatCurrency(margin)}</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-            <div className="px-5 py-4 border-t border-border flex items-center justify-between bg-muted/20">
-              <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                <Container className="h-4 w-4" /> Conteneur {fillPct}% rempli
+                          </td>
+                          <td className="px-5 py-3 text-right">{formatNumber(l.quantity)}</td>
+                          <td className="px-5 py-3 text-right text-muted-foreground">{formatCurrency(l.cost)}</td>
+                          <td className="px-5 py-3 text-right text-muted-foreground">{formatCurrency(overheadPerUnit)}</td>
+                          <td className="px-5 py-3 text-right font-semibold text-success">{lineMarginPct.toFixed(1)} %</td>
+                          <td className="px-5 py-3 text-right font-semibold">{formatCurrency(l.unitPrice)}</td>
+                          <td className="px-5 py-3 text-right font-bold">{formatCurrency(l.unitPrice * l.quantity)}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
               </div>
-              <Button onClick={generateQuote} className="bg-gradient-primary shadow-elegant">
-                <FileText className="h-4 w-4" /> Générer le devis
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+
+          {/* Scénarios */}
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-base flex items-center gap-2">
+                <Layers className="h-4 w-4" /> Scénarios IA — sélectionnez puis générez le devis
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
+                {scenarios.map((sc, idx) => {
+                  const isReco = idx === 0;
+                  const isSel = selectedScenario === sc.name;
+                  return (
+                    <div
+                      key={sc.name}
+                      className={cn(
+                        "rounded-xl border p-4 transition-smooth flex flex-col",
+                        isSel ? "border-primary shadow-elegant bg-primary/5" : isReco ? "border-ai/40 bg-ai/5" : "border-border",
+                      )}
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="font-semibold">{sc.name}</div>
+                        {isReco && <Badge className="bg-ai text-ai-foreground text-[10px]">Recommandé</Badge>}
+                      </div>
+                      <div className="text-xs text-muted-foreground mb-3">{sc.label}</div>
+                      <div className="space-y-1.5 text-sm flex-1">
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Total</span>
+                          <span className="font-bold">{formatCurrency(sc.total)}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Marge</span>
+                          <span className="font-semibold text-success">{sc.actualMarginPct.toFixed(1)} %</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Remplissage</span>
+                          <span>{sc.fillPct} %</span>
+                        </div>
+                        <div className="flex justify-between text-xs pt-1 border-t border-border mt-2">
+                          <span className="text-muted-foreground">Risque</span>
+                          <span className="text-right">{sc.risk}</span>
+                        </div>
+                      </div>
+                      <Button
+                        size="sm"
+                        className={cn("w-full mt-3", isSel && "bg-primary")}
+                        variant={isSel ? "default" : "outline"}
+                        onClick={() => applyScenario(idx)}
+                      >
+                        <Wand2 className="h-3.5 w-3.5" /> {isSel ? "Appliqué" : "Appliquer"}
+                      </Button>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="mt-5 flex items-center justify-between border-t border-border pt-4">
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <Container className="h-4 w-4" /> Conteneur {fillPct}% rempli
+                </div>
+                <Button onClick={generateQuote} disabled={!appliedPrices} className="bg-gradient-primary shadow-elegant">
+                  <FileText className="h-4 w-4" /> Générer le devis
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </>
       )}
     </div>
   );
