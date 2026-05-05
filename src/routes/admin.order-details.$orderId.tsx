@@ -227,6 +227,16 @@ function OrderSynthesis() {
           <Badge className="gap-1 bg-ai text-ai-foreground">
             <Sparkles className="h-3 w-3" /> Agent IA actif
           </Badge>
+          {(order as SubmittedOrder).quotes && (
+            <Button
+              size="sm"
+              className="bg-gradient-ai text-ai-foreground"
+              onClick={() => navigate({ to: "/admin/pricing-workflow/$orderId", params: { orderId: order.id } })}
+            >
+              <Wand2 className="h-4 w-4" />
+              {(order as SubmittedOrder).quotes.length === 0 ? "Passer au pricing" : "Relancer pricing"}
+            </Button>
+          )}
         </div>
       </div>
 
@@ -489,6 +499,66 @@ function OrderSynthesis() {
           </Button>
         </CardContent>
       </Card>
+
+      {/* Historique des devis */}
+      {(order as SubmittedOrder).quotes && (order as SubmittedOrder).quotes.length > 0 && (
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-base flex items-center gap-2">
+              <FileEdit className="h-4 w-4" /> Historique des devis ({(order as SubmittedOrder).quotes.length})
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-0">
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="bg-muted/40 text-xs uppercase tracking-wider text-muted-foreground">
+                  <tr>
+                    <th className="text-left px-5 py-3 font-medium">Version</th>
+                    <th className="text-left px-5 py-3 font-medium">Scénario</th>
+                    <th className="text-right px-5 py-3 font-medium">Total</th>
+                    <th className="text-right px-5 py-3 font-medium">Marge</th>
+                    <th className="text-right px-5 py-3 font-medium">Remplissage</th>
+                    <th className="text-left px-5 py-3 font-medium">Statut</th>
+                    <th className="text-left px-5 py-3 font-medium">Date</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border">
+                  {(order as SubmittedOrder).quotes.map((q) => (
+                    <tr key={q.id}>
+                      <td className="px-5 py-3 font-medium">V{q.version}</td>
+                      <td className="px-5 py-3">{q.scenarioName}</td>
+                      <td className="px-5 py-3 text-right font-semibold">{formatCurrency(q.total)}</td>
+                      <td className="px-5 py-3 text-right text-success font-semibold">{q.marginPct.toFixed(1)} %</td>
+                      <td className="px-5 py-3 text-right">{q.fillPct} %</td>
+                      <td className="px-5 py-3">
+                        <Badge
+                          className={cn(
+                            "text-[10px]",
+                            q.status === "accepte"
+                              ? "bg-success/15 text-success"
+                              : q.status === "refuse"
+                              ? "bg-destructive/15 text-destructive"
+                              : "bg-ai/15 text-ai",
+                          )}
+                          variant="secondary"
+                        >
+                          {q.status === "accepte" ? "Accepté" : q.status === "refuse" ? "Refusé" : "Envoyé"}
+                        </Badge>
+                        {q.refusalReason && (
+                          <div className="text-[10px] text-muted-foreground mt-1 italic">« {q.refusalReason} »</div>
+                        )}
+                      </td>
+                      <td className="px-5 py-3 text-xs text-muted-foreground">
+                        {new Date(q.createdAt).toLocaleDateString("fr-FR")}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Activité */}
       <Card>

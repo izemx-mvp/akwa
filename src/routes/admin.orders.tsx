@@ -6,7 +6,8 @@ import { ordersStore, type SubmittedOrder } from "@/lib/orders-store";
 import { cn } from "@/lib/utils";
 import { AgentBadge } from "@/components/AgentBadge";
 import { Badge } from "@/components/ui/badge";
-import { Sparkles, Tag } from "lucide-react";
+import { Sparkles, Tag, Wand2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/admin/orders")({
   component: AdminOrders,
@@ -74,6 +75,7 @@ function AdminOrders() {
                 <th className="text-right px-5 py-3 font-medium">Marge</th>
                 <th className="text-left px-5 py-3 font-medium">Statut</th>
                 <th className="text-left px-5 py-3 font-medium">Note IA</th>
+                <th className="text-right px-5 py-3 font-medium">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
@@ -144,13 +146,38 @@ function AdminOrders() {
                     </td>
                     <td className="px-5 py-3 text-right text-success font-semibold">{o.marginPct}%</td>
                     <td className="px-5 py-3">
-                      <span className={cn("text-[11px] font-medium px-2 py-0.5 rounded", statusColor[o.status])}>{statusLabel[o.status]}</span>
+                      {(o as SubmittedOrder).stage ? (
+                        <Badge className="text-[10px]" variant="secondary">
+                          {(o as SubmittedOrder).stage.replace(/_/g, " ")}
+                        </Badge>
+                      ) : (
+                        <span className={cn("text-[11px] font-medium px-2 py-0.5 rounded", statusColor[o.status])}>{statusLabel[o.status]}</span>
+                      )}
                     </td>
                     <td className="px-5 py-3 text-xs">
                       <span className={cn("inline-flex items-center gap-1.5", note === "Optimal ✓" ? "text-success" : "text-ai font-medium")}>
                         {note !== "Optimal ✓" && <Sparkles className="h-3 w-3 animate-pulse" />}
                         {note}
                       </span>
+                    </td>
+                    <td className="px-5 py-3 text-right" onClick={(e) => e.stopPropagation()}>
+                      {isNew && (o as SubmittedOrder).stage === "BC_Provisoire" ? (
+                        <Button
+                          size="sm"
+                          className="bg-gradient-ai text-ai-foreground"
+                          onClick={() => navigate({ to: "/admin/pricing-workflow/$orderId", params: { orderId: o.id } })}
+                        >
+                          <Wand2 className="h-3.5 w-3.5" /> Passer au pricing
+                        </Button>
+                      ) : (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => navigate({ to: "/admin/order-details/$orderId", params: { orderId: o.id } })}
+                        >
+                          Détails
+                        </Button>
+                      )}
                     </td>
                   </tr>
                 );
