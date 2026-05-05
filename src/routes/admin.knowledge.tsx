@@ -8,7 +8,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
-import { Upload, Search, Database, Package, Box, Layers, Bot, AlertTriangle, History, TrendingUp, TrendingDown } from "lucide-react";
+import { Upload, Search, Database, Package, Box, Layers, Bot, AlertTriangle, Users, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/admin/knowledge")({
@@ -268,8 +268,8 @@ function KnowledgePage() {
           <TabsTrigger value="palettes" className="gap-2">
             <Layers className="h-4 w-4" /> Palettes
           </TabsTrigger>
-          <TabsTrigger value="historique" className="gap-2">
-            <History className="h-4 w-4" /> Historique & Alertes
+          <TabsTrigger value="clients" className="gap-2">
+            <Users className="h-4 w-4" /> Clients & Informations
           </TabsTrigger>
         </TabsList>
 
@@ -282,8 +282,8 @@ function KnowledgePage() {
         <TabsContent value="palettes" className="mt-4">
           <PalettesModule />
         </TabsContent>
-        <TabsContent value="historique" className="mt-4">
-          <HistoriqueModule />
+        <TabsContent value="clients" className="mt-4">
+          <ClientsModule />
         </TabsContent>
       </Tabs>
     </div>
