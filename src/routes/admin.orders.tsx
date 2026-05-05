@@ -1,12 +1,12 @@
 // route: liste des commandes
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useSyncExternalStore } from "react";
-import { clients, formatCurrency, products } from "@/lib/mock-data";
+import { clients, formatCurrency } from "@/lib/mock-data";
 import { ordersStore, type SubmittedOrder } from "@/lib/orders-store";
 import { cn } from "@/lib/utils";
 import { AgentBadge } from "@/components/AgentBadge";
 import { Badge } from "@/components/ui/badge";
-import { Sparkles, Tag, Wand2 } from "lucide-react";
+import { Sparkles, Wand2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/admin/orders")({
@@ -40,9 +40,7 @@ function useOrders() {
 function AdminOrders() {
   const orders = useOrders();
   const navigate = useNavigate();
-  const proposedCount = orders.filter((o) =>
-    (o as SubmittedOrder).lines?.some((l: any) => l.proposedPrice !== undefined)
-  ).length;
+  const bcCount = orders.filter((o) => (o as SubmittedOrder).stage === "BC_Provisoire").length;
 
   return (
     <div className="space-y-5 max-w-[1500px]">
@@ -52,9 +50,9 @@ function AdminOrders() {
           <p className="text-sm text-muted-foreground">Validez, suivez et optimisez chaque commande.</p>
         </div>
         <div className="flex items-center gap-2">
-          {proposedCount > 0 && (
+          {bcCount > 0 && (
             <Badge className="gap-1 bg-ai text-ai-foreground">
-              <Tag className="h-3 w-3" /> {proposedCount} prix proposé(s) client
+              <Wand2 className="h-3 w-3" /> {bcCount} BC provisoire(s) à traiter
             </Badge>
           )}
           <AgentBadge name="2 actions suggérées" />
