@@ -8,7 +8,6 @@ import { AgentBadge } from "@/components/AgentBadge";
 import { Badge } from "@/components/ui/badge";
 import { Sparkles, Tag, Wand2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import type { SubmittedOrder as _SO } from "@/lib/orders-store";
 
 export const Route = createFileRoute("/admin/orders")({
   component: AdminOrders,
@@ -76,6 +75,7 @@ function AdminOrders() {
                 <th className="text-right px-5 py-3 font-medium">Marge</th>
                 <th className="text-left px-5 py-3 font-medium">Statut</th>
                 <th className="text-left px-5 py-3 font-medium">Note IA</th>
+                <th className="text-right px-5 py-3 font-medium">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
