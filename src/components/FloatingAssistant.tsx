@@ -29,7 +29,7 @@ function generateAnswer(question: string, scope: "admin" | "client"): string {
   if (q.includes("conteneur"))
     return "🚛 Recommandation IA : utiliser un conteneur 40' (taux de remplissage estimé 87%).";
   if (q.includes("stock") || q.includes("produit"))
-    return "✅ Catalogue à jour : Butane 12kg (en stock), Lubricant Pack XL (stock limité), Fuel Additive Drum (disponible).";
+    return "✅ Catalogue à jour : Huile moteur 5W-30 1L (en stock), Huile diesel 15W-40 20L (stock limité), Liquide de frein DOT 4 (disponible).";
   if (q.includes("suivi") || q.includes("commande"))
     return "🚢 Votre dernière commande est en cours de chargement. ETA estimée : 12 jours.";
   return "Je suis l'assistant AKWA AI. Je peux vous aider sur les commandes, le pricing, les marges, le conteneur et l'export. Que souhaitez-vous savoir ?";

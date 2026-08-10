@@ -128,27 +128,25 @@ function baseTimeline(sentAt: string, viewedAt?: string): TimelineEvent[] {
 }
 
 const atlasItems: QuoteItem[] = [
-  { ref: "AKW-OLV-001", label: "Huile d'olive extra vierge 1L", quantity: 2400, unit: "bouteilles", unitPrice: 6.4 },
-  { ref: "AKW-CNS-003", label: "Sardines à l'huile 125g", quantity: 4800, unit: "boîtes", unitPrice: 1.65 },
-  { ref: "AKW-CNS-008", label: "Conserves de tomates pelées 400g", quantity: 3000, unit: "boîtes", unitPrice: 0.98 },
-  { ref: "AKW-DAT-002", label: "Dattes Medjool premium 1kg", quantity: 900, unit: "sachets", unitPrice: 8.9 },
-  { ref: "AKW-CPR-004", label: "Câpres fines au vinaigre 500g", quantity: 400, unit: "bocaux", unitPrice: 3.75 },
-  { ref: "AKW-EPC-011", label: "Épices ras el hanout 250g", quantity: 800, unit: "sachets", unitPrice: 2.4 },
-  { ref: "AKW-CSC-006", label: "Couscous moyen 5kg", quantity: 400, unit: "sacs", unitPrice: 6.2 },
-  { ref: "AKW-THE-009", label: "Thé vert gunpowder 500g", quantity: 280, unit: "paquets", unitPrice: 4 },
+  { ref: "AKW-ENG-5W30-001", label: "Huile moteur synthétique 5W-30 – 1L", quantity: 2400, unit: "bidons 1L", unitPrice: 5.5 },
+  { ref: "AKW-ENG-10W40-006", label: "Huile moteur semi-synthétique 10W-40 – 5L", quantity: 800, unit: "bidons 5L", unitPrice: 21 },
+  { ref: "AKW-ATF-D3-021", label: "ATF Dexron III – 1L", quantity: 1200, unit: "bidons 1L", unitPrice: 4.75 },
+  { ref: "AKW-GEAR-80W90-031", label: "Gear Oil 80W-90 – 4L", quantity: 500, unit: "bidons 4L", unitPrice: 18 },
+  { ref: "AKW-COOL-005", label: "Liquide de refroidissement -35 °C – 5L", quantity: 600, unit: "bidons 5L", unitPrice: 7 },
+  { ref: "AKW-BRK-DOT4-011", label: "Liquide de frein DOT 4 – 500 ml", quantity: 1000, unit: "flacons 500ml", unitPrice: 3.9 },
 ];
 
 const dakarItems: QuoteItem[] = [
-  { ref: "AKW-OLV-002", label: "Huile d'olive vierge 5L", quantity: 320, unit: "bidons", unitPrice: 27.5 },
-  { ref: "AKW-CNS-003", label: "Sardines à l'huile 125g", quantity: 6000, unit: "boîtes", unitPrice: 1.62 },
-  { ref: "AKW-CSC-006", label: "Couscous moyen 5kg", quantity: 1200, unit: "sacs", unitPrice: 6.1 },
-  { ref: "AKW-EPC-011", label: "Épices ras el hanout 250g", quantity: 2200, unit: "sachets", unitPrice: 2.3 },
+  { ref: "AKW-ENG-5W30-002", label: "Huile moteur synthétique 5W-30 – 4L", quantity: 1600, unit: "bidons 4L", unitPrice: 19.4 },
+  { ref: "AKW-ENG-15W40-010", label: "Huile moteur diesel 15W-40 – 20L", quantity: 420, unit: "fûts 20L", unitPrice: 56.5 },
+  { ref: "AKW-COOL-006", label: "Antigel concentré G12+ – 20L", quantity: 260, unit: "fûts 20L", unitPrice: 37.8 },
+  { ref: "AKW-ADB-014", label: "AdBlue 10L", quantity: 900, unit: "bidons 10L", unitPrice: 7.2 },
 ];
 
 const doualaItems: QuoteItem[] = [
-  { ref: "AKW-DAT-002", label: "Dattes Medjool premium 1kg", quantity: 1500, unit: "sachets", unitPrice: 8.7 },
-  { ref: "AKW-CNF-014", label: "Confiture d'abricot 380g", quantity: 2000, unit: "bocaux", unitPrice: 2.15 },
-  { ref: "AKW-THE-009", label: "Thé vert gunpowder 500g", quantity: 1000, unit: "paquets", unitPrice: 4.2 },
+  { ref: "AKW-ENG-15W40-011", label: "Huile moteur diesel 15W-40 – 208L", quantity: 60, unit: "fûts 208L", unitPrice: 540 },
+  { ref: "AKW-GREASE-LT-008", label: "Graisse lithium multiusage – 18 kg", quantity: 220, unit: "seaux 18kg", unitPrice: 67.5 },
+  { ref: "AKW-GEAR-85W140-032", label: "Gear Oil 85W-140 – 20L", quantity: 120, unit: "fûts 20L", unitPrice: 84 },
 ];
 
 function q(partial: Omit<Quote, "family" | "version"> & { family?: string; version?: number }): Quote {
@@ -164,7 +162,7 @@ const seed: Quote[] = [
   q({
     id: "DEV-AKW-2026-0187-V1",
     orderRef: "AKW-EXP-2026-0187",
-    client: "Maison Atlas Distribution",
+    client: "Abidjan Lubricants Group",
     destination: "Abidjan, Côte d'Ivoire",
     incoterm: "CIF Abidjan",
     portDeparture: "Port de Casablanca",
@@ -174,12 +172,12 @@ const seed: Quote[] = [
     validUntil: iso("2026-08-17T23:59:00"),
     status: "À valider",
     items: atlasItems,
-    charges: { preparation: 1250, logistics: 1150, freight: 4350, insurance: 750 },
+    charges: { preparation: 1250, logistics: 1100, freight: 4600, insurance: 850 },
     paymentTerms: "60 % à la commande / 40 % avant embarquement",
     preparationDelay: "10 jours ouvrés",
     etd: iso("2026-08-18T00:00:00"),
     notes:
-      "Les délais indiqués restent soumis à la disponibilité des produits et aux disponibilités des compagnies maritimes.",
+      "Fiches de données de sécurité (SDS) et fiches techniques jointes pour chaque référence. Délais soumis aux disponibilités des compagnies maritimes.",
     timeline: baseTimeline(iso("2026-08-10T09:30:00")),
     messages: [],
     audit: { sentAt: iso("2026-08-10T09:35:00") },
@@ -187,7 +185,7 @@ const seed: Quote[] = [
   q({
     id: "DEV-AKW-2026-0193-V1",
     orderRef: "AKW-EXP-2026-0193",
-    client: "Sahel Gourmet SARL",
+    client: "Conakry Motors Distribution",
     destination: "Conakry, Guinée",
     incoterm: "FOB Casablanca",
     portDeparture: "Port de Casablanca",
@@ -197,15 +195,15 @@ const seed: Quote[] = [
     validUntil: iso("2026-08-12T23:59:00"),
     status: "À valider",
     items: [
-      { ref: "AKW-CNS-008", label: "Conserves de tomates pelées 400g", quantity: 2400, unit: "boîtes", unitPrice: 0.95 },
-      { ref: "AKW-CPR-004", label: "Câpres fines au vinaigre 500g", quantity: 600, unit: "bocaux", unitPrice: 3.6 },
-      { ref: "AKW-CNF-014", label: "Confiture d'abricot 380g", quantity: 1400, unit: "bocaux", unitPrice: 2.1 },
+      { ref: "AKW-ENG-20W50-013", label: "Huile moteur minérale 20W-50 – 5L", quantity: 2400, unit: "bidons 5L", unitPrice: 13.4 },
+      { ref: "AKW-BRK-DOT3-010", label: "Liquide de frein DOT 3 – 500 ml", quantity: 1600, unit: "flacons 500ml", unitPrice: 2.3 },
+      { ref: "AKW-ADD-INJ-040", label: "Nettoyant injecteur diesel – 300 ml", quantity: 1400, unit: "flacons", unitPrice: 2.25 },
     ],
     charges: { preparation: 780, logistics: 640, freight: 2950, insurance: 410 },
     paymentTerms: "50 % à la commande / 50 % avant embarquement",
     preparationDelay: "8 jours ouvrés",
     etd: iso("2026-08-16T00:00:00"),
-    notes: "Offre soumise à confirmation de la disponibilité des emballages export.",
+    notes: "Offre soumise à confirmation de la disponibilité des bidons et de la classification ADR du DOT 3.",
     timeline: baseTimeline(iso("2026-08-05T10:10:00"), iso("2026-08-05T14:02:00")),
     messages: [],
     audit: { sentAt: iso("2026-08-05T10:15:00"), firstViewedAt: iso("2026-08-05T14:02:00") },
@@ -213,7 +211,7 @@ const seed: Quote[] = [
   q({
     id: "DEV-AKW-2026-0176-V2",
     orderRef: "AKW-EXP-2026-0176",
-    client: "West Africa Food Distribution",
+    client: "West Africa Motors Supply",
     destination: "Dakar, Sénégal",
     incoterm: "CIF Dakar",
     portDeparture: "Port de Casablanca",
@@ -249,7 +247,7 @@ const seed: Quote[] = [
   q({
     id: "DEV-AKW-2026-0164-V1",
     orderRef: "AKW-EXP-2026-0164",
-    client: "Cameroun Import Négoce",
+    client: "Douala Automotive Distribution",
     destination: "Douala, Cameroun",
     incoterm: "CIF Douala",
     portDeparture: "Port de Casablanca",
@@ -285,7 +283,7 @@ const seed: Quote[] = [
   q({
     id: "DEV-AKW-2026-0164-V2",
     orderRef: "AKW-EXP-2026-0164",
-    client: "Cameroun Import Négoce",
+    client: "Douala Automotive Distribution",
     destination: "Douala, Cameroun",
     incoterm: "CIF Douala",
     portDeparture: "Port de Casablanca",
@@ -318,7 +316,7 @@ const seed: Quote[] = [
   q({
     id: "DEV-AKW-2026-0158-V1",
     orderRef: "AKW-EXP-2026-0158",
-    client: "Nouakchott Trading",
+    client: "Nouakchott Fleet Parts",
     destination: "Nouakchott, Mauritanie",
     incoterm: "FOB Casablanca",
     portDeparture: "Port de Casablanca",
@@ -328,14 +326,14 @@ const seed: Quote[] = [
     validUntil: iso("2026-06-27T23:59:00"),
     status: "Accepté",
     items: [
-      { ref: "AKW-CSC-006", label: "Couscous moyen 5kg", quantity: 700, unit: "sacs", unitPrice: 6.05 },
-      { ref: "AKW-THE-009", label: "Thé vert gunpowder 500g", quantity: 900, unit: "paquets", unitPrice: 4.1 },
+      { ref: "AKW-WSH-016", label: "Liquide lave-glace -20 °C – 5L", quantity: 1400, unit: "bidons 5L", unitPrice: 2.9 },
+      { ref: "AKW-ADB-014", label: "AdBlue 10L", quantity: 900, unit: "bidons 10L", unitPrice: 7.3 },
     ],
     charges: { preparation: 420, logistics: 380, freight: 2100, insurance: 260 },
     paymentTerms: "100 % avant embarquement",
     preparationDelay: "7 jours ouvrés",
     etd: iso("2026-06-30T00:00:00"),
-    notes: "Palettisation standard export 120 × 100.",
+    notes: "Palettisation standard export 120 × 100, bidons filmés et cerclés.",
     timeline: [
       ...baseTimeline(iso("2026-06-18T08:20:00"), iso("2026-06-18T09:40:00")),
       { id: "t4", at: iso("2026-06-19T10:00:00"), label: "Devis accepté par le client", tone: "success" },
@@ -353,19 +351,19 @@ const seed: Quote[] = [
   q({
     id: "DEV-AKW-2026-0142-V1",
     orderRef: "AKW-EXP-2026-0142",
-    client: "Lomé Distribution Group",
-    destination: "Lomé, Togo",
-    incoterm: "CIF Lomé",
+    client: "Ghana Auto Trade",
+    destination: "Tema, Ghana",
+    incoterm: "CIF Tema",
     portDeparture: "Port de Casablanca",
-    portDestination: "Port Autonome de Lomé",
+    portDestination: "Port de Tema",
     currency: "EUR",
     issuedAt: iso("2026-05-28T09:00:00"),
     validUntil: iso("2026-06-08T23:59:00"),
     status: "Accepté",
     items: [
-      { ref: "AKW-OLV-001", label: "Huile d'olive extra vierge 1L", quantity: 1500, unit: "bouteilles", unitPrice: 6.3 },
-      { ref: "AKW-DAT-002", label: "Dattes Medjool premium 1kg", quantity: 1800, unit: "sachets", unitPrice: 8.5 },
-      { ref: "AKW-CNS-003", label: "Sardines à l'huile 125g", quantity: 3000, unit: "boîtes", unitPrice: 1.58 },
+      { ref: "AKW-ENG-5W40-004", label: "Huile moteur synthétique 5W-40 – 5L", quantity: 1400, unit: "bidons 5L", unitPrice: 24.1 },
+      { ref: "AKW-ATF-D6-023", label: "ATF Dexron VI – 1L", quantity: 900, unit: "bidons 1L", unitPrice: 5.85 },
+      { ref: "AKW-GREASE-LT-007", label: "Graisse lithium multiusage – 5 kg", quantity: 600, unit: "seaux 5kg", unitPrice: 20.6 },
     ],
     charges: { preparation: 1450, logistics: 1290, freight: 4800, insurance: 880 },
     paymentTerms: "30 % à la commande / 70 % avant embarquement",
@@ -389,7 +387,7 @@ const seed: Quote[] = [
   q({
     id: "DEV-AKW-2026-0151-V1",
     orderRef: "AKW-EXP-2026-0151",
-    client: "Bamako Négoce International",
+    client: "Bamako Automotive Supply",
     destination: "Bamako, Mali",
     incoterm: "CIF Abidjan + route Bamako",
     portDeparture: "Port de Casablanca",
@@ -399,9 +397,9 @@ const seed: Quote[] = [
     validUntil: iso("2026-06-12T23:59:00"),
     status: "Expiré",
     items: [
-      { ref: "AKW-EPC-011", label: "Épices ras el hanout 250g", quantity: 2200, unit: "sachets", unitPrice: 2.35 },
-      { ref: "AKW-CNF-014", label: "Confiture d'abricot 380g", quantity: 1800, unit: "bocaux", unitPrice: 2.05 },
-      { ref: "AKW-CPR-004", label: "Câpres fines au vinaigre 500g", quantity: 900, unit: "bocaux", unitPrice: 3.55 },
+      { ref: "AKW-HYD-46-018", label: "Huile hydraulique ISO VG 46 – 20L", quantity: 280, unit: "fûts 20L", unitPrice: 60.5 },
+      { ref: "AKW-ENG-15W40-010", label: "Huile moteur diesel 15W-40 – 20L", quantity: 520, unit: "fûts 20L", unitPrice: 56 },
+      { ref: "AKW-GREASE-LT-007", label: "Graisse lithium multiusage – 5 kg", quantity: 400, unit: "seaux 5kg", unitPrice: 20.4 },
     ],
     charges: { preparation: 640, logistics: 1180, freight: 3200, insurance: 380 },
     paymentTerms: "60 % à la commande / 40 % avant embarquement",

@@ -102,7 +102,7 @@ function AgentExport() {
           </Panel>
 
           <Explain>
-            L'expédition est prête à <strong>{progress} %</strong>. Les points bloquants sont le certificat sanitaire et le
+            L'expédition est prête à <strong>{progress} %</strong>. Les points bloquants sont les fiches de données de sécurité (SDS) et le
             Bill of Lading, à obtenir avant le chargement. Le solde client non réglé constitue le risque le plus élevé :
             l'agent recommande de conditionner le départ à l'encaissement.
           </Explain>

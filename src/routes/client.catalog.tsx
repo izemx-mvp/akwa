@@ -22,7 +22,7 @@ export const Route = createFileRoute("/client/catalog")({
   component: Catalog,
 });
 
-const CATEGORIES = ["Tous", "Gas", "Lubricants", "Additives", "Fuel"] as const;
+const CATEGORIES = ["Tous", "Huiles moteur", "Huiles transmission", "Huiles industrielles", "Fluides automobiles", "Graisses", "Additifs & nettoyants"] as const;
 
 function Catalog() {
   const [q, setQ] = useState("");

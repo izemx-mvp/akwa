@@ -16,7 +16,7 @@ export const Route = createFileRoute("/admin/")({
 const insights = [
   { sev: "warning", agent: "Margin Analyst", text: "La marge en Côte d'Ivoire a baissé de 4 % cette semaine.", action: "Analyser" },
   { sev: "info", agent: "Container Optimizer", text: "Utilisation conteneurs à 78 % — sous le niveau optimal.", action: "Optimiser" },
-  { sev: "success", agent: "Pricing Advisor", text: "Suggestion +2,5 % sur Butane 12kg : +4 210 $ de marge générée.", action: "Voir" },
+  { sev: "success", agent: "Pricing Advisor", text: "Suggestion +2,5 % sur Huile moteur 5W-30 1L : +4 210 $ de marge générée.", action: "Voir" },
   { sev: "warning", agent: "Export Assistant", text: "2 expéditions sans Certificat d'origine pour la Mauritanie.", action: "Résoudre" },
 ];
 

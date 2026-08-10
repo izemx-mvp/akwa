@@ -38,8 +38,8 @@ function Margins() {
             <h3 className="font-semibold text-warning">Alertes IA</h3>
           </div>
           <div className="space-y-3">
-            <div className="text-sm">Le client <strong>Dakar Energy Supply</strong> a perdu <span className="text-destructive font-semibold">6,2 %</span> de marge</div>
-            <div className="text-sm">Le produit <strong>Pack Carburant Aviation</strong> est sous-performant ce trimestre</div>
+            <div className="text-sm">Le client <strong>Sénégal Fleet Lubricants</strong> a perdu <span className="text-destructive font-semibold">6,2 %</span> de marge</div>
+            <div className="text-sm">Le produit <strong>Huile diesel 15W-40 208L</strong> est sous-performant ce trimestre</div>
             <div className="text-sm">La marge en <strong>Côte d'Ivoire</strong> a baissé de 4 %</div>
             <button className="text-xs text-warning font-medium hover:underline mt-2">Voir le rapport complet →</button>
           </div>

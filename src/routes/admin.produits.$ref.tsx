@@ -205,8 +205,8 @@ function ProductDetail() {
               <Field label="Durée de conservation" value={p.logistics.shelfLife} />
               <Field label="Code HS douane" value={p.logistics.hsCode} mono />
               <Field label="Marchandise dangereuse" value={p.logistics.dangerous ? "Oui" : "Non"} />
-              <Field label="Certificat sanitaire" value={p.logistics.healthCertificate ? "Requis" : "Non requis"} />
-              <Field label="Certificat phytosanitaire" value={p.logistics.phytoCertificate ? "Requis" : "Non requis"} />
+              <Field label="Réglementé ADR" value={p.logistics.adrRegulated ? "Oui" : "Non"} />
+              <Field label="Fiche de données de sécurité (SDS)" value={p.logistics.sdsRequired ? "Requise" : "Non requise"} />
             </div>
           </Panel>
         </TabsContent>

@@ -34,7 +34,7 @@ function NewProduct() {
   const [step, setStep] = useState(0);
   const [f, setF] = useState({
     ref: `AKW-NEW-${String(Math.floor(Math.random() * 900) + 100)}`,
-    name: "", brand: "AKWA Selection", category: "Épicerie fine", subCategory: "", origin: "Maroc",
+    name: "", brand: "AKWA Selection", category: "Huiles moteur", subCategory: "", origin: "Maroc",
     saleUnit: "unité", packaging: "", description: "", emoji: "📦",
     purchasePrice: 0, salePrice: 0, minPrice: 0,
     unitWeight: 1, volume: 0.02, unitsPerCarton: 12, cartonsPerPallet: 60, hsCode: "",

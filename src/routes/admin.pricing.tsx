@@ -113,13 +113,13 @@ const loadingMessages = [
 ];
 
 const productLabel: Record<string, string> = {
-  p1: "Bouteille Butane 12kg",
-  p2: "Lubrifiant Pack XL",
-  p3: "Fût Additif Carburant",
+  p1: "Huile moteur 5W-30 1L",
+  p2: "Huile moteur 5W-40 5L",
+  p3: "Fût huile 15W-40 208L",
 };
 
 const initialRows = products.slice(0, 3).map((product, index): PricingRow => {
-  const clientNames = ["Atlantic Trade SARL", "Dakar Energy Supply", "Sahel Distribution"];
+  const clientNames = ["Dakar Auto Services", "Sénégal Fleet Lubricants", "Bamako Automotive Supply"];
   const countries = ["Sénégal", "Sénégal", "Mauritanie"];
   const logistics = [8.5, 11.8, 14.2][index];
   const currentPrice = [119, 118.2, 96.4][index] ?? product.unitPrice;
@@ -145,7 +145,7 @@ const initialRows = products.slice(0, 3).map((product, index): PricingRow => {
 
 const defaultDocuments: KnowledgeDocument[] = [
   {
-    name: "Contrat Atlantic Trade SARL.pdf",
+    name: "Contrat Dakar Auto Services.pdf",
     type: "Contrat",
     status: "Analysé",
     insights: ["Selon le contrat : limite d’augmentation +2 % sans validation", "Marge cible confirmée à 16 %"],
@@ -168,7 +168,7 @@ const recommendations = [
   },
   {
     id: "dakar-margin",
-    title: "Marge sous la cible pour Dakar Energy Supply",
+    title: "Marge sous la cible pour Sénégal Fleet Lubricants",
     text: "Marge actuelle : 11,2 % — Cible : 16 %",
     impact: "Écart : -4,8 %",
     severity: "warning",
@@ -190,11 +190,11 @@ function PricingAgentPage() {
   const [activity, setActivity] = useState<string[]>([
     "Analyse du marché Sénégal terminée",
     "Règle utilisée : marge minimale 16 %",
-    "Simulation effectuée pour Dakar Energy Supply",
+    "Simulation effectuée pour Sénégal Fleet Lubricants",
   ]);
   const [filters, setFilters] = useState({ client: "Tous", country: "Tous", product: "Tous", lowMargin: "Tous" });
   const [inputs, setInputs] = useState<SimulationInputs>({
-    client: "Atlantic Trade SARL",
+    client: "Dakar Auto Services",
     country: "Sénégal",
     productId: rows[0].product.id,
     volume: 500,
@@ -344,11 +344,11 @@ function PricingAgentPage() {
 
   const handleRecommendationApply = (id: string) => {
     if (id === "senegal-25") {
-      const row = rows.find((item) => item.country === "Sénégal" && item.product.name.includes("Butane")) ?? rows[0];
+      const row = rows.find((item) => item.country === "Sénégal" && item.product.name.includes("5W-30")) ?? rows[0];
       applyPriceToRow(row.id, row.currentPrice * 1.025);
     }
     if (id === "optimal-125") {
-      const row = rows.find((item) => item.client === "Dakar Energy Supply") ?? rows[1];
+      const row = rows.find((item) => item.client === "Sénégal Fleet Lubricants") ?? rows[1];
       applyPriceToRow(row.id, 125.5, "Prix optimal appliqué avec succès");
     }
   };
@@ -373,7 +373,7 @@ function PricingAgentPage() {
 
   const openReview = () => {
     setAgentState("Analyse en cours");
-    setLastAction("Analyse de marge lancée pour Dakar Energy Supply");
+    setLastAction("Analyse de marge lancée pour Sénégal Fleet Lubricants");
     pushActivity("Problème de marge analysé");
     setReviewOpen(true);
   };
@@ -477,7 +477,7 @@ function PricingAgentPage() {
             <p className="text-sm text-muted-foreground">Données export mockées, recommandations et statuts de marge.</p>
           </div>
           <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-            <MiniSelect value={filters.client} values={["Tous", "Atlantic Trade SARL", "Dakar Energy Supply", "Sahel Distribution"]} onChange={(client) => setFilters((state) => ({ ...state, client }))} />
+            <MiniSelect value={filters.client} values={["Tous", "Dakar Auto Services", "Sénégal Fleet Lubricants", "Bamako Automotive Supply"]} onChange={(client) => setFilters((state) => ({ ...state, client }))} />
             <MiniSelect value={filters.country} values={["Tous", "Sénégal", "Côte d’Ivoire", "Mauritanie"]} onChange={(country) => setFilters((state) => ({ ...state, country }))} />
             <MiniSelect value={filters.product} values={["Tous", ...rows.map((row) => row.product.name)]} onChange={(product) => setFilters((state) => ({ ...state, product }))} />
             <MiniSelect value={filters.lowMargin} values={["Tous", "Faible marge"]} onChange={(lowMargin) => setFilters((state) => ({ ...state, lowMargin }))} />
@@ -523,7 +523,7 @@ function PricingAgentPage() {
             <Target className="h-5 w-5 text-ai" />
           </div>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            <FieldSelect label="Client" value={inputs.client} values={["Atlantic Trade SARL", "Dakar Energy Supply", "Sahel Distribution"]} onChange={(client) => setInputs((state) => ({ ...state, client }))} />
+            <FieldSelect label="Client" value={inputs.client} values={["Dakar Auto Services", "Sénégal Fleet Lubricants", "Bamako Automotive Supply"]} onChange={(client) => setInputs((state) => ({ ...state, client }))} />
             <FieldSelect label="Pays" value={inputs.country} values={["Sénégal", "Côte d’Ivoire", "Mauritanie"]} onChange={(country) => setInputs((state) => ({ ...state, country }))} />
             <FieldSelect label="Produit" value={inputs.productId} values={rows.map((row) => row.product.id)} labels={Object.fromEntries(rows.map((row) => [row.product.id, row.product.name]))} onChange={(productId) => {
               const row = rows.find((item) => item.product.id === productId);
@@ -619,7 +619,7 @@ function PricingAgentPage() {
       <Sheet open={reviewOpen} onOpenChange={setReviewOpen}>
         <SheetContent className="w-full overflow-y-auto sm:max-w-xl">
           <SheetHeader>
-            <SheetTitle>Revoir le pricing — Dakar Energy Supply</SheetTitle>
+            <SheetTitle>Revoir le pricing — Sénégal Fleet Lubricants</SheetTitle>
             <SheetDescription>Analyse IA du problème de marge et recommandations d’action.</SheetDescription>
           </SheetHeader>
           <div className="mt-6 space-y-4">
