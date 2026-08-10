@@ -47,7 +47,7 @@ function ProductsView() {
                 formatter={(v) => eur(Number(v))}
                 contentStyle={{ borderRadius: 10, fontSize: 12, border: "1px solid oklch(0.92 0.015 245)" }}
               />
-              <Bar dataKey="revenue" name="CA" radius={[4, 4, 0, 0]} barSize={38} onClick={(p: { label?: string }) => setCat(p.label ?? null)}>
+              <Bar dataKey="revenue" name="CA" radius={[4, 4, 0, 0]} barSize={38} onClick={(p) => setCat((p as unknown as { payload?: { label?: string } }).payload?.label ?? null)}>
                 {cats.map((c) => (
                   <Cell key={c.key} fill={c.marginPct >= d.thresholds.ok ? "oklch(0.62 0.16 150)" : c.marginPct >= d.thresholds.watch ? "oklch(0.62 0.18 235)" : "oklch(0.68 0.17 55)"} />
                 ))}
