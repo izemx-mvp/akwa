@@ -46,6 +46,7 @@ import { Route as AdminContainerOrderIdRouteImport } from './routes/admin.contai
 import { Route as AdminCommandesReferenceRouteImport } from './routes/admin.commandes.$reference'
 import { Route as AdminClientsClientIdRouteImport } from './routes/admin.clients.$clientId'
 import { Route as AdminAgentsAgentIdRouteImport } from './routes/admin.agents.$agentId'
+import { Route as AdminDevisGenererReferenceRouteImport } from './routes/admin.devis.generer.$reference'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -235,6 +236,12 @@ const AdminAgentsAgentIdRoute = AdminAgentsAgentIdRouteImport.update({
   path: '/$agentId',
   getParentRoute: () => AdminAgentsRoute,
 } as any)
+const AdminDevisGenererReferenceRoute =
+  AdminDevisGenererReferenceRouteImport.update({
+    id: '/devis/generer/$reference',
+    path: '/devis/generer/$reference',
+    getParentRoute: () => AdminRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -274,6 +281,7 @@ export interface FileRoutesByFullPath {
   '/admin/container/': typeof AdminContainerIndexRoute
   '/admin/produits/': typeof AdminProduitsIndexRoute
   '/client/devis/': typeof ClientDevisIndexRoute
+  '/admin/devis/generer/$reference': typeof AdminDevisGenererReferenceRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -309,6 +317,7 @@ export interface FileRoutesByTo {
   '/admin/container': typeof AdminContainerIndexRoute
   '/admin/produits': typeof AdminProduitsIndexRoute
   '/client/devis': typeof ClientDevisIndexRoute
+  '/admin/devis/generer/$reference': typeof AdminDevisGenererReferenceRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -349,6 +358,7 @@ export interface FileRoutesById {
   '/admin/container/': typeof AdminContainerIndexRoute
   '/admin/produits/': typeof AdminProduitsIndexRoute
   '/client/devis/': typeof ClientDevisIndexRoute
+  '/admin/devis/generer/$reference': typeof AdminDevisGenererReferenceRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -390,6 +400,7 @@ export interface FileRouteTypes {
     | '/admin/container/'
     | '/admin/produits/'
     | '/client/devis/'
+    | '/admin/devis/generer/$reference'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -425,6 +436,7 @@ export interface FileRouteTypes {
     | '/admin/container'
     | '/admin/produits'
     | '/client/devis'
+    | '/admin/devis/generer/$reference'
   id:
     | '__root__'
     | '/'
@@ -464,6 +476,7 @@ export interface FileRouteTypes {
     | '/admin/container/'
     | '/admin/produits/'
     | '/client/devis/'
+    | '/admin/devis/generer/$reference'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -734,6 +747,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAgentsAgentIdRouteImport
       parentRoute: typeof AdminAgentsRoute
     }
+    '/admin/devis/generer/$reference': {
+      id: '/admin/devis/generer/$reference'
+      path: '/devis/generer/$reference'
+      fullPath: '/admin/devis/generer/$reference'
+      preLoaderRoute: typeof AdminDevisGenererReferenceRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
@@ -787,6 +807,7 @@ interface AdminRouteChildren {
   AdminClientsIndexRoute: typeof AdminClientsIndexRoute
   AdminCommandesIndexRoute: typeof AdminCommandesIndexRoute
   AdminProduitsIndexRoute: typeof AdminProduitsIndexRoute
+  AdminDevisGenererReferenceRoute: typeof AdminDevisGenererReferenceRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
@@ -811,6 +832,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminClientsIndexRoute: AdminClientsIndexRoute,
   AdminCommandesIndexRoute: AdminCommandesIndexRoute,
   AdminProduitsIndexRoute: AdminProduitsIndexRoute,
+  AdminDevisGenererReferenceRoute: AdminDevisGenererReferenceRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
