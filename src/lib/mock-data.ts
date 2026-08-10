@@ -77,21 +77,21 @@ export const products: Product[] = [
 ];
 
 export const clients: Client[] = [
-  { id: "c1", name: "Atlantic Trade SARL", country: "Sénégal", segment: "Distributor", ytdRevenue: 1_240_000, marginPct: 18.4, trend: 2.1 },
-  { id: "c2", name: "Dakar Energy Supply", country: "Sénégal", segment: "Industrial", ytdRevenue: 980_000, marginPct: 12.6, trend: -6.2 },
-  { id: "c3", name: "Sahel Distribution", country: "Mali", segment: "Distributor", ytdRevenue: 720_000, marginPct: 21.0, trend: 4.5 },
-  { id: "c4", name: "Abidjan Logistics Co.", country: "Côte d'Ivoire", segment: "Distributor", ytdRevenue: 1_550_000, marginPct: 19.2, trend: 3.4 },
-  { id: "c5", name: "Nouakchott Petro", country: "Mauritanie", segment: "Industrial", ytdRevenue: 510_000, marginPct: 9.8, trend: -3.8 },
-  { id: "c6", name: "Conakry Resellers", country: "Guinée", segment: "Reseller", ytdRevenue: 320_000, marginPct: 16.4, trend: 1.2 },
+  { id: "c1", name: "Dakar Auto Services", country: "Sénégal", segment: "Distributor", ytdRevenue: 1_240_000, marginPct: 18.4, trend: 2.1 },
+  { id: "c2", name: "Sénégal Fleet Lubricants", country: "Sénégal", segment: "Industrial", ytdRevenue: 980_000, marginPct: 12.6, trend: -6.2 },
+  { id: "c3", name: "Bamako Automotive Supply", country: "Mali", segment: "Distributor", ytdRevenue: 720_000, marginPct: 21.0, trend: 4.5 },
+  { id: "c4", name: "Abidjan Lubricants Group", country: "Côte d'Ivoire", segment: "Distributor", ytdRevenue: 1_550_000, marginPct: 19.2, trend: 3.4 },
+  { id: "c5", name: "Nouakchott Fleet Parts", country: "Mauritanie", segment: "Industrial", ytdRevenue: 510_000, marginPct: 9.8, trend: -3.8 },
+  { id: "c6", name: "Conakry Motors Distribution", country: "Guinée", segment: "Reseller", ytdRevenue: 320_000, marginPct: 16.4, trend: 1.2 },
 ];
 
 export const orders: Order[] = [
-  { id: "o1", reference: "AKW-2410-0182", clientId: "c1", destination: "Sénégal", createdAt: "2025-04-12", status: "Validated", lines: [{ productId: "p1", quantity: 800, unitPrice: 32.5 }, { productId: "p4", quantity: 400, unitPrice: 18.2 }], containerFillPct: 87, marginPct: 18.2 },
-  { id: "o2", reference: "AKW-2410-0183", clientId: "c4", destination: "Côte d'Ivoire", createdAt: "2025-04-14", status: "Shipped", lines: [{ productId: "p2", quantity: 220, unitPrice: 78.9 }], containerFillPct: 64, marginPct: 22.1 },
-  { id: "o3", reference: "AKW-2410-0184", clientId: "c3", destination: "Mali", createdAt: "2025-04-15", status: "Pending", lines: [{ productId: "p3", quantity: 40, unitPrice: 410 }, { productId: "p5", quantity: 120, unitPrice: 56 }], containerFillPct: 78, marginPct: 19.6 },
-  { id: "o4", reference: "AKW-2410-0185", clientId: "c2", destination: "Sénégal", createdAt: "2025-04-16", status: "Pending", lines: [{ productId: "p1", quantity: 300, unitPrice: 32.5 }], containerFillPct: 42, marginPct: 11.2 },
-  { id: "o5", reference: "AKW-2410-0186", clientId: "c5", destination: "Mauritanie", createdAt: "2025-04-17", status: "Draft", lines: [{ productId: "p6", quantity: 8, unitPrice: 920 }], containerFillPct: 31, marginPct: 8.4 },
-  { id: "o6", reference: "AKW-2410-0187", clientId: "c6", destination: "Guinée", createdAt: "2025-04-18", status: "Delivered", lines: [{ productId: "p4", quantity: 950, unitPrice: 18.2 }], containerFillPct: 91, marginPct: 17.0 },
+  { id: "o1", reference: "AKW-2410-0182", clientId: "c1", destination: "Sénégal", createdAt: "2025-04-12", status: "Validated", lines: [{ productId: "p1", quantity: 4800, unitPrice: 5.5 }, { productId: "p4", quantity: 900, unitPrice: 21 }], containerFillPct: 87, marginPct: 18.2 },
+  { id: "o2", reference: "AKW-2410-0183", clientId: "c4", destination: "Côte d'Ivoire", createdAt: "2025-04-14", status: "Shipped", lines: [{ productId: "p2", quantity: 1600, unitPrice: 19.4 }], containerFillPct: 64, marginPct: 22.1 },
+  { id: "o3", reference: "AKW-2410-0184", clientId: "c3", destination: "Mali", createdAt: "2025-04-15", status: "Pending", lines: [{ productId: "p3", quantity: 1200, unitPrice: 24.1 }, { productId: "p5", quantity: 420, unitPrice: 56.5 }], containerFillPct: 78, marginPct: 19.6 },
+  { id: "o4", reference: "AKW-2410-0185", clientId: "c2", destination: "Sénégal", createdAt: "2025-04-16", status: "Pending", lines: [{ productId: "p1", quantity: 2200, unitPrice: 5.5 }], containerFillPct: 42, marginPct: 11.2 },
+  { id: "o5", reference: "AKW-2410-0186", clientId: "c5", destination: "Mauritanie", createdAt: "2025-04-17", status: "Draft", lines: [{ productId: "p6", quantity: 60, unitPrice: 540 }], containerFillPct: 31, marginPct: 8.4 },
+  { id: "o6", reference: "AKW-2410-0187", clientId: "c6", destination: "Guinée", createdAt: "2025-04-18", status: "Delivered", lines: [{ productId: "p4", quantity: 1900, unitPrice: 21 }], containerFillPct: 91, marginPct: 17.0 },
 ];
 
 export const monthlyRevenue = [
