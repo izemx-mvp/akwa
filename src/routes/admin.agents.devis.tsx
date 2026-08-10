@@ -5,6 +5,8 @@ import { Chip, Kpi, Panel, quoteStatusTone } from "@/components/admin/ui";
 
 import { eur, goodsTotal, useBackoffice } from "@/lib/backoffice-store";
 import { useAgentHub } from "@/lib/agent-hub";
+import { AgentConfigPanel } from "@/components/admin/AgentConfigPanel";
+import { AppliedPricingCard } from "@/components/admin/pricing/AppliedPricingCard";
 
 export const Route = createFileRoute("/admin/agents/devis")({
   head: () => ({
@@ -36,6 +38,8 @@ function AgentDevis() {
         <Kpi label="Acceptés" value={String(adminQuotes.filter((q) => q.status === "Accepté").length)} />
         <Kpi label="En attente client" value={String(adminQuotes.filter((q) => q.status === "À valider client").length)} />
       </div>
+
+      <AppliedPricingCard />
 
       <Panel title="Commandes à chiffrer">
         <div className="overflow-x-auto">
@@ -118,6 +122,7 @@ function AgentDevis() {
           </Panel>
         </div>
       </div>
+      <AgentConfigPanel agent="devis" />
     </div>
   );
 }

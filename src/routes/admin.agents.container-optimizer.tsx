@@ -8,6 +8,7 @@ import { agentHub, containerPlans, useAgentHub, orderContext } from "@/lib/agent
 import { eur } from "@/lib/backoffice-store";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { AgentConfigPanel } from "@/components/admin/AgentConfigPanel";
 
 export const Route = createFileRoute("/admin/agents/container-optimizer")({
   head: () => ({
@@ -139,6 +140,7 @@ function AgentContainer() {
           </Panel>
         </div>
       </div>
+      <AgentConfigPanel agent="container" />
     </div>
   );
 }
