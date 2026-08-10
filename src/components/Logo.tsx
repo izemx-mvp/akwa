@@ -10,7 +10,7 @@ export function Logo({
   variant?: "dark" | "light";
   size?: "sm" | "md" | "lg";
 }) {
-  const height = size === "sm" ? "h-8" : size === "lg" ? "h-14" : "h-11";
+  const height = size === "sm" ? "h-10" : size === "lg" ? "h-20" : "h-14";
   return (
     <div className={cn("flex items-center", className)}>
       <img
