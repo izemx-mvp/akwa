@@ -76,13 +76,10 @@ function LoginPage() {
 
       <div className="lg:w-1/2 flex items-center justify-center p-8 lg:p-14 bg-background">
         <div className="w-full max-w-md">
-          <div className="flex justify-center mb-6">
-            <img
-              src="/favicon.png"
-              alt="AKWA Group"
-              className="h-20 w-auto object-contain"
-            />
+          <div className="flex justify-center mb-8">
+            <Logo size="lg" className="scale-125" />
           </div>
+
           <h2 className="text-2xl font-bold tracking-tight text-center">Bienvenue</h2>
           <p className="mt-2 text-sm text-muted-foreground text-center">
             Choisissez comment accéder à la plateforme.
