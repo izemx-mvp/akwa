@@ -2,7 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { auth } from "@/lib/auth";
-import { ArrowRight, Briefcase, ShieldCheck, Sparkles, TrendingUp, Package, BarChart3 } from "lucide-react";
+import { ArrowRight, Briefcase, ShieldCheck, Sparkles, Layers, Zap, ChartNoAxesCombined } from "lucide-react";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
