@@ -271,6 +271,8 @@ function OrderDetail() {
               {quotes.length === 0 && <p className="py-8 text-center text-sm text-muted-foreground">Aucun devis généré pour cette commande.</p>}
             </div>
           </Panel>
+
+          <OrderBillingPanel orderRef={o.reference} />
         </TabsContent>
 
         <TabsContent value="notes" className="mt-4">
