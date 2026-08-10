@@ -29,7 +29,7 @@ function AgentContainer() {
   const plans = containerPlans();
   const [selected, setSelected] = useState(plans[0].id);
   const plan = plans.find((p) => p.id === selected)!;
-  const best = plans.reduce((a, b) => (a.cost <= b.cost ? a : b));
+  const best = plans[0];
 
   return (
     <div className="max-w-[1500px] space-y-6">
