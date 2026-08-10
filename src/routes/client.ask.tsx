@@ -15,14 +15,14 @@ const SUGGESTIONS = [
   "Quel est mon produit à plus forte marge ?",
   "Quand ma dernière commande arrivera-t-elle ?",
   "Comment réduire le coût d'expédition vers le Mali ?",
-  "Montre-moi des alternatives au Butane 12kg",
+  "Montre-moi des alternatives au Huile moteur 5W-30 1L",
 ];
 
 const replies: Record<string, string> = {
-  default: "D'après votre historique, je recommande de revoir vos 3 dernières expéditions — remplissage moyen 64 %. Combiner Butane 12kg avec Lubrifiant Pack XL sur la prochaine commande débloquerait un chargement optimal.",
-  margin: "Votre produit à plus forte marge ce trimestre est **Lubrifiant Pack XL** (28,6 %). Les volumes restent faibles — augmenter la commande de 80 unités améliorerait significativement la rentabilité globale.",
+  default: "D'après votre historique, je recommande de revoir vos 3 dernières expéditions — remplissage moyen 64 %. Combiner Huile moteur 5W-30 1L avec Huile moteur 5W-40 5L sur la prochaine commande débloquerait un chargement optimal.",
+  margin: "Votre produit à plus forte marge ce trimestre est **Huile moteur 5W-40 5L** (28,6 %). Les volumes restent faibles — augmenter la commande de 80 unités améliorerait significativement la rentabilité globale.",
   arrive: "Votre expédition **AKW-2410-0186** est en transit vers Conakry — ETA 26 avril. Le dédouanement est pré-validé par l'Export Assistant.",
-  mali: "Pour réduire le coût d'expédition vers le Mali : combinez petits SKUs (Butane 6kg) avec lubrifiants en vrac dans le même conteneur. Économie estimée : **1 180 $ par expédition** à 92 % de remplissage.",
+  mali: "Pour réduire le coût d'expédition vers le Mali : combinez petits SKUs (Huile 10W-40 5L) avec lubrifiants en vrac dans le même conteneur. Économie estimée : **1 180 $ par expédition** à 92 % de remplissage.",
 };
 
 function AskAkwa() {

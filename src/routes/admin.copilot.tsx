@@ -21,10 +21,10 @@ const SUGGESTIONS = [
 
 const replies: Record<string, string> = {
   default: "J'ai croisé vos données opérationnelles. Trois opportunités émergent cette semaine : sous-utilisation conteneur sur AKW-2410-0184 (78 % → 94 % possible), écart pricing sur le corridor Sénégal (+4,2k $/mois) et 2 documents manquants pour l'expédition Mauritanie.",
-  best: "**Abidjan Logistics Co.** est votre meilleur performeur ce mois — 1,55 M$ de revenu, 19,2 % de marge, tendance +3,4 %. Ils ont consolidé 4 expéditions à 91 %+ de remplissage. Recommandation : proposer une montée de palier.",
-  mali: "La marge Mali est forte (21,0 %) mais les volumes sont limités. Pour croître rentablement :\n• Augmenter l'allocation Lubrifiant Pack XL (+30 % suggéré)\n• Consolider les commandes en bi-mensuel pour maintenir 90 %+ de remplissage\n• Appliquer +1,5 % de pricing — l'élasticité le permet\nUplift projeté : **+8 400 $/trimestre**",
-  optimize: "Prochaine expédition Sénégal (AKW-2410-0182) : actuellement 87 % de remplissage, 18,2 % de marge. Ajouter 80 unités de Butane 6kg porte le remplissage à 96 % avec +640 $ de marge. Container Optimizer prêt à appliquer.",
-  pricing: "3 anomalies de pricing détectées :\n1. Butane 12kg sous-évalué de 2,5 % au Sénégal vs marché\n2. Pack Carburant Aviation : marge en baisse de 4,1 % — revoir les coûts\n3. Lubrifiant Pack XL accepte +6 % selon l'élasticité de la demande",
+  best: "**Abidjan Lubricants Group** est votre meilleur performeur ce mois — 1,55 M$ de revenu, 19,2 % de marge, tendance +3,4 %. Ils ont consolidé 4 expéditions à 91 %+ de remplissage. Recommandation : proposer une montée de palier.",
+  mali: "La marge Mali est forte (21,0 %) mais les volumes sont limités. Pour croître rentablement :\n• Augmenter l'allocation Huile moteur 5W-40 5L (+30 % suggéré)\n• Consolider les commandes en bi-mensuel pour maintenir 90 %+ de remplissage\n• Appliquer +1,5 % de pricing — l'élasticité le permet\nUplift projeté : **+8 400 $/trimestre**",
+  optimize: "Prochaine expédition Sénégal (AKW-2410-0182) : actuellement 87 % de remplissage, 18,2 % de marge. Ajouter 80 unités de Huile 10W-40 5L porte le remplissage à 96 % avec +640 $ de marge. Container Optimizer prêt à appliquer.",
+  pricing: "3 anomalies de pricing détectées :\n1. Huile moteur 5W-30 1L sous-évalué de 2,5 % au Sénégal vs marché\n2. Huile diesel 15W-40 208L : marge en baisse de 4,1 % — revoir les coûts\n3. Huile moteur 5W-40 5L accepte +6 % selon l'élasticité de la demande",
   forecast: "D'après la vélocité des commandes et les tendances saisonnières : **revenu T3 prévu 4,1 M$** (+14 % YoY), si les optimisations IA actuelles tiennent. Facteur de risque : volatilité du corridor Mauritanie (±8 %).",
 };
 

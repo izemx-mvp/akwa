@@ -43,7 +43,7 @@ type Doc = { id: string; name: string; status: "Analysé" | "En cours"; insight:
 
 const baseDocs: Record<AgentId, Doc[]> = {
   "pricing-advisor": [
-    { id: "d1", name: "Politique pricing 2025.pdf", status: "Analysé", insight: "Marge cible Butane = 16%" },
+    { id: "d1", name: "Politique pricing 2025.pdf", status: "Analysé", insight: "Marge cible huiles moteur = 16%" },
     { id: "d2", name: "Contrat Atlantic Trade.pdf", status: "Analysé", insight: "Client limité à +2% augmentation" },
   ],
   "container-optimizer": [
@@ -184,12 +184,12 @@ function AgentDetail() {
     setSimResult(null);
     setTimeout(() => {
       const results: Record<AgentId, string> = {
-        "pricing-advisor": `Sur commande test (Dakar Energy, Butane 12kg ×600) : marge actuelle 11.2%, recommandation +1.8% → marge cible ${marginTarget[0]}%.`,
+        "pricing-advisor": `Sur commande test (Sénégal Fleet Lubricants, Huile moteur 5W-30 1L ×600) : marge actuelle 11.2%, recommandation +1.8% → marge cible ${marginTarget[0]}%.`,
         "container-optimizer": `Sur commande test (Atlantic Trade, 800 unités) : remplissage initial 68%, recommandation passage 40 pieds + gerbage → remplissage ${fillMin[0]}%+.`,
         "export-assistant": `Sur commande test Sénégal : 2 documents manquants détectés (certificat d’origine, code SH). Validation bloquée.`,
         "margin-analyst": `Analyse : 1 client sous le seuil ${marginAlert[0]}% (Dakar Energy). Alerte ${alertSensitivity} déclenchée.`,
-        "internal-copilot": `Question test : "Meilleur client du mois ?" → Réponse : Atlantic Trade SARL (1.24M USD YTD, +2.1%).`,
-        "order-assistant": `Panier test : remplissage 58%. Suggestion : +200 unités Butane 6kg pour atteindre 85%.`,
+        "internal-copilot": `Question test : "Meilleur client du mois ?" → Réponse : Dakar Auto Services (1.24M USD YTD, +2.1%).`,
+        "order-assistant": `Panier test : remplissage 58%. Suggestion : +200 unités Huile 10W-40 5L pour atteindre 85%.`,
       };
       setSimResult(results[agent.id]);
       toast.success("Simulation exécutée");
@@ -451,7 +451,7 @@ function AgentDetail() {
               {[
                 ...agent.recentActions.map((a) => ({ type: "Recommandation", text: a })),
                 { type: "Action appliquée", text: "Pricing +1.8% appliqué sur AKW-2410-0182" },
-                { type: "Anomalie", text: "Marge < 10% détectée sur Dakar Energy Supply" },
+                { type: "Anomalie", text: "Marge < 10% détectée sur Sénégal Fleet Lubricants" },
               ].map((log, i) => (
                 <div key={i} className="flex items-center gap-3 rounded-lg border border-border bg-background p-3">
                   <Badge

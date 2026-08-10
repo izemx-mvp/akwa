@@ -28,9 +28,9 @@ export const agents: Agent[] = [
     icon: TrendingUp,
     capabilities: ["Détection d'anomalies de marge", "Pricing par pays", "Simulation de remises", "Benchmark concurrentiel"],
     recentActions: [
-      "Suggestion +2,5 % sur Butane 12kg pour le Sénégal",
-      "Marge < 12 % détectée pour Dakar Energy Supply",
-      "Prix optimal recommandé : 125,50 USD sur Lubrifiant Pack XL",
+      "Suggestion +2,5 % sur Huile moteur 5W-30 1L pour le Sénégal",
+      "Marge < 12 % détectée pour Sénégal Fleet Lubricants",
+      "Prix optimal recommandé : 125,50 USD sur Huile moteur 5W-40 5L",
     ],
     status: "active",
   },
@@ -43,7 +43,7 @@ export const agents: Agent[] = [
     capabilities: ["Équilibrage volume/poids", "Chargement multi-produits", "Simulation de scénarios", "Réduction du coût/unité"],
     recentActions: [
       "Remplissage amélioré 78 % → 94 % sur AKW-2410-0184",
-      "+120 unités de Butane 6kg suggérées",
+      "+120 unités de Huile 10W-40 5L suggérées",
       "1 380 $ économisés sur l'expédition Mali",
     ],
     status: "analyzing",
@@ -57,7 +57,7 @@ export const agents: Agent[] = [
     capabilities: ["Drill-down P&L client", "Détection de tendances", "Performance SKU", "Alertes proactives"],
     recentActions: [
       "Marge en Côte d'Ivoire en baisse de 4 %",
-      "Client Dakar Energy Supply : −6 %",
+      "Client Sénégal Fleet Lubricants : −6 %",
       "Produit Carburant Aviation sous-performant",
     ],
     status: "active",
@@ -99,7 +99,7 @@ export const agents: Agent[] = [
     capabilities: ["Recommandations live", "Vérification du remplissage", "Produits alternatifs", "Astuces de réduction des coûts"],
     recentActions: [
       "+200 unités recommandées pour remplir le conteneur",
-      "Alternative Lubrifiant Pack XL suggérée",
+      "Alternative Huile moteur 5W-40 5L suggérée",
       "Économie estimée : 740 $",
     ],
     status: "active",
@@ -169,7 +169,7 @@ export function generateOrderRecommendations(
     recs.push({
       id: "fill-low",
       title: "Conteneur sous-utilisé",
-      message: `Chargement actuel à ${fill.toFixed(0)} %. Ajouter 200 unités de Butane 6kg porterait le remplissage à ~85 % et réduirait le coût d'expédition par unité de 14 %.`,
+      message: `Chargement actuel à ${fill.toFixed(0)} %. Ajouter 200 unités de Huile 10W-40 5L porterait le remplissage à ~85 % et réduirait le coût d'expédition par unité de 14 %.`,
       severity: "warning",
       cta: "Appliquer la suggestion",
       delta: `+${(85 - fill).toFixed(0)}%`,
@@ -196,7 +196,7 @@ export function generateOrderRecommendations(
     recs.push({
       id: "alt-product",
       title: "Alternative à meilleure marge",
-      message: "Remplacer 30 % des lubrifiants standard par Lubrifiant Pack XL améliorerait la marge totale d'environ 420 $.",
+      message: "Remplacer 30 % des lubrifiants standard par Huile moteur 5W-40 5L améliorerait la marge totale d'environ 420 $.",
       severity: "info",
       cta: "Comparer",
       delta: "+420 $",
@@ -216,7 +216,7 @@ export function generateOrderRecommendations(
     recs.push({
       id: "margin-low",
       title: "Marge en dessous de la cible",
-      message: `Marge de la commande : ${((totalMargin / totalValue) * 100).toFixed(1)} %. Pricing Advisor suggère +1,8 % sur Butane 12kg pour cette destination.`,
+      message: `Marge de la commande : ${((totalMargin / totalValue) * 100).toFixed(1)} %. Pricing Advisor suggère +1,8 % sur Huile moteur 5W-30 1L pour cette destination.`,
       severity: "warning",
       cta: "Appliquer le pricing",
     });

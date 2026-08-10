@@ -16,7 +16,7 @@ function ClientDashboard() {
     <div className="space-y-6 max-w-7xl">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Bienvenue, Atlantic Trade SARL</h1>
+          <h1 className="text-2xl font-bold tracking-tight">Bienvenue, Dakar Auto Services</h1>
           <p className="text-sm text-muted-foreground mt-1">Voici l'activité de votre compte aujourd'hui.</p>
         </div>
         <Link to="/client/new-order">
@@ -62,7 +62,7 @@ function ClientDashboard() {
           <AgentBadge name="AI Order Assistant" pulse />
           <h3 className="mt-4 text-lg font-semibold">Économisez 740 $ sur votre prochaine commande</h3>
           <p className="mt-2 text-sm text-white/80 leading-relaxed">
-            J'ai noté que vos 3 dernières commandes plafonnaient à ~64 % de remplissage. Combiner Butane 12kg avec Lubrifiant Pack XL débloquerait un chargement optimal et améliorerait la marge.
+            J'ai noté que vos 3 dernières commandes plafonnaient à ~64 % de remplissage. Combiner Huile moteur 5W-30 1L avec Huile moteur 5W-40 5L débloquerait un chargement optimal et améliorerait la marge.
           </p>
           <Link to="/client/new-order">
             <Button variant="secondary" size="sm" className="mt-4 gap-1.5">

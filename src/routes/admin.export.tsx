@@ -63,7 +63,7 @@ const initialShipments: Shipment[] = [
     status: "En attente documents",
     risk: "Élevé",
     container: "CONT-40HC-7821",
-    products: "Bouteille Butane 12kg ×300",
+    products: "Huile moteur 5W-30 1L ×300",
     delayed: true,
     docs: [
       { name: "Facture commerciale", status: "validé", uploadedAt: "2025-04-20", validatedBy: "M. Diop" },
@@ -103,7 +103,7 @@ const initialShipments: Shipment[] = [
     status: "En transit",
     risk: "Faible",
     container: "CONT-40HC-7798",
-    products: "Butane 12kg ×800 · Butane 6kg ×400",
+    products: "Huile moteur 5W-30 1L ×800 · Huile 10W-40 5L ×400",
     delayed: false,
     docs: [
       { name: "Facture commerciale", status: "validé", uploadedAt: "2025-04-18", validatedBy: "M. Diop" },
@@ -139,7 +139,7 @@ const initialShipments: Shipment[] = [
     status: "En transit",
     risk: "Modéré",
     container: "CONT-20DC-7745",
-    products: "Lubrifiant Pack XL ×220",
+    products: "Huile moteur 5W-40 5L ×220",
     delayed: true,
     docs: [
       { name: "Facture commerciale", status: "validé", uploadedAt: "2025-04-20" },
@@ -173,7 +173,7 @@ const initialShipments: Shipment[] = [
     status: "En préparation",
     risk: "Modéré",
     container: "CONT-20DC-7901",
-    products: "Pack Carburant Aviation ×8",
+    products: "Huile diesel 15W-40 208L ×8",
     delayed: false,
     docs: [
       { name: "Facture commerciale", status: "disponible", uploadedAt: "2025-04-26" },
@@ -212,7 +212,7 @@ const initialShipments: Shipment[] = [
     status: "Livrée",
     risk: "Faible",
     container: "CONT-40HC-7610",
-    products: "Butane 6kg ×950",
+    products: "Huile 10W-40 5L ×950",
     delayed: false,
     docs: [
       { name: "Facture commerciale", status: "validé" },
@@ -582,7 +582,7 @@ function ExportPage() {
             <h3 className="text-base font-semibold">Recommandations IA</h3>
             <ul className="mt-2 text-xs text-white/85 space-y-2">
               <li className="flex gap-2"><AlertOctagon className="h-3.5 w-3.5 mt-0.5" /> EXP-2410-0185 : 2 documents critiques manquants</li>
-              <li className="flex gap-2"><Clock className="h-3.5 w-3.5 mt-0.5" /> Risque de retard élevé sur Dakar Energy Supply</li>
+              <li className="flex gap-2"><Clock className="h-3.5 w-3.5 mt-0.5" /> Risque de retard élevé sur Sénégal Fleet Lubricants</li>
               <li className="flex gap-2"><Sparkles className="h-3.5 w-3.5 mt-0.5" /> Recommandé : prioriser cette expédition aujourd'hui</li>
             </ul>
           </div>

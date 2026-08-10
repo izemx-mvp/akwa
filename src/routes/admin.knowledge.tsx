@@ -659,7 +659,7 @@ type ClientRecord = {
 
 const initialClients: ClientRecord[] = [
   {
-    id: "cl1", nom: "Atlantic Trade SARL", pays: "Sénégal", ville: "Dakar",
+    id: "cl1", nom: "Dakar Auto Services", pays: "Sénégal", ville: "Dakar",
     type: "Distributeur", paiement: "Virement", delai: 30, devise: "EUR",
     limiteCredit: 50000, remiseMax: 3, margeMoyenne: 14, priorite: "Haute", statut: "Actif",
     volumeMensuel: 1200, produitsPrincipaux: "Lubrifiants, additifs", sensibilitePrix: "élevée",
@@ -673,7 +673,7 @@ const initialClients: ClientRecord[] = [
     ],
   },
   {
-    id: "cl2", nom: "Dakar Energy Supply", pays: "Sénégal", ville: "Dakar",
+    id: "cl2", nom: "Sénégal Fleet Lubricants", pays: "Sénégal", ville: "Dakar",
     type: "Grossiste", paiement: "Crédit", delai: 60, devise: "EUR",
     limiteCredit: 120000, remiseMax: 5, margeMoyenne: 11, priorite: "Haute", statut: "Actif",
     volumeMensuel: 2800, produitsPrincipaux: "Huiles industrielles, fûts 200L", sensibilitePrix: "moyenne",
@@ -699,7 +699,7 @@ const initialClients: ClientRecord[] = [
     ],
   },
   {
-    id: "cl4", nom: "Sahel Distribution", pays: "Mali", ville: "Bamako",
+    id: "cl4", nom: "Bamako Automotive Supply", pays: "Mali", ville: "Bamako",
     type: "Industriel", paiement: "Crédit", delai: 60, devise: "EUR",
     limiteCredit: 80000, remiseMax: 4, margeMoyenne: 13, priorite: "Moyenne", statut: "Inactif",
     volumeMensuel: 600, produitsPrincipaux: "Additifs, huiles", sensibilitePrix: "élevée",

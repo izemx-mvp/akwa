@@ -122,7 +122,7 @@ const INITIAL_USERS: User[] = [
 const INITIAL_LOGS = [
   { ts: "2026-04-28 10:24", user: "Fatima Bennani", action: "Validation document BL #BL-2841" },
   { ts: "2026-04-28 09:58", user: "Ahmed El Khalfi", action: "Optimisation conteneur scénario B appliqué" },
-  { ts: "2026-04-28 09:15", user: "Youssef Amrani", action: "Modification prix produit Lubricant Pack XL" },
+  { ts: "2026-04-28 09:15", user: "Youssef Amrani", action: "Modification prix produit Huile moteur 5W-40 5L" },
   { ts: "2026-04-28 08:42", user: "Admin", action: "Rôle attribué à Fatima : Responsable Export" },
   { ts: "2026-04-28 08:30", user: "Sara Idrissi", action: "Connexion détectée" },
 ];
