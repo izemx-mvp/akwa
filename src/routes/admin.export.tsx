@@ -570,8 +570,9 @@ function ExportPage() {
       </div>
 
       {/* Sidebar agent + activity */}
-      <aside className="space-y-4">
-        <div className="rounded-xl bg-gradient-ai text-ai-foreground p-5 shadow-ai sticky top-20 space-y-3">
+      <aside className="min-w-0 space-y-4">
+        <div className="rounded-xl bg-gradient-ai text-ai-foreground p-5 shadow-ai sticky top-20 space-y-3 overflow-hidden">
+
           <div className="flex items-center justify-between">
             <AgentBadge name="Agent Export" icon={Bot} />
             <span className="text-[10px] uppercase tracking-wider bg-white/15 px-2 py-0.5 rounded">
