@@ -28,7 +28,7 @@ function LoginPage() {
         <div className="absolute -top-32 -right-32 h-96 w-96 rounded-full bg-primary-glow/30 blur-3xl" />
         <div className="absolute -bottom-32 -left-20 h-80 w-80 rounded-full bg-ai/30 blur-3xl" />
         <div className="relative z-10">
-          <Logo variant="light" />
+          <Logo variant="light" size="lg" />
         </div>
         <div className="relative z-10 max-w-xl">
           <div className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur px-3 py-1 text-xs font-medium mb-6 border border-white/10">
@@ -77,8 +77,15 @@ function LoginPage() {
 
       <div className="lg:w-1/2 flex items-center justify-center p-8 lg:p-14 bg-background">
         <div className="w-full max-w-md">
-          <h2 className="text-2xl font-bold tracking-tight">Bienvenue</h2>
-          <p className="mt-2 text-sm text-muted-foreground">
+          <div className="flex justify-center mb-6">
+            <img
+              src="/favicon.png"
+              alt="AKWA Group"
+              className="h-20 w-auto object-contain"
+            />
+          </div>
+          <h2 className="text-2xl font-bold tracking-tight text-center">Bienvenue</h2>
+          <p className="mt-2 text-sm text-muted-foreground text-center">
             Choisissez comment accéder à la plateforme.
           </p>
 

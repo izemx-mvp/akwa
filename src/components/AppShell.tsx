@@ -66,7 +66,7 @@ export function AppShell({
     <div className="flex min-h-screen w-full bg-gradient-subtle">
       <aside className="hidden md:flex w-64 flex-col bg-gradient-sidebar text-sidebar-foreground">
         <div className="px-5 py-5 border-b border-sidebar-border">
-          <Logo variant="light" />
+          <Logo variant="light" size="lg" />
         </div>
         <div className="px-3 py-2 text-[10px] uppercase tracking-wider text-white/40 mt-2">{title}</div>
         <nav className="flex-1 px-2 space-y-1 overflow-y-auto pb-4">
