@@ -1,11 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSyncExternalStore, useState, useMemo } from "react";
 import { orders as seedOrders, products, formatCurrency, type Order } from "@/lib/mock-data";
 import { ordersStore, type SubmittedOrder } from "@/lib/orders-store";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { Eye, FileText } from "lucide-react";
+import { Eye, FileText, Ship } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/client/orders")({
@@ -82,6 +82,29 @@ function MyOrders() {
           Suivez vos bons de commande, devis reçus et expéditions.
         </p>
       </div>
+
+      <Link
+        to="/client/commandes/$reference"
+        params={{ reference: "AKW-EXP-2026-0187" }}
+        className="block rounded-xl border border-primary/25 bg-primary/5 p-4 shadow-card transition-smooth hover:-translate-y-0.5 hover:shadow-lg"
+      >
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <span className="grid h-9 w-9 place-items-center rounded-lg bg-primary/10 text-primary">
+              <Ship className="h-4 w-4" />
+            </span>
+            <div>
+              <div className="text-sm font-semibold">AKW-EXP-2026-0187 — Maison Atlas Distribution</div>
+              <div className="text-xs text-muted-foreground">
+                Abidjan, Côte d’Ivoire • CIF Abidjan • 48 750 € • En préparation logistique (45 %)
+              </div>
+            </div>
+          </div>
+          <Button size="sm" className="gap-1.5">
+            <Eye className="h-3.5 w-3.5" /> Ouvrir le suivi détaillé
+          </Button>
+        </div>
+      </Link>
 
       <div className="rounded-xl border border-border bg-card shadow-card overflow-hidden">
         <table className="w-full text-sm">
