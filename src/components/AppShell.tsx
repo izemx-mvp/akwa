@@ -18,11 +18,13 @@ export function AppShell({
   title,
   children,
   accent,
+  notifications,
 }: {
   nav: NavItem[];
   title: string;
   children: ReactNode;
   accent?: ReactNode;
+  notifications?: ReactNode;
 }) {
   const location = useLocation();
   const navigate = useNavigate();
@@ -82,9 +84,11 @@ export function AppShell({
             {accent}
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon">
-              <Bell className="h-4 w-4" />
-            </Button>
+            {notifications ?? (
+              <Button variant="ghost" size="icon">
+                <Bell className="h-4 w-4" />
+              </Button>
+            )}
             <div className="h-8 w-8 rounded-full bg-gradient-primary flex items-center justify-center text-xs font-semibold text-primary-foreground">
               AK
             </div>

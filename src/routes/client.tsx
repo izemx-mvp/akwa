@@ -1,6 +1,7 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { AppShell, type NavItem } from "@/components/AppShell";
 import { FloatingAssistant } from "@/components/FloatingAssistant";
+import { QuoteNotifications } from "@/components/quote/QuoteNotifications";
 import { auth } from "@/lib/auth";
 import { LayoutDashboard, BookOpen, PlusCircle, ListOrdered, MessageSquare, FileText } from "lucide-react";
 
@@ -9,7 +10,7 @@ const nav: NavItem[] = [
   { to: "/client/catalog", label: "Catalogue", icon: BookOpen },
   { to: "/client/new-order", label: "Nouvelle commande", icon: PlusCircle, badge: "IA" },
   { to: "/client/orders", label: "Mes commandes", icon: ListOrdered },
-  { to: "/client/quotes", label: "Mes devis", icon: FileText, badge: "IA" },
+  { to: "/client/devis", label: "Mes devis", icon: FileText },
   { to: "/client/ask", label: "Demander à AKWA AI", icon: MessageSquare, badge: "IA" },
 ];
 
@@ -20,7 +21,7 @@ export const Route = createFileRoute("/client")({
     }
   },
   component: () => (
-    <AppShell nav={nav} title="Portail Client">
+    <AppShell nav={nav} title="Portail Client" notifications={<QuoteNotifications />}>
       <Outlet />
       <FloatingAssistant />
     </AppShell>
