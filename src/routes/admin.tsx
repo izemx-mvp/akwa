@@ -92,6 +92,7 @@ function AdminLayout() {
       label: "Pilotage",
       icon: LineChart,
       items: [
+        { to: "/admin/analytics", label: "Analyse & KPI", icon: LineChart },
         { to: "/admin/copilot", label: "Copilote interne", icon: MessageSquare },
         { to: "/admin/knowledge", label: "Base de connaissances", icon: BookOpen },
         { to: "/admin/configuration-agents", label: "Configuration agents", icon: Settings2 },

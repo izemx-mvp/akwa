@@ -31,6 +31,7 @@ import { Route as AdminExportRouteImport } from './routes/admin.export'
 import { Route as AdminCopilotRouteImport } from './routes/admin.copilot'
 import { Route as AdminContainerRouteImport } from './routes/admin.container'
 import { Route as AdminConfigurationAgentsRouteImport } from './routes/admin.configuration-agents'
+import { Route as AdminAnalyticsRouteImport } from './routes/admin.analytics'
 import { Route as AdminAgentsRouteImport } from './routes/admin.agents'
 import { Route as ClientDevisIndexRouteImport } from './routes/client.devis.index'
 import { Route as AdminProduitsIndexRouteImport } from './routes/admin.produits.index'
@@ -38,6 +39,7 @@ import { Route as AdminDevisIndexRouteImport } from './routes/admin.devis.index'
 import { Route as AdminContainerIndexRouteImport } from './routes/admin.container.index'
 import { Route as AdminCommandesIndexRouteImport } from './routes/admin.commandes.index'
 import { Route as AdminClientsIndexRouteImport } from './routes/admin.clients.index'
+import { Route as AdminAnalyticsIndexRouteImport } from './routes/admin.analytics.index'
 import { Route as AdminAgentsIndexRouteImport } from './routes/admin.agents.index'
 import { Route as ClientDevisQuoteIdRouteImport } from './routes/client.devis.$quoteId'
 import { Route as ClientCommandesReferenceRouteImport } from './routes/client.commandes.$reference'
@@ -50,6 +52,12 @@ import { Route as AdminDevisQuoteIdRouteImport } from './routes/admin.devis.$quo
 import { Route as AdminContainerOrderIdRouteImport } from './routes/admin.container.$orderId'
 import { Route as AdminCommandesReferenceRouteImport } from './routes/admin.commandes.$reference'
 import { Route as AdminClientsClientIdRouteImport } from './routes/admin.clients.$clientId'
+import { Route as AdminAnalyticsRentabiliteRouteImport } from './routes/admin.analytics.rentabilite'
+import { Route as AdminAnalyticsProduitsRouteImport } from './routes/admin.analytics.produits'
+import { Route as AdminAnalyticsExportRouteImport } from './routes/admin.analytics.export'
+import { Route as AdminAnalyticsCommercialRouteImport } from './routes/admin.analytics.commercial'
+import { Route as AdminAnalyticsClientsRouteImport } from './routes/admin.analytics.clients'
+import { Route as AdminAnalyticsCashRouteImport } from './routes/admin.analytics.cash'
 import { Route as AdminAgentsPricingRouteImport } from './routes/admin.agents.pricing'
 import { Route as AdminAgentsMargeRouteImport } from './routes/admin.agents.marge'
 import { Route as AdminAgentsHistoriqueRouteImport } from './routes/admin.agents.historique'
@@ -177,6 +185,11 @@ const AdminConfigurationAgentsRoute =
     path: '/configuration-agents',
     getParentRoute: () => AdminRoute,
   } as any)
+const AdminAnalyticsRoute = AdminAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminAgentsRoute = AdminAgentsRouteImport.update({
   id: '/agents',
   path: '/agents',
@@ -211,6 +224,11 @@ const AdminClientsIndexRoute = AdminClientsIndexRouteImport.update({
   id: '/clients/',
   path: '/clients/',
   getParentRoute: () => AdminRoute,
+} as any)
+const AdminAnalyticsIndexRoute = AdminAnalyticsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminAnalyticsRoute,
 } as any)
 const AdminAgentsIndexRoute = AdminAgentsIndexRouteImport.update({
   id: '/',
@@ -274,6 +292,38 @@ const AdminClientsClientIdRoute = AdminClientsClientIdRouteImport.update({
   id: '/clients/$clientId',
   path: '/clients/$clientId',
   getParentRoute: () => AdminRoute,
+} as any)
+const AdminAnalyticsRentabiliteRoute =
+  AdminAnalyticsRentabiliteRouteImport.update({
+    id: '/rentabilite',
+    path: '/rentabilite',
+    getParentRoute: () => AdminAnalyticsRoute,
+  } as any)
+const AdminAnalyticsProduitsRoute = AdminAnalyticsProduitsRouteImport.update({
+  id: '/produits',
+  path: '/produits',
+  getParentRoute: () => AdminAnalyticsRoute,
+} as any)
+const AdminAnalyticsExportRoute = AdminAnalyticsExportRouteImport.update({
+  id: '/export',
+  path: '/export',
+  getParentRoute: () => AdminAnalyticsRoute,
+} as any)
+const AdminAnalyticsCommercialRoute =
+  AdminAnalyticsCommercialRouteImport.update({
+    id: '/commercial',
+    path: '/commercial',
+    getParentRoute: () => AdminAnalyticsRoute,
+  } as any)
+const AdminAnalyticsClientsRoute = AdminAnalyticsClientsRouteImport.update({
+  id: '/clients',
+  path: '/clients',
+  getParentRoute: () => AdminAnalyticsRoute,
+} as any)
+const AdminAnalyticsCashRoute = AdminAnalyticsCashRouteImport.update({
+  id: '/cash',
+  path: '/cash',
+  getParentRoute: () => AdminAnalyticsRoute,
 } as any)
 const AdminAgentsPricingRoute = AdminAgentsPricingRouteImport.update({
   id: '/pricing',
@@ -365,6 +415,7 @@ export interface FileRoutesByFullPath {
   '/client': typeof ClientRouteWithChildren
   '/login': typeof LoginRoute
   '/admin/agents': typeof AdminAgentsRouteWithChildren
+  '/admin/analytics': typeof AdminAnalyticsRouteWithChildren
   '/admin/configuration-agents': typeof AdminConfigurationAgentsRoute
   '/admin/container': typeof AdminContainerRouteWithChildren
   '/admin/copilot': typeof AdminCopilotRoute
@@ -390,6 +441,12 @@ export interface FileRoutesByFullPath {
   '/admin/agents/historique': typeof AdminAgentsHistoriqueRoute
   '/admin/agents/marge': typeof AdminAgentsMargeRoute
   '/admin/agents/pricing': typeof AdminAgentsPricingRouteWithChildren
+  '/admin/analytics/cash': typeof AdminAnalyticsCashRoute
+  '/admin/analytics/clients': typeof AdminAnalyticsClientsRoute
+  '/admin/analytics/commercial': typeof AdminAnalyticsCommercialRoute
+  '/admin/analytics/export': typeof AdminAnalyticsExportRoute
+  '/admin/analytics/produits': typeof AdminAnalyticsProduitsRoute
+  '/admin/analytics/rentabilite': typeof AdminAnalyticsRentabiliteRoute
   '/admin/clients/$clientId': typeof AdminClientsClientIdRoute
   '/admin/commandes/$reference': typeof AdminCommandesReferenceRoute
   '/admin/container/$orderId': typeof AdminContainerOrderIdRoute
@@ -402,6 +459,7 @@ export interface FileRoutesByFullPath {
   '/client/commandes/$reference': typeof ClientCommandesReferenceRoute
   '/client/devis/$quoteId': typeof ClientDevisQuoteIdRoute
   '/admin/agents/': typeof AdminAgentsIndexRoute
+  '/admin/analytics/': typeof AdminAnalyticsIndexRoute
   '/admin/clients/': typeof AdminClientsIndexRoute
   '/admin/commandes/': typeof AdminCommandesIndexRoute
   '/admin/container/': typeof AdminContainerIndexRoute
@@ -443,6 +501,12 @@ export interface FileRoutesByTo {
   '/admin/agents/export': typeof AdminAgentsExportRoute
   '/admin/agents/historique': typeof AdminAgentsHistoriqueRoute
   '/admin/agents/marge': typeof AdminAgentsMargeRoute
+  '/admin/analytics/cash': typeof AdminAnalyticsCashRoute
+  '/admin/analytics/clients': typeof AdminAnalyticsClientsRoute
+  '/admin/analytics/commercial': typeof AdminAnalyticsCommercialRoute
+  '/admin/analytics/export': typeof AdminAnalyticsExportRoute
+  '/admin/analytics/produits': typeof AdminAnalyticsProduitsRoute
+  '/admin/analytics/rentabilite': typeof AdminAnalyticsRentabiliteRoute
   '/admin/clients/$clientId': typeof AdminClientsClientIdRoute
   '/admin/commandes/$reference': typeof AdminCommandesReferenceRoute
   '/admin/container/$orderId': typeof AdminContainerOrderIdRoute
@@ -455,6 +519,7 @@ export interface FileRoutesByTo {
   '/client/commandes/$reference': typeof ClientCommandesReferenceRoute
   '/client/devis/$quoteId': typeof ClientDevisQuoteIdRoute
   '/admin/agents': typeof AdminAgentsIndexRoute
+  '/admin/analytics': typeof AdminAnalyticsIndexRoute
   '/admin/clients': typeof AdminClientsIndexRoute
   '/admin/commandes': typeof AdminCommandesIndexRoute
   '/admin/container': typeof AdminContainerIndexRoute
@@ -477,6 +542,7 @@ export interface FileRoutesById {
   '/client': typeof ClientRouteWithChildren
   '/login': typeof LoginRoute
   '/admin/agents': typeof AdminAgentsRouteWithChildren
+  '/admin/analytics': typeof AdminAnalyticsRouteWithChildren
   '/admin/configuration-agents': typeof AdminConfigurationAgentsRoute
   '/admin/container': typeof AdminContainerRouteWithChildren
   '/admin/copilot': typeof AdminCopilotRoute
@@ -502,6 +568,12 @@ export interface FileRoutesById {
   '/admin/agents/historique': typeof AdminAgentsHistoriqueRoute
   '/admin/agents/marge': typeof AdminAgentsMargeRoute
   '/admin/agents/pricing': typeof AdminAgentsPricingRouteWithChildren
+  '/admin/analytics/cash': typeof AdminAnalyticsCashRoute
+  '/admin/analytics/clients': typeof AdminAnalyticsClientsRoute
+  '/admin/analytics/commercial': typeof AdminAnalyticsCommercialRoute
+  '/admin/analytics/export': typeof AdminAnalyticsExportRoute
+  '/admin/analytics/produits': typeof AdminAnalyticsProduitsRoute
+  '/admin/analytics/rentabilite': typeof AdminAnalyticsRentabiliteRoute
   '/admin/clients/$clientId': typeof AdminClientsClientIdRoute
   '/admin/commandes/$reference': typeof AdminCommandesReferenceRoute
   '/admin/container/$orderId': typeof AdminContainerOrderIdRoute
@@ -514,6 +586,7 @@ export interface FileRoutesById {
   '/client/commandes/$reference': typeof ClientCommandesReferenceRoute
   '/client/devis/$quoteId': typeof ClientDevisQuoteIdRoute
   '/admin/agents/': typeof AdminAgentsIndexRoute
+  '/admin/analytics/': typeof AdminAnalyticsIndexRoute
   '/admin/clients/': typeof AdminClientsIndexRoute
   '/admin/commandes/': typeof AdminCommandesIndexRoute
   '/admin/container/': typeof AdminContainerIndexRoute
@@ -537,6 +610,7 @@ export interface FileRouteTypes {
     | '/client'
     | '/login'
     | '/admin/agents'
+    | '/admin/analytics'
     | '/admin/configuration-agents'
     | '/admin/container'
     | '/admin/copilot'
@@ -562,6 +636,12 @@ export interface FileRouteTypes {
     | '/admin/agents/historique'
     | '/admin/agents/marge'
     | '/admin/agents/pricing'
+    | '/admin/analytics/cash'
+    | '/admin/analytics/clients'
+    | '/admin/analytics/commercial'
+    | '/admin/analytics/export'
+    | '/admin/analytics/produits'
+    | '/admin/analytics/rentabilite'
     | '/admin/clients/$clientId'
     | '/admin/commandes/$reference'
     | '/admin/container/$orderId'
@@ -574,6 +654,7 @@ export interface FileRouteTypes {
     | '/client/commandes/$reference'
     | '/client/devis/$quoteId'
     | '/admin/agents/'
+    | '/admin/analytics/'
     | '/admin/clients/'
     | '/admin/commandes/'
     | '/admin/container/'
@@ -615,6 +696,12 @@ export interface FileRouteTypes {
     | '/admin/agents/export'
     | '/admin/agents/historique'
     | '/admin/agents/marge'
+    | '/admin/analytics/cash'
+    | '/admin/analytics/clients'
+    | '/admin/analytics/commercial'
+    | '/admin/analytics/export'
+    | '/admin/analytics/produits'
+    | '/admin/analytics/rentabilite'
     | '/admin/clients/$clientId'
     | '/admin/commandes/$reference'
     | '/admin/container/$orderId'
@@ -627,6 +714,7 @@ export interface FileRouteTypes {
     | '/client/commandes/$reference'
     | '/client/devis/$quoteId'
     | '/admin/agents'
+    | '/admin/analytics'
     | '/admin/clients'
     | '/admin/commandes'
     | '/admin/container'
@@ -648,6 +736,7 @@ export interface FileRouteTypes {
     | '/client'
     | '/login'
     | '/admin/agents'
+    | '/admin/analytics'
     | '/admin/configuration-agents'
     | '/admin/container'
     | '/admin/copilot'
@@ -673,6 +762,12 @@ export interface FileRouteTypes {
     | '/admin/agents/historique'
     | '/admin/agents/marge'
     | '/admin/agents/pricing'
+    | '/admin/analytics/cash'
+    | '/admin/analytics/clients'
+    | '/admin/analytics/commercial'
+    | '/admin/analytics/export'
+    | '/admin/analytics/produits'
+    | '/admin/analytics/rentabilite'
     | '/admin/clients/$clientId'
     | '/admin/commandes/$reference'
     | '/admin/container/$orderId'
@@ -685,6 +780,7 @@ export interface FileRouteTypes {
     | '/client/commandes/$reference'
     | '/client/devis/$quoteId'
     | '/admin/agents/'
+    | '/admin/analytics/'
     | '/admin/clients/'
     | '/admin/commandes/'
     | '/admin/container/'
@@ -864,6 +960,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminConfigurationAgentsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/analytics': {
+      id: '/admin/analytics'
+      path: '/analytics'
+      fullPath: '/admin/analytics'
+      preLoaderRoute: typeof AdminAnalyticsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/agents': {
       id: '/admin/agents'
       path: '/agents'
@@ -912,6 +1015,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/clients/'
       preLoaderRoute: typeof AdminClientsIndexRouteImport
       parentRoute: typeof AdminRoute
+    }
+    '/admin/analytics/': {
+      id: '/admin/analytics/'
+      path: '/'
+      fullPath: '/admin/analytics/'
+      preLoaderRoute: typeof AdminAnalyticsIndexRouteImport
+      parentRoute: typeof AdminAnalyticsRoute
     }
     '/admin/agents/': {
       id: '/admin/agents/'
@@ -996,6 +1106,48 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/clients/$clientId'
       preLoaderRoute: typeof AdminClientsClientIdRouteImport
       parentRoute: typeof AdminRoute
+    }
+    '/admin/analytics/rentabilite': {
+      id: '/admin/analytics/rentabilite'
+      path: '/rentabilite'
+      fullPath: '/admin/analytics/rentabilite'
+      preLoaderRoute: typeof AdminAnalyticsRentabiliteRouteImport
+      parentRoute: typeof AdminAnalyticsRoute
+    }
+    '/admin/analytics/produits': {
+      id: '/admin/analytics/produits'
+      path: '/produits'
+      fullPath: '/admin/analytics/produits'
+      preLoaderRoute: typeof AdminAnalyticsProduitsRouteImport
+      parentRoute: typeof AdminAnalyticsRoute
+    }
+    '/admin/analytics/export': {
+      id: '/admin/analytics/export'
+      path: '/export'
+      fullPath: '/admin/analytics/export'
+      preLoaderRoute: typeof AdminAnalyticsExportRouteImport
+      parentRoute: typeof AdminAnalyticsRoute
+    }
+    '/admin/analytics/commercial': {
+      id: '/admin/analytics/commercial'
+      path: '/commercial'
+      fullPath: '/admin/analytics/commercial'
+      preLoaderRoute: typeof AdminAnalyticsCommercialRouteImport
+      parentRoute: typeof AdminAnalyticsRoute
+    }
+    '/admin/analytics/clients': {
+      id: '/admin/analytics/clients'
+      path: '/clients'
+      fullPath: '/admin/analytics/clients'
+      preLoaderRoute: typeof AdminAnalyticsClientsRouteImport
+      parentRoute: typeof AdminAnalyticsRoute
+    }
+    '/admin/analytics/cash': {
+      id: '/admin/analytics/cash'
+      path: '/cash'
+      fullPath: '/admin/analytics/cash'
+      preLoaderRoute: typeof AdminAnalyticsCashRouteImport
+      parentRoute: typeof AdminAnalyticsRoute
     }
     '/admin/agents/pricing': {
       id: '/admin/agents/pricing'
@@ -1148,6 +1300,30 @@ const AdminAgentsRouteWithChildren = AdminAgentsRoute._addFileChildren(
   AdminAgentsRouteChildren,
 )
 
+interface AdminAnalyticsRouteChildren {
+  AdminAnalyticsCashRoute: typeof AdminAnalyticsCashRoute
+  AdminAnalyticsClientsRoute: typeof AdminAnalyticsClientsRoute
+  AdminAnalyticsCommercialRoute: typeof AdminAnalyticsCommercialRoute
+  AdminAnalyticsExportRoute: typeof AdminAnalyticsExportRoute
+  AdminAnalyticsProduitsRoute: typeof AdminAnalyticsProduitsRoute
+  AdminAnalyticsRentabiliteRoute: typeof AdminAnalyticsRentabiliteRoute
+  AdminAnalyticsIndexRoute: typeof AdminAnalyticsIndexRoute
+}
+
+const AdminAnalyticsRouteChildren: AdminAnalyticsRouteChildren = {
+  AdminAnalyticsCashRoute: AdminAnalyticsCashRoute,
+  AdminAnalyticsClientsRoute: AdminAnalyticsClientsRoute,
+  AdminAnalyticsCommercialRoute: AdminAnalyticsCommercialRoute,
+  AdminAnalyticsExportRoute: AdminAnalyticsExportRoute,
+  AdminAnalyticsProduitsRoute: AdminAnalyticsProduitsRoute,
+  AdminAnalyticsRentabiliteRoute: AdminAnalyticsRentabiliteRoute,
+  AdminAnalyticsIndexRoute: AdminAnalyticsIndexRoute,
+}
+
+const AdminAnalyticsRouteWithChildren = AdminAnalyticsRoute._addFileChildren(
+  AdminAnalyticsRouteChildren,
+)
+
 interface AdminContainerRouteChildren {
   AdminContainerOrderIdRoute: typeof AdminContainerOrderIdRoute
   AdminContainerIndexRoute: typeof AdminContainerIndexRoute
@@ -1180,6 +1356,7 @@ const AdminFacturationRouteWithChildren =
 
 interface AdminRouteChildren {
   AdminAgentsRoute: typeof AdminAgentsRouteWithChildren
+  AdminAnalyticsRoute: typeof AdminAnalyticsRouteWithChildren
   AdminConfigurationAgentsRoute: typeof AdminConfigurationAgentsRoute
   AdminContainerRoute: typeof AdminContainerRouteWithChildren
   AdminCopilotRoute: typeof AdminCopilotRoute
@@ -1210,6 +1387,7 @@ interface AdminRouteChildren {
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminAgentsRoute: AdminAgentsRouteWithChildren,
+  AdminAnalyticsRoute: AdminAnalyticsRouteWithChildren,
   AdminConfigurationAgentsRoute: AdminConfigurationAgentsRoute,
   AdminContainerRoute: AdminContainerRouteWithChildren,
   AdminCopilotRoute: AdminCopilotRoute,
