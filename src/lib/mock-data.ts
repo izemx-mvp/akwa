@@ -50,6 +50,18 @@ export const products: Product[] = [
   { id: "p4", sku: "BUT-06", name: "Bouteille Butane 6kg", category: "Gas", unitPrice: 18.2, cost: 12.4, unitWeightKg: 7.5, unitVolumeM3: 0.025, stock: 18800, image: "⛽" },
   { id: "p5", sku: "LUB-IND", name: "Huile Industrielle 20L", category: "Lubricants", unitPrice: 56, cost: 38, unitWeightKg: 19, unitVolumeM3: 0.025, stock: 5400, image: "🧴" },
   { id: "p6", sku: "FUEL-AV", name: "Pack Carburant Aviation", category: "Fuel", unitPrice: 920, cost: 720, unitWeightKg: 180, unitVolumeM3: 0.22, stock: 220, image: "✈️" },
+  { id: "p7", sku: "BUT-25", name: "Bouteille Butane 25kg", category: "Gas", unitPrice: 61.4, cost: 46, unitWeightKg: 28, unitVolumeM3: 0.08, stock: 6400, image: "🛢️" },
+  { id: "p8", sku: "PROP-35", name: "Bouteille Propane 35kg", category: "Gas", unitPrice: 88.5, cost: 66, unitWeightKg: 39, unitVolumeM3: 0.11, stock: 2900, image: "🔥" },
+  { id: "p9", sku: "GAS-REG", name: "Détendeur Gaz Sécurité", category: "Gas", unitPrice: 9.8, cost: 5.6, unitWeightKg: 0.6, unitVolumeM3: 0.002, stock: 42000, image: "🔧" },
+  { id: "p10", sku: "LUB-MOT", name: "Huile Moteur 5W40 · 5L", category: "Lubricants", unitPrice: 34.2, cost: 22.5, unitWeightKg: 4.8, unitVolumeM3: 0.006, stock: 15600, image: "🛢️" },
+  { id: "p11", sku: "LUB-TRK", name: "Huile Poids Lourd 15W40 · 208L", category: "Lubricants", unitPrice: 640, cost: 470, unitWeightKg: 190, unitVolumeM3: 0.24, stock: 380, image: "🚛" },
+  { id: "p12", sku: "LUB-GRS", name: "Graisse Multi-usage 18kg", category: "Lubricants", unitPrice: 96.5, cost: 68, unitWeightKg: 19, unitVolumeM3: 0.028, stock: 2400, image: "🧈" },
+  { id: "p13", sku: "ADD-DSL", name: "Additif Diesel Premium 20L", category: "Additives", unitPrice: 74.9, cost: 51, unitWeightKg: 21, unitVolumeM3: 0.026, stock: 3100, image: "🧪" },
+  { id: "p14", sku: "ADD-ADB", name: "AdBlue 1000L IBC", category: "Additives", unitPrice: 480, cost: 355, unitWeightKg: 1120, unitVolumeM3: 1.2, stock: 160, image: "🫙" },
+  { id: "p15", sku: "ADD-OCT", name: "Booster Octane 5L", category: "Additives", unitPrice: 41.5, cost: 27, unitWeightKg: 5.2, unitVolumeM3: 0.007, stock: 7800, image: "⚗️" },
+  { id: "p16", sku: "FUEL-D50", name: "Gasoil 50ppm · Fût 200L", category: "Fuel", unitPrice: 285, cost: 224, unitWeightKg: 175, unitVolumeM3: 0.22, stock: 940, image: "⛽" },
+  { id: "p17", sku: "FUEL-KER", name: "Kérosène Industriel 200L", category: "Fuel", unitPrice: 310, cost: 246, unitWeightKg: 165, unitVolumeM3: 0.22, stock: 620, image: "🔆" },
+  { id: "p18", sku: "FUEL-MAR", name: "Fioul Marine Pack 500L", category: "Fuel", unitPrice: 690, cost: 545, unitWeightKg: 430, unitVolumeM3: 0.55, stock: 210, image: "🚢" },
 ];
 
 export const clients: Client[] = [
