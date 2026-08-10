@@ -61,7 +61,7 @@ function CommercialView() {
               <CartesianGrid strokeDasharray="3 3" stroke="oklch(0.92 0.015 245)" />
               <XAxis type="number" fontSize={11} tickFormatter={(v: number) => `${Math.round(v / 1000)}k`} />
               <YAxis type="category" dataKey="label" fontSize={11} width={130} />
-              <Tooltip formatter={(v: number) => eur(v)} contentStyle={{ borderRadius: 10, fontSize: 12 }} />
+              <Tooltip formatter={(v) => eur(Number(v))} contentStyle={{ borderRadius: 10, fontSize: 12 }} />
               <Bar dataKey="value" fill="oklch(0.62 0.18 25)" radius={[0, 4, 4, 0]} barSize={16} />
             </BarChart>
           </ResponsiveContainer>
