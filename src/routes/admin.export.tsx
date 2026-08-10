@@ -582,9 +582,9 @@ function ExportPage() {
           <div>
             <h3 className="text-base font-semibold">Recommandations IA</h3>
             <ul className="mt-2 text-xs text-white/85 space-y-2">
-              <li className="flex gap-2"><AlertOctagon className="h-3.5 w-3.5 mt-0.5" /> EXP-2410-0185 : 2 documents critiques manquants</li>
-              <li className="flex gap-2"><Clock className="h-3.5 w-3.5 mt-0.5" /> Risque de retard élevé sur Sénégal Fleet Lubricants</li>
-              <li className="flex gap-2"><Sparkles className="h-3.5 w-3.5 mt-0.5" /> Recommandé : prioriser cette expédition aujourd'hui</li>
+              <li className="flex gap-2"><AlertOctagon className="h-3.5 w-3.5 mt-0.5 shrink-0" /> <span className="min-w-0 break-words">EXP-2410-0185 : 2 documents critiques manquants</span></li>
+              <li className="flex gap-2"><Clock className="h-3.5 w-3.5 mt-0.5 shrink-0" /> <span className="min-w-0 break-words">Risque de retard élevé sur Sénégal Fleet Lubricants</span></li>
+              <li className="flex gap-2"><Sparkles className="h-3.5 w-3.5 mt-0.5 shrink-0" /> <span className="min-w-0 break-words">Recommandé : prioriser cette expédition aujourd'hui</span></li>
             </ul>
           </div>
           <Button size="sm" variant="secondary" className="w-full" onClick={runAgentScan}>
