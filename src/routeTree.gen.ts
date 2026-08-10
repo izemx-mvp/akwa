@@ -57,6 +57,7 @@ import { Route as AdminAgentsContainerOptimizerRouteImport } from './routes/admi
 import { Route as AdminAgentsAgentIdRouteImport } from './routes/admin.agents.$agentId'
 import { Route as AdminAgentsPricingIndexRouteImport } from './routes/admin.agents.pricing.index'
 import { Route as AdminDevisGenererReferenceRouteImport } from './routes/admin.devis.generer.$reference'
+import { Route as AdminAgentsPricingReglesRouteImport } from './routes/admin.agents.pricing.regles'
 import { Route as AdminAgentsPricingAnalyseRouteImport } from './routes/admin.agents.pricing.analyse'
 
 const LoginRoute = LoginRouteImport.update({
@@ -304,6 +305,12 @@ const AdminDevisGenererReferenceRoute =
     path: '/devis/generer/$reference',
     getParentRoute: () => AdminRoute,
   } as any)
+const AdminAgentsPricingReglesRoute =
+  AdminAgentsPricingReglesRouteImport.update({
+    id: '/regles',
+    path: '/regles',
+    getParentRoute: () => AdminAgentsPricingRoute,
+  } as any)
 const AdminAgentsPricingAnalyseRoute =
   AdminAgentsPricingAnalyseRouteImport.update({
     id: '/analyse',
@@ -359,6 +366,7 @@ export interface FileRoutesByFullPath {
   '/admin/produits/': typeof AdminProduitsIndexRoute
   '/client/devis/': typeof ClientDevisIndexRoute
   '/admin/agents/pricing/analyse': typeof AdminAgentsPricingAnalyseRoute
+  '/admin/agents/pricing/regles': typeof AdminAgentsPricingReglesRoute
   '/admin/devis/generer/$reference': typeof AdminDevisGenererReferenceRoute
   '/admin/agents/pricing/': typeof AdminAgentsPricingIndexRoute
 }
@@ -405,6 +413,7 @@ export interface FileRoutesByTo {
   '/admin/produits': typeof AdminProduitsIndexRoute
   '/client/devis': typeof ClientDevisIndexRoute
   '/admin/agents/pricing/analyse': typeof AdminAgentsPricingAnalyseRoute
+  '/admin/agents/pricing/regles': typeof AdminAgentsPricingReglesRoute
   '/admin/devis/generer/$reference': typeof AdminDevisGenererReferenceRoute
   '/admin/agents/pricing': typeof AdminAgentsPricingIndexRoute
 }
@@ -457,6 +466,7 @@ export interface FileRoutesById {
   '/admin/produits/': typeof AdminProduitsIndexRoute
   '/client/devis/': typeof ClientDevisIndexRoute
   '/admin/agents/pricing/analyse': typeof AdminAgentsPricingAnalyseRoute
+  '/admin/agents/pricing/regles': typeof AdminAgentsPricingReglesRoute
   '/admin/devis/generer/$reference': typeof AdminDevisGenererReferenceRoute
   '/admin/agents/pricing/': typeof AdminAgentsPricingIndexRoute
 }
@@ -510,6 +520,7 @@ export interface FileRouteTypes {
     | '/admin/produits/'
     | '/client/devis/'
     | '/admin/agents/pricing/analyse'
+    | '/admin/agents/pricing/regles'
     | '/admin/devis/generer/$reference'
     | '/admin/agents/pricing/'
   fileRoutesByTo: FileRoutesByTo
@@ -556,6 +567,7 @@ export interface FileRouteTypes {
     | '/admin/produits'
     | '/client/devis'
     | '/admin/agents/pricing/analyse'
+    | '/admin/agents/pricing/regles'
     | '/admin/devis/generer/$reference'
     | '/admin/agents/pricing'
   id:
@@ -607,6 +619,7 @@ export interface FileRouteTypes {
     | '/admin/produits/'
     | '/client/devis/'
     | '/admin/agents/pricing/analyse'
+    | '/admin/agents/pricing/regles'
     | '/admin/devis/generer/$reference'
     | '/admin/agents/pricing/'
   fileRoutesById: FileRoutesById
@@ -956,6 +969,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminDevisGenererReferenceRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/agents/pricing/regles': {
+      id: '/admin/agents/pricing/regles'
+      path: '/regles'
+      fullPath: '/admin/agents/pricing/regles'
+      preLoaderRoute: typeof AdminAgentsPricingReglesRouteImport
+      parentRoute: typeof AdminAgentsPricingRoute
+    }
     '/admin/agents/pricing/analyse': {
       id: '/admin/agents/pricing/analyse'
       path: '/analyse'
@@ -968,11 +988,13 @@ declare module '@tanstack/react-router' {
 
 interface AdminAgentsPricingRouteChildren {
   AdminAgentsPricingAnalyseRoute: typeof AdminAgentsPricingAnalyseRoute
+  AdminAgentsPricingReglesRoute: typeof AdminAgentsPricingReglesRoute
   AdminAgentsPricingIndexRoute: typeof AdminAgentsPricingIndexRoute
 }
 
 const AdminAgentsPricingRouteChildren: AdminAgentsPricingRouteChildren = {
   AdminAgentsPricingAnalyseRoute: AdminAgentsPricingAnalyseRoute,
+  AdminAgentsPricingReglesRoute: AdminAgentsPricingReglesRoute,
   AdminAgentsPricingIndexRoute: AdminAgentsPricingIndexRoute,
 }
 
