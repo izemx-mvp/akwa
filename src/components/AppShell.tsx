@@ -1,27 +1,40 @@
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
-import { type ReactNode } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { Logo } from "./Logo";
 import { Button } from "@/components/ui/button";
-import { Bell, LogOut, type LucideIcon } from "lucide-react";
+import { Bell, ChevronDown, LayoutDashboard, LogOut, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { auth } from "@/lib/auth";
 
 export type NavItem = {
   to: string;
   label: string;
-  icon: LucideIcon;
+  icon?: LucideIcon;
   badge?: string;
 };
 
+export type NavGroup = {
+  label: string;
+  icon: LucideIcon;
+  to?: string;
+  items: NavItem[];
+  badge?: string;
+};
+
+const isPathActive = (pathname: string, to: string) =>
+  pathname === to || (to !== "/" && pathname.startsWith(to + "/"));
+
 export function AppShell({
   nav,
+  groups,
   title,
   children,
   accent,
   notifications,
   user,
 }: {
-  nav: NavItem[];
+  nav?: NavItem[];
+  groups?: NavGroup[];
   title: string;
   children: ReactNode;
   accent?: ReactNode;
@@ -37,6 +50,18 @@ export function AppShell({
     navigate({ to: "/login" });
   };
 
+  const activeGroup = useMemo(
+    () => groups?.find((g) => g.items.some((i) => isPathActive(location.pathname, i.to)))?.label ?? null,
+    [groups, location.pathname],
+  );
+  const [open, setOpen] = useState<string[]>(activeGroup ? [activeGroup] : []);
+  useEffect(() => {
+    if (activeGroup) setOpen((prev) => (prev.includes(activeGroup) ? prev : [...prev, activeGroup]));
+  }, [activeGroup]);
+
+  const toggle = (label: string) =>
+    setOpen((prev) => (prev.includes(label) ? prev.filter((l) => l !== label) : [...prev, label]));
+
   return (
     <div className="flex min-h-screen w-full bg-gradient-subtle">
       <aside className="hidden md:flex w-64 flex-col bg-gradient-sidebar text-sidebar-foreground">
@@ -44,9 +69,9 @@ export function AppShell({
           <Logo variant="light" />
         </div>
         <div className="px-3 py-2 text-[10px] uppercase tracking-wider text-white/40 mt-2">{title}</div>
-        <nav className="flex-1 px-2 space-y-1 overflow-y-auto">
-          {nav.map((item) => {
-            const active = location.pathname === item.to || (item.to !== "/" && location.pathname.startsWith(item.to));
+        <nav className="flex-1 px-2 space-y-1 overflow-y-auto pb-4">
+          {nav?.map((item) => {
+            const active = isPathActive(location.pathname, item.to) || location.pathname === item.to;
             return (
               <Link
                 key={item.to}
@@ -58,7 +83,7 @@ export function AppShell({
                     : "text-white/70 hover:bg-sidebar-accent/60 hover:text-white"
                 )}
               >
-                <item.icon className={cn("h-4 w-4", active && "text-primary-glow")} />
+                {item.icon && <item.icon className={cn("h-4 w-4", active && "text-primary-glow")} />}
                 <span className="flex-1">{item.label}</span>
                 {item.badge && (
                   <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-md bg-primary-glow/20 text-primary-glow">
@@ -66,6 +91,71 @@ export function AppShell({
                   </span>
                 )}
               </Link>
+            );
+          })}
+
+          {groups?.map((group) => {
+            const expanded = open.includes(group.label);
+            const groupActive = group.items.some((i) => isPathActive(location.pathname, i.to)) ||
+              (group.to ? location.pathname === group.to : false);
+            return (
+              <div key={group.label}>
+                <button
+                  type="button"
+                  onClick={() => toggle(group.label)}
+                  aria-expanded={expanded}
+                  className={cn(
+                    "w-full flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-smooth",
+                    groupActive ? "bg-sidebar-accent/70 text-white" : "text-white/70 hover:bg-sidebar-accent/50 hover:text-white",
+                  )}
+                >
+                  <group.icon className={cn("h-4 w-4", groupActive && "text-primary-glow")} />
+                  <span className="flex-1 text-left">{group.label}</span>
+                  {group.badge && (
+                    <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-md bg-primary-glow/20 text-primary-glow">
+                      {group.badge}
+                    </span>
+                  )}
+                  <ChevronDown className={cn("h-3.5 w-3.5 transition-transform", expanded && "rotate-180")} />
+                </button>
+                {expanded && (
+                  <div className="mt-1 mb-1 ml-5 border-l border-white/10 pl-2 space-y-0.5">
+                    {group.to && (
+                      <Link
+                        to={group.to}
+                        className={cn(
+                          "flex items-center gap-2 rounded-md px-2 py-1.5 text-[12px] transition-smooth",
+                          location.pathname === group.to ? "bg-sidebar-accent text-white" : "text-white/60 hover:text-white hover:bg-sidebar-accent/50",
+                        )}
+                      >
+                        <LayoutDashboard className="h-3.5 w-3.5" />
+                        Vue d'ensemble
+                      </Link>
+                    )}
+                    {group.items.map((item) => {
+                      const active = isPathActive(location.pathname, item.to) || location.pathname === item.to;
+                      return (
+                        <Link
+                          key={item.to}
+                          to={item.to}
+                          className={cn(
+                            "flex items-center gap-2 rounded-md px-2 py-1.5 text-[12px] transition-smooth",
+                            active ? "bg-sidebar-accent text-white shadow-elegant" : "text-white/60 hover:text-white hover:bg-sidebar-accent/50",
+                          )}
+                        >
+                          {item.icon && <item.icon className={cn("h-3.5 w-3.5", active && "text-primary-glow")} />}
+                          <span className="flex-1">{item.label}</span>
+                          {item.badge && (
+                            <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-primary-glow/20 text-primary-glow">
+                              {item.badge}
+                            </span>
+                          )}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
             );
           })}
         </nav>
@@ -79,6 +169,7 @@ export function AppShell({
           </button>
         </div>
       </aside>
+
 
       <main className="flex-1 flex flex-col min-w-0">
         <header className="h-14 border-b border-border bg-card/80 backdrop-blur sticky top-0 z-20 px-5 flex items-center justify-between">
