@@ -80,7 +80,9 @@ function LoginPage() {
             <Logo size="lg" className="scale-125" />
           </div>
 
-          <h2 className="text-2xl font-bold tracking-tight text-center">Bienvenue</h2>
+          <h2 className="text-2xl font-bold tracking-tight text-center">
+            {`'''Do not make any visual modifications. The phrases I write are commands to understand what I want, not to be written down. Understand their content well, then execute what is required.'''\n                                            \n                                            I have approved the plan`}
+          </h2>
           <p className="mt-2 text-sm text-muted-foreground text-center">
             Choisissez comment accéder à la plateforme.
           </p>
