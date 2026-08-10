@@ -336,8 +336,8 @@ function ExportPage() {
   const inTransit = shipments.filter(s => s.status === "En transit").length;
 
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-[1fr_360px] gap-6 max-w-[1500px]">
-      <div className="space-y-6">
+    <div className="grid w-full min-w-0 grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1fr)_360px] max-w-[1500px]">
+      <div className="min-w-0 space-y-6">
         {/* Header */}
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
@@ -570,8 +570,9 @@ function ExportPage() {
       </div>
 
       {/* Sidebar agent + activity */}
-      <aside className="space-y-4">
-        <div className="rounded-xl bg-gradient-ai text-ai-foreground p-5 shadow-ai sticky top-20 space-y-3">
+      <aside className="min-w-0 space-y-4">
+        <div className="rounded-xl bg-gradient-ai text-ai-foreground p-5 shadow-ai sticky top-20 space-y-3 overflow-hidden">
+
           <div className="flex items-center justify-between">
             <AgentBadge name="Agent Export" icon={Bot} />
             <span className="text-[10px] uppercase tracking-wider bg-white/15 px-2 py-0.5 rounded">
@@ -581,9 +582,9 @@ function ExportPage() {
           <div>
             <h3 className="text-base font-semibold">Recommandations IA</h3>
             <ul className="mt-2 text-xs text-white/85 space-y-2">
-              <li className="flex gap-2"><AlertOctagon className="h-3.5 w-3.5 mt-0.5" /> EXP-2410-0185 : 2 documents critiques manquants</li>
-              <li className="flex gap-2"><Clock className="h-3.5 w-3.5 mt-0.5" /> Risque de retard élevé sur Sénégal Fleet Lubricants</li>
-              <li className="flex gap-2"><Sparkles className="h-3.5 w-3.5 mt-0.5" /> Recommandé : prioriser cette expédition aujourd'hui</li>
+              <li className="flex gap-2"><AlertOctagon className="h-3.5 w-3.5 mt-0.5 shrink-0" /> <span className="min-w-0 break-words">EXP-2410-0185 : 2 documents critiques manquants</span></li>
+              <li className="flex gap-2"><Clock className="h-3.5 w-3.5 mt-0.5 shrink-0" /> <span className="min-w-0 break-words">Risque de retard élevé sur Sénégal Fleet Lubricants</span></li>
+              <li className="flex gap-2"><Sparkles className="h-3.5 w-3.5 mt-0.5 shrink-0" /> <span className="min-w-0 break-words">Recommandé : prioriser cette expédition aujourd'hui</span></li>
             </ul>
           </div>
           <Button size="sm" variant="secondary" className="w-full" onClick={runAgentScan}>
