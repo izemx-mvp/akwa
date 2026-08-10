@@ -7,7 +7,7 @@ import { CURRENT_USER, useBackoffice } from "@/lib/backoffice-store";
 import {
   LayoutDashboard, ShoppingCart, FileText, Package, Users, Bot, Bell, Settings,
   Briefcase, Ship, Wallet, Boxes, BarChart3, Tag, TrendingUp, FileCheck, Container,
-  History, BookOpen, MessageSquare, ShieldCheck, Upload, PlusCircle, LineChart,
+  History, BookOpen, Receipt, MessageSquare, ShieldCheck, Upload, PlusCircle, LineChart,
 } from "lucide-react";
 
 const dashboard: NavItem[] = [{ to: "/admin", label: "Tableau de bord", icon: LayoutDashboard }];
