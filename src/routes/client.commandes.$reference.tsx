@@ -12,6 +12,7 @@ import { TabPaiements } from "@/components/order/TabPaiements";
 import { TabEchanges } from "@/components/order/TabEchanges";
 import { TabHistorique } from "@/components/order/TabHistorique";
 import { useExportOrderView } from "@/lib/order-variants";
+import { OrderQuoteCard } from "@/components/quote/OrderQuoteCard";
 
 export const Route = createFileRoute("/client/commandes/$reference")({
   head: () => ({
