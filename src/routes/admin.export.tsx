@@ -336,8 +336,8 @@ function ExportPage() {
   const inTransit = shipments.filter(s => s.status === "En transit").length;
 
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-[1fr_360px] gap-6 max-w-[1500px]">
-      <div className="space-y-6">
+    <div className="grid w-full min-w-0 grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1fr)_360px] max-w-[1500px]">
+      <div className="min-w-0 space-y-6">
         {/* Header */}
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
