@@ -6,7 +6,7 @@ import {
 import { Lightbulb, Target, TriangleAlert } from "lucide-react";
 import {
   useAnalytics, series, byCountry, byClient, byCategory, byProduct, delta, insights,
-  eur, eurCompact, pct1, num, analyticsStore, useAnalyticsState,
+  eur, eurCompact, pct1, num, useAnalyticsState,
   type Granularity, type Group,
 } from "@/lib/analytics-store";
 import { KpiTile, Section, Bullet, Waterfall, RankBars, AlertCard, DrillSheet, MiniStat, DataTable, Tag, marginTone } from "@/components/admin/analytics/parts";
