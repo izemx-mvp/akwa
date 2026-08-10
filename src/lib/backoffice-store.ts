@@ -818,7 +818,7 @@ function conditionsFor(o: AdminOrder, paymentTerms: string) {
     etd: iso("2026-08-24T00:00:00"), eta: iso("2026-09-08T00:00:00"),
     portDeparture: o.portDeparture, portDestination: o.portDestination,
     transportMode: "Maritime — conteneur 40' HC",
-    notes: "Marchandises conformes aux standards export AKWA.",
+    notes: "Lubrifiants et fluides conformes aux normes API / ACEA, SDS fournies pour chaque référence.",
     specialTerms: "Prix fermes jusqu'à la date de validité indiquée.",
   };
 }
@@ -830,22 +830,22 @@ let adminQuotes: AdminQuote[] = [
     sentAt: iso("2026-08-10T11:44:00"), validUntil: iso("2026-08-17T00:00:00"), updatedAt: iso("2026-08-10T11:44:00"),
     items: atlasItems,
     fees: [
-      fee("Fret maritime", "Casablanca → Abidjan, 1 × 40' HC", 3900, 4350, iso("2026-08-10T11:31:00")),
-      fee("Assurance", "Assurance marchandises 110 % valeur CIF", 650, 750, iso("2026-08-10T11:34:00")),
-      fee("Frais de préparation", "Préparation, palettisation et contrôle qualité", 850, 1250, iso("2026-08-10T11:36:00")),
-      fee("Transport local", "Pré-acheminement usine → port de Casablanca", 1100, 1650, iso("2026-08-10T11:37:00")),
-      fee("Documentation export", "Certificat d'origine, EUR1, connaissement", 300, 750, iso("2026-08-10T11:38:00")),
+      fee("Fret maritime", "Casablanca → Abidjan, 2 × 40' HC", 4100, 4600, iso("2026-08-10T11:31:00")),
+      fee("Assurance", "Assurance marchandises 110 % valeur CIF", 650, 850, iso("2026-08-10T11:34:00")),
+      fee("Frais de préparation", "Palettisation, filmage et contrôle étanchéité des bidons", 1250, 1250, iso("2026-08-10T11:36:00")),
+      fee("Transport local", "Pré-acheminement dépôt → port de Casablanca", 1100, 1100, iso("2026-08-10T11:37:00")),
+      fee("Documentation export", "Certificat d'origine, SDS, connaissement", 450, 450, iso("2026-08-10T11:38:00")),
     ],
     conditions: conditionsFor(orders[0], "50 % à la commande / 50 % avant embarquement"),
     history: [
       { at: iso("2026-08-10T11:20:00"), user: CURRENT_USER.name, label: "Commande validée" },
       { at: iso("2026-08-10T11:28:00"), user: CURRENT_USER.name, label: "Agent Devis lancé" },
-      { at: iso("2026-08-10T11:31:00"), user: CURRENT_USER.name, label: "Fret ajouté", detail: "4 350 €" },
-      { at: iso("2026-08-10T11:34:00"), user: CURRENT_USER.name, label: "Assurance ajoutée", detail: "750 €" },
-      { at: iso("2026-08-10T11:40:00"), user: CURRENT_USER.name, label: "Devis généré", detail: "48 750 €" },
+      { at: iso("2026-08-10T11:31:00"), user: CURRENT_USER.name, label: "Fret ajouté", detail: "4 600 €" },
+      { at: iso("2026-08-10T11:34:00"), user: CURRENT_USER.name, label: "Assurance ajoutée", detail: "850 €" },
+      { at: iso("2026-08-10T11:40:00"), user: CURRENT_USER.name, label: "Devis généré", detail: "61 050 €" },
       { at: iso("2026-08-10T11:43:00"), user: "Yassine Bennani", label: "Devis validé" },
       { at: iso("2026-08-10T11:44:00"), user: "Système", label: "Devis envoyé au client" },
-      { at: iso("2026-08-10T13:14:00"), user: "Maison Atlas Distribution", label: "Devis consulté par le client" },
+      { at: iso("2026-08-10T13:14:00"), user: "Abidjan Lubricants Group", label: "Devis consulté par le client" },
     ],
   },
   {
@@ -880,7 +880,7 @@ let adminQuotes: AdminQuote[] = [
     history: [
       { at: iso("2026-06-02T12:30:00"), user: "Yassine Bennani", label: "Devis généré" },
       { at: iso("2026-06-02T13:00:00"), user: "Système", label: "Devis envoyé au client" },
-      { at: iso("2026-06-04T09:20:00"), user: "Bamako Trading Group", label: "Devis accepté par le client" },
+      { at: iso("2026-06-04T09:20:00"), user: "Bamako Automotive Supply", label: "Devis accepté par le client" },
     ],
   },
   {
@@ -897,7 +897,7 @@ let adminQuotes: AdminQuote[] = [
     history: [
       { at: iso("2026-06-25T15:00:00"), user: CURRENT_USER.name, label: "Devis généré" },
       { at: iso("2026-06-25T15:20:00"), user: "Système", label: "Devis envoyé au client" },
-      { at: iso("2026-06-27T10:05:00"), user: "Conakry Distribution", label: "Devis refusé", detail: "Conditions de paiement" },
+      { at: iso("2026-06-27T10:05:00"), user: "Conakry Motors Distribution", label: "Devis refusé", detail: "Conditions de paiement" },
     ],
     refusal: { reason: "Conditions de paiement", message: "Nous souhaitons passer sur un paiement 50/50.", at: iso("2026-06-27T10:05:00") },
   },
@@ -908,25 +908,25 @@ let adminQuotes: AdminQuote[] = [
 /* ------------------------------------------------------------------ */
 
 let activities: Activity[] = [
-  { id: uid(), at: iso("2026-08-10T13:14:00"), user: "Maison Atlas Distribution", action: "Devis consulté", object: "DEV-AKW-2026-0187-V1" },
+  { id: uid(), at: iso("2026-08-10T13:14:00"), user: "Abidjan Lubricants Group", action: "Devis consulté", object: "DEV-AKW-2026-0187-V1" },
   { id: uid(), at: iso("2026-08-10T11:44:00"), user: "Système", action: "Devis envoyé", object: "DEV-AKW-2026-0187-V1" },
-  { id: uid(), at: iso("2026-08-10T11:40:00"), user: CURRENT_USER.name, action: "Devis généré", object: "DEV-AKW-2026-0187-V1", to: "48 750 €" },
-  { id: uid(), at: iso("2026-08-10T09:12:00"), user: "Maison Atlas Distribution", action: "Commande créée par le client", object: "AKW-EXP-2026-0187", to: "41 250 €" },
-  { id: uid(), at: iso("2026-08-09T17:05:00"), user: "Nouakchott Négoce", action: "Commande créée", object: "AKW-EXP-2026-0205" },
-  { id: uid(), at: iso("2026-08-08T15:30:00"), user: "Douala Food Services", action: "Commande créée", object: "AKW-EXP-2026-0201" },
-  { id: uid(), at: iso("2026-08-01T09:00:00"), user: CURRENT_USER.name, action: "Prix produit modifié", object: "AKW-OLV-001", from: "4,40 €", to: "4,65 €" },
-  { id: uid(), at: iso("2026-06-27T10:05:00"), user: "Conakry Distribution", action: "Devis refusé", object: "DEV-AKW-2026-0169-V1", to: "Conditions de paiement" },
+  { id: uid(), at: iso("2026-08-10T11:40:00"), user: CURRENT_USER.name, action: "Devis généré", object: "DEV-AKW-2026-0187-V1", to: "61 050 €" },
+  { id: uid(), at: iso("2026-08-10T09:12:00"), user: "Abidjan Lubricants Group", action: "Commande créée par le client", object: "AKW-EXP-2026-0187", to: "52 800 €" },
+  { id: uid(), at: iso("2026-08-09T17:05:00"), user: "Nouakchott Fleet Parts", action: "Commande créée", object: "AKW-EXP-2026-0205" },
+  { id: uid(), at: iso("2026-08-08T15:30:00"), user: "Douala Automotive Distribution", action: "Commande créée", object: "AKW-EXP-2026-0201" },
+  { id: uid(), at: iso("2026-08-01T09:00:00"), user: CURRENT_USER.name, action: "Prix produit modifié", object: "AKW-ENG-5W30-001", from: "3,62 €", to: "3,85 €" },
+  { id: uid(), at: iso("2026-06-27T10:05:00"), user: "Conakry Motors Distribution", action: "Devis refusé", object: "DEV-AKW-2026-0169-V1", to: "Conditions de paiement" },
 ];
 
 let notifications: AdminNotification[] = [
-  { id: uid(), at: iso("2026-08-10T09:12:00"), title: "Nouvelle commande reçue", body: "AKW-EXP-2026-0187 — Maison Atlas Distribution (41 250 €). Validation requise.", tone: "warning", read: false, link: "/admin/commandes/AKW-EXP-2026-0187" },
-  { id: uid(), at: iso("2026-08-09T17:05:00"), title: "Commande nécessitant validation", body: "AKW-EXP-2026-0205 — Nouakchott Négoce.", tone: "warning", read: false, link: "/admin/commandes/AKW-EXP-2026-0205" },
-  { id: uid(), at: iso("2026-08-10T13:14:00"), title: "Client a consulté un devis", body: "Maison Atlas Distribution a ouvert DEV-AKW-2026-0187-V1.", tone: "info", read: false, link: "/admin/devis/DEV-AKW-2026-0187-V1" },
+  { id: uid(), at: iso("2026-08-10T09:12:00"), title: "Nouvelle commande reçue", body: "AKW-EXP-2026-0187 — Abidjan Lubricants Group (52 800 €). Validation requise.", tone: "warning", read: false, link: "/admin/commandes/AKW-EXP-2026-0187" },
+  { id: uid(), at: iso("2026-08-09T17:05:00"), title: "Commande nécessitant validation", body: "AKW-EXP-2026-0205 — Nouakchott Fleet Parts.", tone: "warning", read: false, link: "/admin/commandes/AKW-EXP-2026-0205" },
+  { id: uid(), at: iso("2026-08-10T13:14:00"), title: "Client a consulté un devis", body: "Abidjan Lubricants Group a ouvert DEV-AKW-2026-0187-V1.", tone: "info", read: false, link: "/admin/devis/DEV-AKW-2026-0187-V1" },
   { id: uid(), at: iso("2026-08-08T08:00:00"), title: "Devis expirant bientôt", body: "DEV-AKW-2026-0193-V1 expire le 12/08/2026.", tone: "warning", read: false, link: "/admin/devis/DEV-AKW-2026-0193-V1" },
-  { id: uid(), at: iso("2026-06-27T10:05:00"), title: "Devis refusé", body: "Conakry Distribution — motif : conditions de paiement.", tone: "danger", read: true, link: "/admin/devis/DEV-AKW-2026-0169-V1" },
-  { id: uid(), at: iso("2026-06-04T09:20:00"), title: "Devis accepté", body: "Bamako Trading Group a accepté DEV-AKW-2026-0176-V1.", tone: "success", read: true, link: "/admin/devis/DEV-AKW-2026-0176-V1" },
-  { id: uid(), at: iso("2026-08-07T12:00:00"), title: "Produit indisponible", body: "AKW-THE-016 — Thé à la menthe infusettes x100 est en rupture.", tone: "danger", read: true, link: "/admin/produits/AKW-THE-016" },
-  { id: uid(), at: iso("2026-08-01T09:05:00"), title: "Prix fournisseur modifié", body: "Huileries du Souss : +5,7 % sur AKW-OLV-001.", tone: "info", read: true, link: "/admin/produits/AKW-OLV-001" },
+  { id: uid(), at: iso("2026-06-27T10:05:00"), title: "Devis refusé", body: "Conakry Motors Distribution — motif : conditions de paiement.", tone: "danger", read: true, link: "/admin/devis/DEV-AKW-2026-0169-V1" },
+  { id: uid(), at: iso("2026-06-04T09:20:00"), title: "Devis accepté", body: "Bamako Automotive Supply a accepté DEV-AKW-2026-0176-V1.", tone: "success", read: true, link: "/admin/devis/DEV-AKW-2026-0176-V1" },
+  { id: uid(), at: iso("2026-08-07T12:00:00"), title: "Produit indisponible", body: "AKW-ACC-PMP-047 — Pompe de transvasement fût 208L est en rupture.", tone: "danger", read: true, link: "/admin/produits/AKW-ACC-PMP-047" },
+  { id: uid(), at: iso("2026-08-01T09:05:00"), title: "Prix fournisseur modifié", body: "Atlas Lubricants Industries : +6,4 % sur AKW-ENG-5W30-001 (huile moteur 5W-30 1L).", tone: "info", read: true, link: "/admin/produits/AKW-ENG-5W30-001" },
 ];
 
 export type Email = { id: string; at: string; to: string; subject: string; body: string; quoteId: string; amount: number; validUntil: string };
@@ -1107,7 +1107,7 @@ export const boStore = {
         eta: new Date(Date.now() + 29 * 86_400_000).toISOString(),
         portDeparture: order.portDeparture, portDestination: order.portDestination,
         transportMode: "Maritime — conteneur 40' HC",
-        notes: "Marchandises conformes aux standards export AKWA.",
+        notes: "Lubrifiants et fluides conformes aux normes API / ACEA, SDS fournies pour chaque référence.",
         specialTerms: "Prix fermes jusqu'à la date de validité indiquée.",
       },
       history: [{ at: now(), user: CURRENT_USER.name, label: "Agent Devis lancé", detail: `Reprise automatique de ${order.items.length} articles` }],
