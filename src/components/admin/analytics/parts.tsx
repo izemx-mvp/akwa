@@ -264,9 +264,10 @@ export function RankBars({ groups, metric = "revenue", max = 8, onPick }: {
 
 /* ------------------------------- scatter ------------------------------- */
 
-export function Scatter({ points, xLabel, yLabel, avgX, avgY }: {
+export function Scatter({ points, xLabel, yLabel, avgX, avgY, onPoint }: {
   points: { key: string; label: string; x: number; y: number; r: number; meta: ReactNode }[];
   xLabel: string; yLabel: string; avgX: number; avgY: number;
+  onPoint?: (p: { key: string; label: string }) => void;
 }) {
   const [hover, setHover] = useState<string | null>(null);
   const maxX = Math.max(...points.map((p) => p.x), 1);
@@ -289,6 +290,8 @@ export function Scatter({ points, xLabel, yLabel, avgX, avgY }: {
         return (
           <div
             key={p.key}
+            role={onPoint ? "button" : undefined}
+            onClick={() => onPoint?.(p)}
             className="absolute -translate-x-1/2 translate-y-1/2 cursor-pointer rounded-full border border-background bg-primary/70 transition-all hover:bg-primary"
             style={{ left: `${(p.x / maxX) * 100}%`, bottom: `${(p.y / maxY) * 100}%`, width: size, height: size }}
             onMouseEnter={() => setHover(p.key)}
