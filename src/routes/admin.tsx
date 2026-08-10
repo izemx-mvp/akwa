@@ -26,7 +26,7 @@ function AdminLayout() {
 
   const ordersToProcess = orders.filter((o) =>
     ["Commande reçue", "En attente", "En attente d'informations"].includes(o.status)).length;
-  const quotesToSend = adminQuotes.filter((q) => q.status === "Brouillon" || q.status === "À envoyer").length;
+  const quotesToSend = adminQuotes.filter((q) => q.status === "À valider client").length;
   const paymentsLate = orders.filter((o) => o.risk === "Élevé").length;
   const alerts = notifications.filter((n) => !n.read).length;
 
