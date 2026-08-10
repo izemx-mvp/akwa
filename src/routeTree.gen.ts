@@ -15,7 +15,6 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ClientIndexRouteImport } from './routes/client.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
-import { Route as ClientQuotesRouteImport } from './routes/client.quotes'
 import { Route as ClientOrdersRouteImport } from './routes/client.orders'
 import { Route as ClientNewOrderRouteImport } from './routes/client.new-order'
 import { Route as ClientCatalogRouteImport } from './routes/client.catalog'
@@ -69,11 +68,6 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AdminRoute,
-} as any)
-const ClientQuotesRoute = ClientQuotesRouteImport.update({
-  id: '/quotes',
-  path: '/quotes',
-  getParentRoute: () => ClientRoute,
 } as any)
 const ClientOrdersRoute = ClientOrdersRouteImport.update({
   id: '/orders',
@@ -213,7 +207,6 @@ export interface FileRoutesByFullPath {
   '/client/catalog': typeof ClientCatalogRoute
   '/client/new-order': typeof ClientNewOrderRoute
   '/client/orders': typeof ClientOrdersRoute
-  '/client/quotes': typeof ClientQuotesRoute
   '/admin/': typeof AdminIndexRoute
   '/client/': typeof ClientIndexRoute
   '/admin/agents/$agentId': typeof AdminAgentsAgentIdRoute
@@ -241,7 +234,6 @@ export interface FileRoutesByTo {
   '/client/catalog': typeof ClientCatalogRoute
   '/client/new-order': typeof ClientNewOrderRoute
   '/client/orders': typeof ClientOrdersRoute
-  '/client/quotes': typeof ClientQuotesRoute
   '/admin': typeof AdminIndexRoute
   '/client': typeof ClientIndexRoute
   '/admin/agents/$agentId': typeof AdminAgentsAgentIdRoute
@@ -274,7 +266,6 @@ export interface FileRoutesById {
   '/client/catalog': typeof ClientCatalogRoute
   '/client/new-order': typeof ClientNewOrderRoute
   '/client/orders': typeof ClientOrdersRoute
-  '/client/quotes': typeof ClientQuotesRoute
   '/admin/': typeof AdminIndexRoute
   '/client/': typeof ClientIndexRoute
   '/admin/agents/$agentId': typeof AdminAgentsAgentIdRoute
@@ -308,7 +299,6 @@ export interface FileRouteTypes {
     | '/client/catalog'
     | '/client/new-order'
     | '/client/orders'
-    | '/client/quotes'
     | '/admin/'
     | '/client/'
     | '/admin/agents/$agentId'
@@ -336,7 +326,6 @@ export interface FileRouteTypes {
     | '/client/catalog'
     | '/client/new-order'
     | '/client/orders'
-    | '/client/quotes'
     | '/admin'
     | '/client'
     | '/admin/agents/$agentId'
@@ -368,7 +357,6 @@ export interface FileRouteTypes {
     | '/client/catalog'
     | '/client/new-order'
     | '/client/orders'
-    | '/client/quotes'
     | '/admin/'
     | '/client/'
     | '/admin/agents/$agentId'
@@ -432,13 +420,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
-    }
-    '/client/quotes': {
-      id: '/client/quotes'
-      path: '/quotes'
-      fullPath: '/client/quotes'
-      preLoaderRoute: typeof ClientQuotesRouteImport
-      parentRoute: typeof ClientRoute
     }
     '/client/orders': {
       id: '/client/orders'
@@ -671,7 +652,6 @@ interface ClientRouteChildren {
   ClientCatalogRoute: typeof ClientCatalogRoute
   ClientNewOrderRoute: typeof ClientNewOrderRoute
   ClientOrdersRoute: typeof ClientOrdersRoute
-  ClientQuotesRoute: typeof ClientQuotesRoute
   ClientIndexRoute: typeof ClientIndexRoute
   ClientCommandesReferenceRoute: typeof ClientCommandesReferenceRoute
   ClientDevisQuoteIdRoute: typeof ClientDevisQuoteIdRoute
@@ -683,7 +663,6 @@ const ClientRouteChildren: ClientRouteChildren = {
   ClientCatalogRoute: ClientCatalogRoute,
   ClientNewOrderRoute: ClientNewOrderRoute,
   ClientOrdersRoute: ClientOrdersRoute,
-  ClientQuotesRoute: ClientQuotesRoute,
   ClientIndexRoute: ClientIndexRoute,
   ClientCommandesReferenceRoute: ClientCommandesReferenceRoute,
   ClientDevisQuoteIdRoute: ClientDevisQuoteIdRoute,

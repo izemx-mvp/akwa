@@ -18,11 +18,13 @@ export function AppShell({
   title,
   children,
   accent,
+  notifications,
 }: {
   nav: NavItem[];
   title: string;
   children: ReactNode;
   accent?: ReactNode;
+  notifications?: ReactNode;
 }) {
   const location = useLocation();
   const navigate = useNavigate();
