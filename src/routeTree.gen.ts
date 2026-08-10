@@ -32,6 +32,7 @@ import { Route as AdminAgentsRouteImport } from './routes/admin.agents'
 import { Route as ClientDevisIndexRouteImport } from './routes/client.devis.index'
 import { Route as AdminProduitsIndexRouteImport } from './routes/admin.produits.index'
 import { Route as AdminContainerIndexRouteImport } from './routes/admin.container.index'
+import { Route as AdminCommandesIndexRouteImport } from './routes/admin.commandes.index'
 import { Route as AdminClientsIndexRouteImport } from './routes/admin.clients.index'
 import { Route as AdminAgentsIndexRouteImport } from './routes/admin.agents.index'
 import { Route as ClientDevisQuoteIdRouteImport } from './routes/client.devis.$quoteId'
@@ -160,6 +161,11 @@ const AdminContainerIndexRoute = AdminContainerIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminContainerRoute,
 } as any)
+const AdminCommandesIndexRoute = AdminCommandesIndexRouteImport.update({
+  id: '/commandes/',
+  path: '/commandes/',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminClientsIndexRoute = AdminClientsIndexRouteImport.update({
   id: '/clients/',
   path: '/clients/',
@@ -257,6 +263,7 @@ export interface FileRoutesByFullPath {
   '/client/devis/$quoteId': typeof ClientDevisQuoteIdRoute
   '/admin/agents/': typeof AdminAgentsIndexRoute
   '/admin/clients/': typeof AdminClientsIndexRoute
+  '/admin/commandes/': typeof AdminCommandesIndexRoute
   '/admin/container/': typeof AdminContainerIndexRoute
   '/admin/produits/': typeof AdminProduitsIndexRoute
   '/client/devis/': typeof ClientDevisIndexRoute
@@ -290,6 +297,7 @@ export interface FileRoutesByTo {
   '/client/devis/$quoteId': typeof ClientDevisQuoteIdRoute
   '/admin/agents': typeof AdminAgentsIndexRoute
   '/admin/clients': typeof AdminClientsIndexRoute
+  '/admin/commandes': typeof AdminCommandesIndexRoute
   '/admin/container': typeof AdminContainerIndexRoute
   '/admin/produits': typeof AdminProduitsIndexRoute
   '/client/devis': typeof ClientDevisIndexRoute
@@ -328,6 +336,7 @@ export interface FileRoutesById {
   '/client/devis/$quoteId': typeof ClientDevisQuoteIdRoute
   '/admin/agents/': typeof AdminAgentsIndexRoute
   '/admin/clients/': typeof AdminClientsIndexRoute
+  '/admin/commandes/': typeof AdminCommandesIndexRoute
   '/admin/container/': typeof AdminContainerIndexRoute
   '/admin/produits/': typeof AdminProduitsIndexRoute
   '/client/devis/': typeof ClientDevisIndexRoute
@@ -367,6 +376,7 @@ export interface FileRouteTypes {
     | '/client/devis/$quoteId'
     | '/admin/agents/'
     | '/admin/clients/'
+    | '/admin/commandes/'
     | '/admin/container/'
     | '/admin/produits/'
     | '/client/devis/'
@@ -400,6 +410,7 @@ export interface FileRouteTypes {
     | '/client/devis/$quoteId'
     | '/admin/agents'
     | '/admin/clients'
+    | '/admin/commandes'
     | '/admin/container'
     | '/admin/produits'
     | '/client/devis'
@@ -437,6 +448,7 @@ export interface FileRouteTypes {
     | '/client/devis/$quoteId'
     | '/admin/agents/'
     | '/admin/clients/'
+    | '/admin/commandes/'
     | '/admin/container/'
     | '/admin/produits/'
     | '/client/devis/'
@@ -612,6 +624,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminContainerIndexRouteImport
       parentRoute: typeof AdminContainerRoute
     }
+    '/admin/commandes/': {
+      id: '/admin/commandes/'
+      path: '/commandes'
+      fullPath: '/admin/commandes/'
+      preLoaderRoute: typeof AdminCommandesIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/clients/': {
       id: '/admin/clients/'
       path: '/clients'
@@ -746,6 +765,7 @@ interface AdminRouteChildren {
   AdminProduitsImportRoute: typeof AdminProduitsImportRoute
   AdminProduitsNouveauRoute: typeof AdminProduitsNouveauRoute
   AdminClientsIndexRoute: typeof AdminClientsIndexRoute
+  AdminCommandesIndexRoute: typeof AdminCommandesIndexRoute
   AdminProduitsIndexRoute: typeof AdminProduitsIndexRoute
 }
 
@@ -768,6 +788,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminProduitsImportRoute: AdminProduitsImportRoute,
   AdminProduitsNouveauRoute: AdminProduitsNouveauRoute,
   AdminClientsIndexRoute: AdminClientsIndexRoute,
+  AdminCommandesIndexRoute: AdminCommandesIndexRoute,
   AdminProduitsIndexRoute: AdminProduitsIndexRoute,
 }
 
