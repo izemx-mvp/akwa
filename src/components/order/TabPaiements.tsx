@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { SectionCard, Chip, MiniBar } from "./shared";
+import { ClientInvoicesCard } from "./ClientInvoicesCard";
 import { cn } from "@/lib/utils";
 import { downloadMock, eur, exportOrderStore, type ExportOrder } from "@/lib/export-order-store";
 
@@ -19,6 +20,7 @@ export function TabPaiements({ order }: { order: ExportOrder }) {
 
   return (
     <div className="space-y-4">
+      <ClientInvoicesCard orderRef={order.reference} />
       <SectionCard
         title="Paiements"
         subtitle={order.paymentTerms}
