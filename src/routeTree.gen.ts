@@ -43,6 +43,7 @@ import { Route as AdminProduitsRefRouteImport } from './routes/admin.produits.$r
 import { Route as AdminPricingWorkflowOrderIdRouteImport } from './routes/admin.pricing-workflow.$orderId'
 import { Route as AdminOrderDetailsOrderIdRouteImport } from './routes/admin.order-details.$orderId'
 import { Route as AdminContainerOrderIdRouteImport } from './routes/admin.container.$orderId'
+import { Route as AdminCommandesReferenceRouteImport } from './routes/admin.commandes.$reference'
 import { Route as AdminClientsClientIdRouteImport } from './routes/admin.clients.$clientId'
 import { Route as AdminAgentsAgentIdRouteImport } from './routes/admin.agents.$agentId'
 
@@ -219,6 +220,11 @@ const AdminContainerOrderIdRoute = AdminContainerOrderIdRouteImport.update({
   path: '/$orderId',
   getParentRoute: () => AdminContainerRoute,
 } as any)
+const AdminCommandesReferenceRoute = AdminCommandesReferenceRouteImport.update({
+  id: '/commandes/$reference',
+  path: '/commandes/$reference',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminClientsClientIdRoute = AdminClientsClientIdRouteImport.update({
   id: '/clients/$clientId',
   path: '/clients/$clientId',
@@ -253,6 +259,7 @@ export interface FileRoutesByFullPath {
   '/client/': typeof ClientIndexRoute
   '/admin/agents/$agentId': typeof AdminAgentsAgentIdRoute
   '/admin/clients/$clientId': typeof AdminClientsClientIdRoute
+  '/admin/commandes/$reference': typeof AdminCommandesReferenceRoute
   '/admin/container/$orderId': typeof AdminContainerOrderIdRoute
   '/admin/order-details/$orderId': typeof AdminOrderDetailsOrderIdRoute
   '/admin/pricing-workflow/$orderId': typeof AdminPricingWorkflowOrderIdRoute
@@ -287,6 +294,7 @@ export interface FileRoutesByTo {
   '/client': typeof ClientIndexRoute
   '/admin/agents/$agentId': typeof AdminAgentsAgentIdRoute
   '/admin/clients/$clientId': typeof AdminClientsClientIdRoute
+  '/admin/commandes/$reference': typeof AdminCommandesReferenceRoute
   '/admin/container/$orderId': typeof AdminContainerOrderIdRoute
   '/admin/order-details/$orderId': typeof AdminOrderDetailsOrderIdRoute
   '/admin/pricing-workflow/$orderId': typeof AdminPricingWorkflowOrderIdRoute
@@ -326,6 +334,7 @@ export interface FileRoutesById {
   '/client/': typeof ClientIndexRoute
   '/admin/agents/$agentId': typeof AdminAgentsAgentIdRoute
   '/admin/clients/$clientId': typeof AdminClientsClientIdRoute
+  '/admin/commandes/$reference': typeof AdminCommandesReferenceRoute
   '/admin/container/$orderId': typeof AdminContainerOrderIdRoute
   '/admin/order-details/$orderId': typeof AdminOrderDetailsOrderIdRoute
   '/admin/pricing-workflow/$orderId': typeof AdminPricingWorkflowOrderIdRoute
@@ -366,6 +375,7 @@ export interface FileRouteTypes {
     | '/client/'
     | '/admin/agents/$agentId'
     | '/admin/clients/$clientId'
+    | '/admin/commandes/$reference'
     | '/admin/container/$orderId'
     | '/admin/order-details/$orderId'
     | '/admin/pricing-workflow/$orderId'
@@ -400,6 +410,7 @@ export interface FileRouteTypes {
     | '/client'
     | '/admin/agents/$agentId'
     | '/admin/clients/$clientId'
+    | '/admin/commandes/$reference'
     | '/admin/container/$orderId'
     | '/admin/order-details/$orderId'
     | '/admin/pricing-workflow/$orderId'
@@ -438,6 +449,7 @@ export interface FileRouteTypes {
     | '/client/'
     | '/admin/agents/$agentId'
     | '/admin/clients/$clientId'
+    | '/admin/commandes/$reference'
     | '/admin/container/$orderId'
     | '/admin/order-details/$orderId'
     | '/admin/pricing-workflow/$orderId'
@@ -701,6 +713,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminContainerOrderIdRouteImport
       parentRoute: typeof AdminContainerRoute
     }
+    '/admin/commandes/$reference': {
+      id: '/admin/commandes/$reference'
+      path: '/commandes/$reference'
+      fullPath: '/admin/commandes/$reference'
+      preLoaderRoute: typeof AdminCommandesReferenceRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/clients/$clientId': {
       id: '/admin/clients/$clientId'
       path: '/clients/$clientId'
@@ -759,6 +778,7 @@ interface AdminRouteChildren {
   AdminUsersRoute: typeof AdminUsersRoute
   AdminIndexRoute: typeof AdminIndexRoute
   AdminClientsClientIdRoute: typeof AdminClientsClientIdRoute
+  AdminCommandesReferenceRoute: typeof AdminCommandesReferenceRoute
   AdminOrderDetailsOrderIdRoute: typeof AdminOrderDetailsOrderIdRoute
   AdminPricingWorkflowOrderIdRoute: typeof AdminPricingWorkflowOrderIdRoute
   AdminProduitsRefRoute: typeof AdminProduitsRefRoute
@@ -782,6 +802,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminUsersRoute: AdminUsersRoute,
   AdminIndexRoute: AdminIndexRoute,
   AdminClientsClientIdRoute: AdminClientsClientIdRoute,
+  AdminCommandesReferenceRoute: AdminCommandesReferenceRoute,
   AdminOrderDetailsOrderIdRoute: AdminOrderDetailsOrderIdRoute,
   AdminPricingWorkflowOrderIdRoute: AdminPricingWorkflowOrderIdRoute,
   AdminProduitsRefRoute: AdminProduitsRefRoute,
