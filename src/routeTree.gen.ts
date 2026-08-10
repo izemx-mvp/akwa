@@ -23,6 +23,7 @@ import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminPricingRouteImport } from './routes/admin.pricing'
 import { Route as AdminOrdersRouteImport } from './routes/admin.orders'
+import { Route as AdminNotificationsRouteImport } from './routes/admin.notifications'
 import { Route as AdminMarginsRouteImport } from './routes/admin.margins'
 import { Route as AdminKnowledgeRouteImport } from './routes/admin.knowledge'
 import { Route as AdminExportRouteImport } from './routes/admin.export'
@@ -30,14 +31,25 @@ import { Route as AdminCopilotRouteImport } from './routes/admin.copilot'
 import { Route as AdminContainerRouteImport } from './routes/admin.container'
 import { Route as AdminAgentsRouteImport } from './routes/admin.agents'
 import { Route as ClientDevisIndexRouteImport } from './routes/client.devis.index'
+import { Route as AdminProduitsIndexRouteImport } from './routes/admin.produits.index'
+import { Route as AdminDevisIndexRouteImport } from './routes/admin.devis.index'
 import { Route as AdminContainerIndexRouteImport } from './routes/admin.container.index'
+import { Route as AdminCommandesIndexRouteImport } from './routes/admin.commandes.index'
+import { Route as AdminClientsIndexRouteImport } from './routes/admin.clients.index'
 import { Route as AdminAgentsIndexRouteImport } from './routes/admin.agents.index'
 import { Route as ClientDevisQuoteIdRouteImport } from './routes/client.devis.$quoteId'
 import { Route as ClientCommandesReferenceRouteImport } from './routes/client.commandes.$reference'
+import { Route as AdminProduitsNouveauRouteImport } from './routes/admin.produits.nouveau'
+import { Route as AdminProduitsImportRouteImport } from './routes/admin.produits.import'
+import { Route as AdminProduitsRefRouteImport } from './routes/admin.produits.$ref'
 import { Route as AdminPricingWorkflowOrderIdRouteImport } from './routes/admin.pricing-workflow.$orderId'
 import { Route as AdminOrderDetailsOrderIdRouteImport } from './routes/admin.order-details.$orderId'
+import { Route as AdminDevisQuoteIdRouteImport } from './routes/admin.devis.$quoteId'
 import { Route as AdminContainerOrderIdRouteImport } from './routes/admin.container.$orderId'
+import { Route as AdminCommandesReferenceRouteImport } from './routes/admin.commandes.$reference'
+import { Route as AdminClientsClientIdRouteImport } from './routes/admin.clients.$clientId'
 import { Route as AdminAgentsAgentIdRouteImport } from './routes/admin.agents.$agentId'
+import { Route as AdminDevisGenererReferenceRouteImport } from './routes/admin.devis.generer.$reference'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -109,6 +121,11 @@ const AdminOrdersRoute = AdminOrdersRouteImport.update({
   path: '/orders',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminNotificationsRoute = AdminNotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminMarginsRoute = AdminMarginsRouteImport.update({
   id: '/margins',
   path: '/margins',
@@ -144,10 +161,30 @@ const ClientDevisIndexRoute = ClientDevisIndexRouteImport.update({
   path: '/devis/',
   getParentRoute: () => ClientRoute,
 } as any)
+const AdminProduitsIndexRoute = AdminProduitsIndexRouteImport.update({
+  id: '/produits/',
+  path: '/produits/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminDevisIndexRoute = AdminDevisIndexRouteImport.update({
+  id: '/devis/',
+  path: '/devis/',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminContainerIndexRoute = AdminContainerIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AdminContainerRoute,
+} as any)
+const AdminCommandesIndexRoute = AdminCommandesIndexRouteImport.update({
+  id: '/commandes/',
+  path: '/commandes/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminClientsIndexRoute = AdminClientsIndexRouteImport.update({
+  id: '/clients/',
+  path: '/clients/',
+  getParentRoute: () => AdminRoute,
 } as any)
 const AdminAgentsIndexRoute = AdminAgentsIndexRouteImport.update({
   id: '/',
@@ -165,6 +202,21 @@ const ClientCommandesReferenceRoute =
     path: '/commandes/$reference',
     getParentRoute: () => ClientRoute,
   } as any)
+const AdminProduitsNouveauRoute = AdminProduitsNouveauRouteImport.update({
+  id: '/produits/nouveau',
+  path: '/produits/nouveau',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminProduitsImportRoute = AdminProduitsImportRouteImport.update({
+  id: '/produits/import',
+  path: '/produits/import',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminProduitsRefRoute = AdminProduitsRefRouteImport.update({
+  id: '/produits/$ref',
+  path: '/produits/$ref',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminPricingWorkflowOrderIdRoute =
   AdminPricingWorkflowOrderIdRouteImport.update({
     id: '/pricing-workflow/$orderId',
@@ -177,16 +229,37 @@ const AdminOrderDetailsOrderIdRoute =
     path: '/order-details/$orderId',
     getParentRoute: () => AdminRoute,
   } as any)
+const AdminDevisQuoteIdRoute = AdminDevisQuoteIdRouteImport.update({
+  id: '/devis/$quoteId',
+  path: '/devis/$quoteId',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminContainerOrderIdRoute = AdminContainerOrderIdRouteImport.update({
   id: '/$orderId',
   path: '/$orderId',
   getParentRoute: () => AdminContainerRoute,
+} as any)
+const AdminCommandesReferenceRoute = AdminCommandesReferenceRouteImport.update({
+  id: '/commandes/$reference',
+  path: '/commandes/$reference',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminClientsClientIdRoute = AdminClientsClientIdRouteImport.update({
+  id: '/clients/$clientId',
+  path: '/clients/$clientId',
+  getParentRoute: () => AdminRoute,
 } as any)
 const AdminAgentsAgentIdRoute = AdminAgentsAgentIdRouteImport.update({
   id: '/$agentId',
   path: '/$agentId',
   getParentRoute: () => AdminAgentsRoute,
 } as any)
+const AdminDevisGenererReferenceRoute =
+  AdminDevisGenererReferenceRouteImport.update({
+    id: '/devis/generer/$reference',
+    path: '/devis/generer/$reference',
+    getParentRoute: () => AdminRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -199,6 +272,7 @@ export interface FileRoutesByFullPath {
   '/admin/export': typeof AdminExportRoute
   '/admin/knowledge': typeof AdminKnowledgeRoute
   '/admin/margins': typeof AdminMarginsRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/pricing': typeof AdminPricingRoute
   '/admin/settings': typeof AdminSettingsRoute
@@ -210,14 +284,25 @@ export interface FileRoutesByFullPath {
   '/admin/': typeof AdminIndexRoute
   '/client/': typeof ClientIndexRoute
   '/admin/agents/$agentId': typeof AdminAgentsAgentIdRoute
+  '/admin/clients/$clientId': typeof AdminClientsClientIdRoute
+  '/admin/commandes/$reference': typeof AdminCommandesReferenceRoute
   '/admin/container/$orderId': typeof AdminContainerOrderIdRoute
+  '/admin/devis/$quoteId': typeof AdminDevisQuoteIdRoute
   '/admin/order-details/$orderId': typeof AdminOrderDetailsOrderIdRoute
   '/admin/pricing-workflow/$orderId': typeof AdminPricingWorkflowOrderIdRoute
+  '/admin/produits/$ref': typeof AdminProduitsRefRoute
+  '/admin/produits/import': typeof AdminProduitsImportRoute
+  '/admin/produits/nouveau': typeof AdminProduitsNouveauRoute
   '/client/commandes/$reference': typeof ClientCommandesReferenceRoute
   '/client/devis/$quoteId': typeof ClientDevisQuoteIdRoute
   '/admin/agents/': typeof AdminAgentsIndexRoute
+  '/admin/clients/': typeof AdminClientsIndexRoute
+  '/admin/commandes/': typeof AdminCommandesIndexRoute
   '/admin/container/': typeof AdminContainerIndexRoute
+  '/admin/devis/': typeof AdminDevisIndexRoute
+  '/admin/produits/': typeof AdminProduitsIndexRoute
   '/client/devis/': typeof ClientDevisIndexRoute
+  '/admin/devis/generer/$reference': typeof AdminDevisGenererReferenceRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -226,6 +311,7 @@ export interface FileRoutesByTo {
   '/admin/export': typeof AdminExportRoute
   '/admin/knowledge': typeof AdminKnowledgeRoute
   '/admin/margins': typeof AdminMarginsRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/pricing': typeof AdminPricingRoute
   '/admin/settings': typeof AdminSettingsRoute
@@ -237,14 +323,25 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminIndexRoute
   '/client': typeof ClientIndexRoute
   '/admin/agents/$agentId': typeof AdminAgentsAgentIdRoute
+  '/admin/clients/$clientId': typeof AdminClientsClientIdRoute
+  '/admin/commandes/$reference': typeof AdminCommandesReferenceRoute
   '/admin/container/$orderId': typeof AdminContainerOrderIdRoute
+  '/admin/devis/$quoteId': typeof AdminDevisQuoteIdRoute
   '/admin/order-details/$orderId': typeof AdminOrderDetailsOrderIdRoute
   '/admin/pricing-workflow/$orderId': typeof AdminPricingWorkflowOrderIdRoute
+  '/admin/produits/$ref': typeof AdminProduitsRefRoute
+  '/admin/produits/import': typeof AdminProduitsImportRoute
+  '/admin/produits/nouveau': typeof AdminProduitsNouveauRoute
   '/client/commandes/$reference': typeof ClientCommandesReferenceRoute
   '/client/devis/$quoteId': typeof ClientDevisQuoteIdRoute
   '/admin/agents': typeof AdminAgentsIndexRoute
+  '/admin/clients': typeof AdminClientsIndexRoute
+  '/admin/commandes': typeof AdminCommandesIndexRoute
   '/admin/container': typeof AdminContainerIndexRoute
+  '/admin/devis': typeof AdminDevisIndexRoute
+  '/admin/produits': typeof AdminProduitsIndexRoute
   '/client/devis': typeof ClientDevisIndexRoute
+  '/admin/devis/generer/$reference': typeof AdminDevisGenererReferenceRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -258,6 +355,7 @@ export interface FileRoutesById {
   '/admin/export': typeof AdminExportRoute
   '/admin/knowledge': typeof AdminKnowledgeRoute
   '/admin/margins': typeof AdminMarginsRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/pricing': typeof AdminPricingRoute
   '/admin/settings': typeof AdminSettingsRoute
@@ -269,14 +367,25 @@ export interface FileRoutesById {
   '/admin/': typeof AdminIndexRoute
   '/client/': typeof ClientIndexRoute
   '/admin/agents/$agentId': typeof AdminAgentsAgentIdRoute
+  '/admin/clients/$clientId': typeof AdminClientsClientIdRoute
+  '/admin/commandes/$reference': typeof AdminCommandesReferenceRoute
   '/admin/container/$orderId': typeof AdminContainerOrderIdRoute
+  '/admin/devis/$quoteId': typeof AdminDevisQuoteIdRoute
   '/admin/order-details/$orderId': typeof AdminOrderDetailsOrderIdRoute
   '/admin/pricing-workflow/$orderId': typeof AdminPricingWorkflowOrderIdRoute
+  '/admin/produits/$ref': typeof AdminProduitsRefRoute
+  '/admin/produits/import': typeof AdminProduitsImportRoute
+  '/admin/produits/nouveau': typeof AdminProduitsNouveauRoute
   '/client/commandes/$reference': typeof ClientCommandesReferenceRoute
   '/client/devis/$quoteId': typeof ClientDevisQuoteIdRoute
   '/admin/agents/': typeof AdminAgentsIndexRoute
+  '/admin/clients/': typeof AdminClientsIndexRoute
+  '/admin/commandes/': typeof AdminCommandesIndexRoute
   '/admin/container/': typeof AdminContainerIndexRoute
+  '/admin/devis/': typeof AdminDevisIndexRoute
+  '/admin/produits/': typeof AdminProduitsIndexRoute
   '/client/devis/': typeof ClientDevisIndexRoute
+  '/admin/devis/generer/$reference': typeof AdminDevisGenererReferenceRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -291,6 +400,7 @@ export interface FileRouteTypes {
     | '/admin/export'
     | '/admin/knowledge'
     | '/admin/margins'
+    | '/admin/notifications'
     | '/admin/orders'
     | '/admin/pricing'
     | '/admin/settings'
@@ -302,14 +412,25 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/client/'
     | '/admin/agents/$agentId'
+    | '/admin/clients/$clientId'
+    | '/admin/commandes/$reference'
     | '/admin/container/$orderId'
+    | '/admin/devis/$quoteId'
     | '/admin/order-details/$orderId'
     | '/admin/pricing-workflow/$orderId'
+    | '/admin/produits/$ref'
+    | '/admin/produits/import'
+    | '/admin/produits/nouveau'
     | '/client/commandes/$reference'
     | '/client/devis/$quoteId'
     | '/admin/agents/'
+    | '/admin/clients/'
+    | '/admin/commandes/'
     | '/admin/container/'
+    | '/admin/devis/'
+    | '/admin/produits/'
     | '/client/devis/'
+    | '/admin/devis/generer/$reference'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -318,6 +439,7 @@ export interface FileRouteTypes {
     | '/admin/export'
     | '/admin/knowledge'
     | '/admin/margins'
+    | '/admin/notifications'
     | '/admin/orders'
     | '/admin/pricing'
     | '/admin/settings'
@@ -329,14 +451,25 @@ export interface FileRouteTypes {
     | '/admin'
     | '/client'
     | '/admin/agents/$agentId'
+    | '/admin/clients/$clientId'
+    | '/admin/commandes/$reference'
     | '/admin/container/$orderId'
+    | '/admin/devis/$quoteId'
     | '/admin/order-details/$orderId'
     | '/admin/pricing-workflow/$orderId'
+    | '/admin/produits/$ref'
+    | '/admin/produits/import'
+    | '/admin/produits/nouveau'
     | '/client/commandes/$reference'
     | '/client/devis/$quoteId'
     | '/admin/agents'
+    | '/admin/clients'
+    | '/admin/commandes'
     | '/admin/container'
+    | '/admin/devis'
+    | '/admin/produits'
     | '/client/devis'
+    | '/admin/devis/generer/$reference'
   id:
     | '__root__'
     | '/'
@@ -349,6 +482,7 @@ export interface FileRouteTypes {
     | '/admin/export'
     | '/admin/knowledge'
     | '/admin/margins'
+    | '/admin/notifications'
     | '/admin/orders'
     | '/admin/pricing'
     | '/admin/settings'
@@ -360,14 +494,25 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/client/'
     | '/admin/agents/$agentId'
+    | '/admin/clients/$clientId'
+    | '/admin/commandes/$reference'
     | '/admin/container/$orderId'
+    | '/admin/devis/$quoteId'
     | '/admin/order-details/$orderId'
     | '/admin/pricing-workflow/$orderId'
+    | '/admin/produits/$ref'
+    | '/admin/produits/import'
+    | '/admin/produits/nouveau'
     | '/client/commandes/$reference'
     | '/client/devis/$quoteId'
     | '/admin/agents/'
+    | '/admin/clients/'
+    | '/admin/commandes/'
     | '/admin/container/'
+    | '/admin/devis/'
+    | '/admin/produits/'
     | '/client/devis/'
+    | '/admin/devis/generer/$reference'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -477,6 +622,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminOrdersRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/notifications': {
+      id: '/admin/notifications'
+      path: '/notifications'
+      fullPath: '/admin/notifications'
+      preLoaderRoute: typeof AdminNotificationsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/margins': {
       id: '/admin/margins'
       path: '/margins'
@@ -526,12 +678,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ClientDevisIndexRouteImport
       parentRoute: typeof ClientRoute
     }
+    '/admin/produits/': {
+      id: '/admin/produits/'
+      path: '/produits'
+      fullPath: '/admin/produits/'
+      preLoaderRoute: typeof AdminProduitsIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/devis/': {
+      id: '/admin/devis/'
+      path: '/devis'
+      fullPath: '/admin/devis/'
+      preLoaderRoute: typeof AdminDevisIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/container/': {
       id: '/admin/container/'
       path: '/'
       fullPath: '/admin/container/'
       preLoaderRoute: typeof AdminContainerIndexRouteImport
       parentRoute: typeof AdminContainerRoute
+    }
+    '/admin/commandes/': {
+      id: '/admin/commandes/'
+      path: '/commandes'
+      fullPath: '/admin/commandes/'
+      preLoaderRoute: typeof AdminCommandesIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/clients/': {
+      id: '/admin/clients/'
+      path: '/clients'
+      fullPath: '/admin/clients/'
+      preLoaderRoute: typeof AdminClientsIndexRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/admin/agents/': {
       id: '/admin/agents/'
@@ -554,6 +734,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ClientCommandesReferenceRouteImport
       parentRoute: typeof ClientRoute
     }
+    '/admin/produits/nouveau': {
+      id: '/admin/produits/nouveau'
+      path: '/produits/nouveau'
+      fullPath: '/admin/produits/nouveau'
+      preLoaderRoute: typeof AdminProduitsNouveauRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/produits/import': {
+      id: '/admin/produits/import'
+      path: '/produits/import'
+      fullPath: '/admin/produits/import'
+      preLoaderRoute: typeof AdminProduitsImportRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/produits/$ref': {
+      id: '/admin/produits/$ref'
+      path: '/produits/$ref'
+      fullPath: '/admin/produits/$ref'
+      preLoaderRoute: typeof AdminProduitsRefRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/pricing-workflow/$orderId': {
       id: '/admin/pricing-workflow/$orderId'
       path: '/pricing-workflow/$orderId'
@@ -568,6 +769,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminOrderDetailsOrderIdRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/devis/$quoteId': {
+      id: '/admin/devis/$quoteId'
+      path: '/devis/$quoteId'
+      fullPath: '/admin/devis/$quoteId'
+      preLoaderRoute: typeof AdminDevisQuoteIdRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/container/$orderId': {
       id: '/admin/container/$orderId'
       path: '/$orderId'
@@ -575,12 +783,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminContainerOrderIdRouteImport
       parentRoute: typeof AdminContainerRoute
     }
+    '/admin/commandes/$reference': {
+      id: '/admin/commandes/$reference'
+      path: '/commandes/$reference'
+      fullPath: '/admin/commandes/$reference'
+      preLoaderRoute: typeof AdminCommandesReferenceRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/clients/$clientId': {
+      id: '/admin/clients/$clientId'
+      path: '/clients/$clientId'
+      fullPath: '/admin/clients/$clientId'
+      preLoaderRoute: typeof AdminClientsClientIdRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/agents/$agentId': {
       id: '/admin/agents/$agentId'
       path: '/$agentId'
       fullPath: '/admin/agents/$agentId'
       preLoaderRoute: typeof AdminAgentsAgentIdRouteImport
       parentRoute: typeof AdminAgentsRoute
+    }
+    '/admin/devis/generer/$reference': {
+      id: '/admin/devis/generer/$reference'
+      path: '/devis/generer/$reference'
+      fullPath: '/admin/devis/generer/$reference'
+      preLoaderRoute: typeof AdminDevisGenererReferenceRouteImport
+      parentRoute: typeof AdminRoute
     }
   }
 }
@@ -620,13 +849,25 @@ interface AdminRouteChildren {
   AdminExportRoute: typeof AdminExportRoute
   AdminKnowledgeRoute: typeof AdminKnowledgeRoute
   AdminMarginsRoute: typeof AdminMarginsRoute
+  AdminNotificationsRoute: typeof AdminNotificationsRoute
   AdminOrdersRoute: typeof AdminOrdersRoute
   AdminPricingRoute: typeof AdminPricingRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
   AdminUsersRoute: typeof AdminUsersRoute
   AdminIndexRoute: typeof AdminIndexRoute
+  AdminClientsClientIdRoute: typeof AdminClientsClientIdRoute
+  AdminCommandesReferenceRoute: typeof AdminCommandesReferenceRoute
+  AdminDevisQuoteIdRoute: typeof AdminDevisQuoteIdRoute
   AdminOrderDetailsOrderIdRoute: typeof AdminOrderDetailsOrderIdRoute
   AdminPricingWorkflowOrderIdRoute: typeof AdminPricingWorkflowOrderIdRoute
+  AdminProduitsRefRoute: typeof AdminProduitsRefRoute
+  AdminProduitsImportRoute: typeof AdminProduitsImportRoute
+  AdminProduitsNouveauRoute: typeof AdminProduitsNouveauRoute
+  AdminClientsIndexRoute: typeof AdminClientsIndexRoute
+  AdminCommandesIndexRoute: typeof AdminCommandesIndexRoute
+  AdminDevisIndexRoute: typeof AdminDevisIndexRoute
+  AdminProduitsIndexRoute: typeof AdminProduitsIndexRoute
+  AdminDevisGenererReferenceRoute: typeof AdminDevisGenererReferenceRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
@@ -636,13 +877,25 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminExportRoute: AdminExportRoute,
   AdminKnowledgeRoute: AdminKnowledgeRoute,
   AdminMarginsRoute: AdminMarginsRoute,
+  AdminNotificationsRoute: AdminNotificationsRoute,
   AdminOrdersRoute: AdminOrdersRoute,
   AdminPricingRoute: AdminPricingRoute,
   AdminSettingsRoute: AdminSettingsRoute,
   AdminUsersRoute: AdminUsersRoute,
   AdminIndexRoute: AdminIndexRoute,
+  AdminClientsClientIdRoute: AdminClientsClientIdRoute,
+  AdminCommandesReferenceRoute: AdminCommandesReferenceRoute,
+  AdminDevisQuoteIdRoute: AdminDevisQuoteIdRoute,
   AdminOrderDetailsOrderIdRoute: AdminOrderDetailsOrderIdRoute,
   AdminPricingWorkflowOrderIdRoute: AdminPricingWorkflowOrderIdRoute,
+  AdminProduitsRefRoute: AdminProduitsRefRoute,
+  AdminProduitsImportRoute: AdminProduitsImportRoute,
+  AdminProduitsNouveauRoute: AdminProduitsNouveauRoute,
+  AdminClientsIndexRoute: AdminClientsIndexRoute,
+  AdminCommandesIndexRoute: AdminCommandesIndexRoute,
+  AdminDevisIndexRoute: AdminDevisIndexRoute,
+  AdminProduitsIndexRoute: AdminProduitsIndexRoute,
+  AdminDevisGenererReferenceRoute: AdminDevisGenererReferenceRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
