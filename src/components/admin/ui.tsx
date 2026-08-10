@@ -1,5 +1,4 @@
 import { type ReactNode } from "react";
-import { Link } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
 import type { LucideIcon } from "lucide-react";
 
@@ -93,7 +92,7 @@ export function Crumbs({ items }: { items: { label: string; to?: string }[] }) {
       {items.map((i, idx) => (
         <span key={idx} className="flex items-center gap-1.5">
           {idx > 0 && <span>/</span>}
-          {i.to ? <Link to={i.to} className="hover:text-foreground">{i.label}</Link> : <span className="text-foreground">{i.label}</span>}
+          {i.to ? <a href={i.to} className="hover:text-foreground">{i.label}</a> : <span className="text-foreground">{i.label}</span>}
         </span>
       ))}
     </nav>

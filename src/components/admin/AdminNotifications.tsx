@@ -40,7 +40,7 @@ export function AdminNotifications() {
                 <span className="text-[10px] text-muted-foreground">{dTime(n.at)}</span>
                 {n.link && (
                   <Button asChild size="sm" variant="outline" className="h-7 text-xs">
-                    <Link to={n.link}>Ouvrir</Link>
+                    <a href={n.link}>Ouvrir</a>
                   </Button>
                 )}
               </div>
