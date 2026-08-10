@@ -27,9 +27,8 @@ function LoginPage() {
       <div className="relative lg:w-1/2 bg-gradient-hero text-white p-10 lg:p-14 flex flex-col justify-between overflow-hidden">
         <div className="absolute -top-32 -right-32 h-96 w-96 rounded-full bg-primary-glow/30 blur-3xl" />
         <div className="absolute -bottom-32 -left-20 h-80 w-80 rounded-full bg-ai/30 blur-3xl" />
-        <div className="relative z-10">
-          <Logo variant="light" size="lg" />
-        </div>
+        <div className="relative z-10" />
+
         <div className="relative z-10 max-w-xl">
           <div className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur px-3 py-1 text-xs font-medium mb-6 border border-white/10">
             <Sparkles className="h-3.5 w-3.5" /> La plateforme intelligente de pilotage Export
