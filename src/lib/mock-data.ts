@@ -1,10 +1,18 @@
 export type Country = "Sénégal" | "Côte d'Ivoire" | "Mauritanie" | "Mali" | "Guinée";
 
+export type ProductCategory =
+  | "Huiles moteur"
+  | "Huiles transmission"
+  | "Huiles industrielles"
+  | "Fluides automobiles"
+  | "Graisses"
+  | "Additifs & nettoyants";
+
 export type Product = {
   id: string;
   sku: string;
   name: string;
-  category: "Gas" | "Lubricants" | "Additives" | "Fuel";
+  category: ProductCategory;
   unitPrice: number; // USD
   cost: number;
   unitWeightKg: number;
