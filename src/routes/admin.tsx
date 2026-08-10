@@ -59,6 +59,14 @@ function AdminLayout() {
       ],
     },
     {
+      label: "Facturation",
+      icon: Receipt,
+      items: [
+        { to: "/admin/facturation/factures", label: "Factures", icon: FileText },
+        { to: "/admin/facturation/paiements", label: "Paiements", icon: Wallet },
+      ],
+    },
+    {
       label: "Finance",
       icon: Wallet,
       items: [

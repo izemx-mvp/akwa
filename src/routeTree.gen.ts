@@ -57,6 +57,7 @@ import { Route as AdminAgentsExportRouteImport } from './routes/admin.agents.exp
 import { Route as AdminAgentsDevisRouteImport } from './routes/admin.agents.devis'
 import { Route as AdminAgentsContainerOptimizerRouteImport } from './routes/admin.agents.container-optimizer'
 import { Route as AdminAgentsAgentIdRouteImport } from './routes/admin.agents.$agentId'
+import { Route as AdminFacturationPaiementsIndexRouteImport } from './routes/admin.facturation.paiements.index'
 import { Route as AdminFacturationFacturesIndexRouteImport } from './routes/admin.facturation.factures.index'
 import { Route as AdminAgentsPricingIndexRouteImport } from './routes/admin.agents.pricing.index'
 import { Route as AdminFacturationFacturesInvoiceIdRouteImport } from './routes/admin.facturation.factures.$invoiceId'
@@ -310,6 +311,12 @@ const AdminAgentsAgentIdRoute = AdminAgentsAgentIdRouteImport.update({
   path: '/$agentId',
   getParentRoute: () => AdminAgentsRoute,
 } as any)
+const AdminFacturationPaiementsIndexRoute =
+  AdminFacturationPaiementsIndexRouteImport.update({
+    id: '/paiements/',
+    path: '/paiements/',
+    getParentRoute: () => AdminFacturationRoute,
+  } as any)
 const AdminFacturationFacturesIndexRoute =
   AdminFacturationFacturesIndexRouteImport.update({
     id: '/factures/',
@@ -408,6 +415,7 @@ export interface FileRoutesByFullPath {
   '/admin/facturation/factures/$invoiceId': typeof AdminFacturationFacturesInvoiceIdRoute
   '/admin/agents/pricing/': typeof AdminAgentsPricingIndexRoute
   '/admin/facturation/factures/': typeof AdminFacturationFacturesIndexRoute
+  '/admin/facturation/paiements/': typeof AdminFacturationPaiementsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -460,6 +468,7 @@ export interface FileRoutesByTo {
   '/admin/facturation/factures/$invoiceId': typeof AdminFacturationFacturesInvoiceIdRoute
   '/admin/agents/pricing': typeof AdminAgentsPricingIndexRoute
   '/admin/facturation/factures': typeof AdminFacturationFacturesIndexRoute
+  '/admin/facturation/paiements': typeof AdminFacturationPaiementsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -518,6 +527,7 @@ export interface FileRoutesById {
   '/admin/facturation/factures/$invoiceId': typeof AdminFacturationFacturesInvoiceIdRoute
   '/admin/agents/pricing/': typeof AdminAgentsPricingIndexRoute
   '/admin/facturation/factures/': typeof AdminFacturationFacturesIndexRoute
+  '/admin/facturation/paiements/': typeof AdminFacturationPaiementsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -577,6 +587,7 @@ export interface FileRouteTypes {
     | '/admin/facturation/factures/$invoiceId'
     | '/admin/agents/pricing/'
     | '/admin/facturation/factures/'
+    | '/admin/facturation/paiements/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -629,6 +640,7 @@ export interface FileRouteTypes {
     | '/admin/facturation/factures/$invoiceId'
     | '/admin/agents/pricing'
     | '/admin/facturation/factures'
+    | '/admin/facturation/paiements'
   id:
     | '__root__'
     | '/'
@@ -686,6 +698,7 @@ export interface FileRouteTypes {
     | '/admin/facturation/factures/$invoiceId'
     | '/admin/agents/pricing/'
     | '/admin/facturation/factures/'
+    | '/admin/facturation/paiements/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -1033,6 +1046,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAgentsAgentIdRouteImport
       parentRoute: typeof AdminAgentsRoute
     }
+    '/admin/facturation/paiements/': {
+      id: '/admin/facturation/paiements/'
+      path: '/paiements'
+      fullPath: '/admin/facturation/paiements/'
+      preLoaderRoute: typeof AdminFacturationPaiementsIndexRouteImport
+      parentRoute: typeof AdminFacturationRoute
+    }
     '/admin/facturation/factures/': {
       id: '/admin/facturation/factures/'
       path: '/factures'
@@ -1145,12 +1165,14 @@ const AdminContainerRouteWithChildren = AdminContainerRoute._addFileChildren(
 interface AdminFacturationRouteChildren {
   AdminFacturationFacturesInvoiceIdRoute: typeof AdminFacturationFacturesInvoiceIdRoute
   AdminFacturationFacturesIndexRoute: typeof AdminFacturationFacturesIndexRoute
+  AdminFacturationPaiementsIndexRoute: typeof AdminFacturationPaiementsIndexRoute
 }
 
 const AdminFacturationRouteChildren: AdminFacturationRouteChildren = {
   AdminFacturationFacturesInvoiceIdRoute:
     AdminFacturationFacturesInvoiceIdRoute,
   AdminFacturationFacturesIndexRoute: AdminFacturationFacturesIndexRoute,
+  AdminFacturationPaiementsIndexRoute: AdminFacturationPaiementsIndexRoute,
 }
 
 const AdminFacturationRouteWithChildren =
