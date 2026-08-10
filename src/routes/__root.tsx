@@ -23,7 +23,10 @@ export const Route = createRootRoute({
       { title: "AKWA AI — Pricing, commandes & optimisation export intelligents" },
       { name: "description", content: "AKWA AI est une plateforme d'opérations export augmentée par IA — pricing dynamique, optimisation conteneur, intelligence de marge et copilotes douaniers." },
     ],
-    links: [{ rel: "stylesheet", href: appCss }],
+    links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", type: "image/png", href: "/favicon.png" },
+    ],
   }),
   shellComponent: RootShell,
   component: () => <Outlet />,
