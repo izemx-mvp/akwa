@@ -643,7 +643,25 @@ export const quotesStore = {
     notifications = notifications.map((n) => ({ ...n, read: true }));
     emit();
   },
+  /** Injecte un devis émis depuis le back-office AKWA dans le portail client. */
+  ingest(quote: Quote) {
+    quotes = [quote, ...quotes.filter((x) => x.id !== quote.id)];
+    notifications = [
+      {
+        id: uid(),
+        title: "Nouveau devis disponible",
+        body: `Le devis ${quote.id} pour votre commande ${quote.orderRef} est disponible.`,
+        quoteId: quote.id,
+        at: new Date().toISOString(),
+        read: false,
+        tone: "info",
+      },
+      ...notifications,
+    ];
+    emit();
+  },
 };
+
 
 export function useQuotes() {
   return useSyncExternalStore(
