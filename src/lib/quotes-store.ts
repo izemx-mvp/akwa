@@ -128,27 +128,27 @@ function baseTimeline(sentAt: string, viewedAt?: string): TimelineEvent[] {
 }
 
 const atlasItems: QuoteItem[] = [
-  { ref: "AKW-OLV-001", label: "Huile d'olive extra vierge 1L", quantity: 480, unit: "bouteilles", unitPrice: 6.4 },
-  { ref: "AKW-CNS-003", label: "Sardines à l'huile 125g", quantity: 600, unit: "boîtes", unitPrice: 1.65 },
-  { ref: "AKW-CNS-008", label: "Conserves de tomates pelées 400g", quantity: 1200, unit: "boîtes", unitPrice: 0.98 },
+  { ref: "AKW-OLV-001", label: "Huile d'olive extra vierge 1L", quantity: 2400, unit: "bouteilles", unitPrice: 6.4 },
+  { ref: "AKW-CNS-003", label: "Sardines à l'huile 125g", quantity: 4800, unit: "boîtes", unitPrice: 1.65 },
+  { ref: "AKW-CNS-008", label: "Conserves de tomates pelées 400g", quantity: 3000, unit: "boîtes", unitPrice: 0.98 },
   { ref: "AKW-DAT-002", label: "Dattes Medjool premium 1kg", quantity: 900, unit: "sachets", unitPrice: 8.9 },
-  { ref: "AKW-CPR-004", label: "Câpres fines au vinaigre 500g", quantity: 350, unit: "bocaux", unitPrice: 3.75 },
+  { ref: "AKW-CPR-004", label: "Câpres fines au vinaigre 500g", quantity: 400, unit: "bocaux", unitPrice: 3.75 },
   { ref: "AKW-EPC-011", label: "Épices ras el hanout 250g", quantity: 800, unit: "sachets", unitPrice: 2.4 },
-  { ref: "AKW-CSC-006", label: "Couscous moyen 5kg", quantity: 640, unit: "sacs", unitPrice: 6.2 },
-  { ref: "AKW-THE-009", label: "Thé vert gunpowder 500g", quantity: 700, unit: "paquets", unitPrice: 4.35 },
+  { ref: "AKW-CSC-006", label: "Couscous moyen 5kg", quantity: 400, unit: "sacs", unitPrice: 6.2 },
+  { ref: "AKW-THE-009", label: "Thé vert gunpowder 500g", quantity: 280, unit: "paquets", unitPrice: 4 },
 ];
 
 const dakarItems: QuoteItem[] = [
   { ref: "AKW-OLV-002", label: "Huile d'olive vierge 5L", quantity: 320, unit: "bidons", unitPrice: 27.5 },
-  { ref: "AKW-CNS-003", label: "Sardines à l'huile 125g", quantity: 1500, unit: "boîtes", unitPrice: 1.62 },
-  { ref: "AKW-CSC-006", label: "Couscous moyen 5kg", quantity: 900, unit: "sacs", unitPrice: 6.1 },
-  { ref: "AKW-EPC-011", label: "Épices ras el hanout 250g", quantity: 1000, unit: "sachets", unitPrice: 2.3 },
+  { ref: "AKW-CNS-003", label: "Sardines à l'huile 125g", quantity: 6000, unit: "boîtes", unitPrice: 1.62 },
+  { ref: "AKW-CSC-006", label: "Couscous moyen 5kg", quantity: 1200, unit: "sacs", unitPrice: 6.1 },
+  { ref: "AKW-EPC-011", label: "Épices ras el hanout 250g", quantity: 2200, unit: "sachets", unitPrice: 2.3 },
 ];
 
 const doualaItems: QuoteItem[] = [
-  { ref: "AKW-DAT-002", label: "Dattes Medjool premium 1kg", quantity: 1100, unit: "sachets", unitPrice: 8.7 },
-  { ref: "AKW-CNF-014", label: "Confiture d'abricot 380g", quantity: 900, unit: "bocaux", unitPrice: 2.15 },
-  { ref: "AKW-THE-009", label: "Thé vert gunpowder 500g", quantity: 850, unit: "paquets", unitPrice: 4.2 },
+  { ref: "AKW-DAT-002", label: "Dattes Medjool premium 1kg", quantity: 1500, unit: "sachets", unitPrice: 8.7 },
+  { ref: "AKW-CNF-014", label: "Confiture d'abricot 380g", quantity: 2000, unit: "bocaux", unitPrice: 2.15 },
+  { ref: "AKW-THE-009", label: "Thé vert gunpowder 500g", quantity: 1000, unit: "paquets", unitPrice: 4.2 },
 ];
 
 function q(partial: Omit<Quote, "family" | "version"> & { family?: string; version?: number }): Quote {
@@ -223,7 +223,7 @@ const seed: Quote[] = [
     validUntil: iso("2026-07-31T23:59:00"),
     status: "Accepté",
     items: dakarItems,
-    charges: { preparation: 980, logistics: 890, freight: 3450, insurance: 620 },
+    charges: { preparation: 980, logistics: 890, freight: 3450, insurance: 630 },
     paymentTerms: "40 % à la commande / 60 % avant embarquement",
     preparationDelay: "12 jours ouvrés",
     etd: iso("2026-08-03T00:00:00"),
