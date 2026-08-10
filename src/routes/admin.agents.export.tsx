@@ -6,6 +6,7 @@ import { agentHub, exportRisks, exportTimeline, useAgentHub, orderContext } from
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { AgentConfigPanel } from "@/components/admin/AgentConfigPanel";
 
 export const Route = createFileRoute("/admin/agents/export")({
   head: () => ({
@@ -124,6 +125,7 @@ function AgentExport() {
           </div>
         </div>
       </div>
+      <AgentConfigPanel agent="export" />
     </div>
   );
 }
