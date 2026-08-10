@@ -23,6 +23,7 @@ import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminPricingRouteImport } from './routes/admin.pricing'
 import { Route as AdminOrdersRouteImport } from './routes/admin.orders'
+import { Route as AdminNotificationsRouteImport } from './routes/admin.notifications'
 import { Route as AdminMarginsRouteImport } from './routes/admin.margins'
 import { Route as AdminKnowledgeRouteImport } from './routes/admin.knowledge'
 import { Route as AdminExportRouteImport } from './routes/admin.export'
@@ -118,6 +119,11 @@ const AdminPricingRoute = AdminPricingRouteImport.update({
 const AdminOrdersRoute = AdminOrdersRouteImport.update({
   id: '/orders',
   path: '/orders',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminNotificationsRoute = AdminNotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminMarginsRoute = AdminMarginsRouteImport.update({
@@ -266,6 +272,7 @@ export interface FileRoutesByFullPath {
   '/admin/export': typeof AdminExportRoute
   '/admin/knowledge': typeof AdminKnowledgeRoute
   '/admin/margins': typeof AdminMarginsRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/pricing': typeof AdminPricingRoute
   '/admin/settings': typeof AdminSettingsRoute
@@ -304,6 +311,7 @@ export interface FileRoutesByTo {
   '/admin/export': typeof AdminExportRoute
   '/admin/knowledge': typeof AdminKnowledgeRoute
   '/admin/margins': typeof AdminMarginsRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/pricing': typeof AdminPricingRoute
   '/admin/settings': typeof AdminSettingsRoute
@@ -347,6 +355,7 @@ export interface FileRoutesById {
   '/admin/export': typeof AdminExportRoute
   '/admin/knowledge': typeof AdminKnowledgeRoute
   '/admin/margins': typeof AdminMarginsRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/pricing': typeof AdminPricingRoute
   '/admin/settings': typeof AdminSettingsRoute
@@ -391,6 +400,7 @@ export interface FileRouteTypes {
     | '/admin/export'
     | '/admin/knowledge'
     | '/admin/margins'
+    | '/admin/notifications'
     | '/admin/orders'
     | '/admin/pricing'
     | '/admin/settings'
@@ -429,6 +439,7 @@ export interface FileRouteTypes {
     | '/admin/export'
     | '/admin/knowledge'
     | '/admin/margins'
+    | '/admin/notifications'
     | '/admin/orders'
     | '/admin/pricing'
     | '/admin/settings'
@@ -471,6 +482,7 @@ export interface FileRouteTypes {
     | '/admin/export'
     | '/admin/knowledge'
     | '/admin/margins'
+    | '/admin/notifications'
     | '/admin/orders'
     | '/admin/pricing'
     | '/admin/settings'
@@ -608,6 +620,13 @@ declare module '@tanstack/react-router' {
       path: '/orders'
       fullPath: '/admin/orders'
       preLoaderRoute: typeof AdminOrdersRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/notifications': {
+      id: '/admin/notifications'
+      path: '/notifications'
+      fullPath: '/admin/notifications'
+      preLoaderRoute: typeof AdminNotificationsRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/margins': {
@@ -830,6 +849,7 @@ interface AdminRouteChildren {
   AdminExportRoute: typeof AdminExportRoute
   AdminKnowledgeRoute: typeof AdminKnowledgeRoute
   AdminMarginsRoute: typeof AdminMarginsRoute
+  AdminNotificationsRoute: typeof AdminNotificationsRoute
   AdminOrdersRoute: typeof AdminOrdersRoute
   AdminPricingRoute: typeof AdminPricingRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
@@ -857,6 +877,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminExportRoute: AdminExportRoute,
   AdminKnowledgeRoute: AdminKnowledgeRoute,
   AdminMarginsRoute: AdminMarginsRoute,
+  AdminNotificationsRoute: AdminNotificationsRoute,
   AdminOrdersRoute: AdminOrdersRoute,
   AdminPricingRoute: AdminPricingRoute,
   AdminSettingsRoute: AdminSettingsRoute,

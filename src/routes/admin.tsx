@@ -5,7 +5,7 @@ import { AdminNotifications } from "@/components/admin/AdminNotifications";
 import { auth } from "@/lib/auth";
 import { CURRENT_USER } from "@/lib/backoffice-store";
 import {
-  LayoutDashboard, ShoppingCart, FileText, Package, Users, Ship, FolderOpen, CreditCard, Bot, Bell, Settings,
+  LayoutDashboard, ShoppingCart, FileText, Package, Users, Bot, Bell, Settings,
 } from "lucide-react";
 
 const nav: NavItem[] = [
@@ -14,9 +14,6 @@ const nav: NavItem[] = [
   { to: "/admin/devis", label: "Devis", icon: FileText, badge: "IA" },
   { to: "/admin/produits", label: "Produits", icon: Package },
   { to: "/admin/clients", label: "Clients", icon: Users },
-  { to: "/admin/expeditions", label: "Expéditions", icon: Ship },
-  { to: "/admin/documents", label: "Documents", icon: FolderOpen },
-  { to: "/admin/paiements", label: "Paiements", icon: CreditCard },
   { to: "/admin/agents", label: "Agents IA", icon: Bot, badge: "5" },
   { to: "/admin/notifications", label: "Notifications", icon: Bell },
   { to: "/admin/settings", label: "Paramètres", icon: Settings },
