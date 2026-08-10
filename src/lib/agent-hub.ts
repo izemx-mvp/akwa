@@ -106,7 +106,7 @@ const defaultTasks: ExportTask[] = [
   { id: "t3", label: "Réservation transport", done: true },
   { id: "t4", label: "Assurance", done: true },
   { id: "t5", label: "Certificat d'origine", done: false },
-  { id: "t6", label: "Certificat sanitaire", done: false },
+  { id: "t6", label: "Fiches de données de sécurité (SDS)", done: false },
   { id: "t7", label: "Bill of Lading", done: false },
   { id: "t8", label: "Étiquetage conforme", done: true },
   { id: "t9", label: "Destination vérifiée", done: true },
@@ -210,8 +210,8 @@ export function containerPlans(): ContainerPlan[] {
       cost: 7800,
       note: "Meilleur équilibre coût / efficacité volumétrique.",
       boxes: [
-        { id: "AKW-CNT-2026-041", type: "40 HC", usedM3: 35.1, capacityM3: 38.1, weightKg: 12180, pallets: 18, items: ["Huile d'olive", "Sardines", "Couscous", "Concentré de tomate"] },
-        { id: "AKW-CNT-2026-042", type: "40 HC", usedM3: 26.3, capacityM3: 38.1, weightKg: 11660, pallets: 15, items: ["Dattes Medjool", "Épices", "Thé vert", "Confitures"] },
+        { id: "AKW-CNT-2026-041", type: "40 HC", usedM3: 35.1, capacityM3: 38.1, weightKg: 12180, pallets: 18, items: ["Huile moteur 5W-30", "Huile 10W-40 5L", "ATF Dexron III", "Gear Oil 80W-90"] },
+        { id: "AKW-CNT-2026-042", type: "40 HC", usedM3: 26.3, capacityM3: 38.1, weightKg: 11660, pallets: 15, items: ["Liquide de refroidissement", "Antigel G12+", "DOT 4", "Lave-glace"] },
       ],
     },
     {
@@ -221,8 +221,8 @@ export function containerPlans(): ContainerPlan[] {
       cost: 8150,
       note: "Coût supérieur de 350 € pour une efficacité volumétrique moindre.",
       boxes: [
-        { id: "ALT-40HC", type: "40 HC", usedM3: 36.4, capacityM3: 38.1, weightKg: 13400, pallets: 19, items: ["Huile d'olive", "Conserves", "Couscous"] },
-        { id: "ALT-20DV", type: "20'", usedM3: 22.1, capacityM3: 28.3, weightKg: 10440, pallets: 12, items: ["Dattes", "Épices", "Thé"] },
+        { id: "ALT-40HC", type: "40 HC", usedM3: 36.4, capacityM3: 38.1, weightKg: 13400, pallets: 19, items: ["Huiles moteur", "Huiles transmission", "Graisses"] },
+        { id: "ALT-20DV", type: "20'", usedM3: 22.1, capacityM3: 28.3, weightKg: 10440, pallets: 12, items: ["Additifs", "DOT 4", "Lave-glace"] },
       ],
     },
     {
@@ -233,15 +233,15 @@ export function containerPlans(): ContainerPlan[] {
       risk: "Contraintes volume / hauteur sur palettes gerbées",
       note: "Remplissage maximal mais marges de manœuvre réduites au chargement.",
       boxes: [
-        { id: "STD-1", type: "40 STD", usedM3: 31.9, capacityM3: 33.2, weightKg: 12180, pallets: 18, items: ["Huile d'olive", "Sardines", "Couscous"] },
-        { id: "STD-2", type: "40 STD", usedM3: 30.5, capacityM3: 33.2, weightKg: 11660, pallets: 17, items: ["Dattes", "Épices", "Thé", "Confitures"] },
+        { id: "STD-1", type: "40 STD", usedM3: 31.9, capacityM3: 33.2, weightKg: 12180, pallets: 18, items: ["Huiles moteur", "ATF", "Gear Oil"] },
+        { id: "STD-2", type: "40 STD", usedM3: 30.5, capacityM3: 33.2, weightKg: 11660, pallets: 17, items: ["Antigel", "DOT 4", "Graisses", "Additifs"] },
       ],
     },
   ];
 }
 
 export const exportRisks = [
-  { area: "Documentation", level: "Modéré", detail: "Certificat sanitaire non disponible pour 3 références alimentaires." },
+  { area: "Documentation", level: "Modéré", detail: "SDS manquantes pour 3 références de fluides classés ADR (DOT 4, additifs)." },
   { area: "Planning", level: "Faible", detail: "Consolidation prévue 2 jours avant chargement." },
   { area: "Transport", level: "Faible", detail: "Booking maritime confirmé pour le 18 août." },
   { area: "Paiement", level: "Élevé", detail: "Solde client non reçu à J-8 du départ." },

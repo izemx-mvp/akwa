@@ -50,7 +50,7 @@ let configs: Record<AgentKey, AgentConfig> = {
     { key: "includeFees", label: "Inclure les frais annexes dans le calcul", type: "switch", value: true },
   ]),
   export: base("Yassine Bennani", [
-    "Vérifier la présence des certificats sanitaires pour les produits alimentaires.",
+    "Vérifier la présence des fiches de données de sécurité (SDS) et le classement ADR des fluides.",
     "Alerter à J-8 si le solde client n'est pas encaissé.",
   ], [
     { key: "leadTime", label: "Délai d'alerte avant chargement", type: "number", value: 8, unit: "jours" },

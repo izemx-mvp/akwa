@@ -25,10 +25,10 @@ export const Route = createFileRoute("/admin/produits/import")({
 });
 
 const SAMPLE = `reference;nom;categorie;prix_achat;prix_vente
-AKW-IMP-101;Confiture de figues 320 g;Épicerie fine;2,10;3,45
-AKW-IMP-102;Amlou artisanal 250 g;Épicerie fine;4,80;7,20
-AKW-IMP-103;Olives Picholine 5 kg;Conserves;9,40;13,90
-AKW-IMP-104;Safran pur 2 g;Épices;6,20;11,50`;
+AKW-IMP-101;Huile moteur 5W-30 synthétique 1L;Huiles moteur;3,80;5,50
+AKW-IMP-102;Huile moteur 10W-40 semi-synthétique 5L;Huiles moteur;14,90;21,00
+AKW-IMP-103;Liquide de refroidissement -35 °C 5L;Fluides automobiles;4,60;7,00
+AKW-IMP-104;Graisse lithium multiusage 5 kg;Graisses;14,20;20,90`;
 
 type Row = { ref: string; name: string; category: string; buy: number; sell: number; error?: string };
 

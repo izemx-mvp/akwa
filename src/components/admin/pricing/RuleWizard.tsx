@@ -71,7 +71,7 @@ export function RuleWizard({
             {step === 0 && (
               <div className="grid gap-4 md:grid-cols-2">
                 <Row label="Nom de la règle">
-                  <Input value={rule.name} onChange={(e) => patch({ name: e.target.value })} placeholder="Offre Conserves – Clients stratégiques" />
+                  <Input value={rule.name} onChange={(e) => patch({ name: e.target.value })} placeholder="Offre Huiles moteur – Clients stratégiques" />
                 </Row>
                 <Row label="Type de règle">
                   <select
@@ -91,7 +91,7 @@ export function RuleWizard({
                 <div className="md:col-span-2">
                   <Row label="Tags" hint="Séparés par des virgules">
                     <Input value={rule.tags.join(", ")} onChange={(e) => patch({ tags: e.target.value.split(",").map((t) => t.trim()).filter(Boolean) })}
-                      placeholder="Promotion, Conserves, Afrique de l'Ouest" />
+                      placeholder="Promotion, Huiles moteur, Afrique de l'Ouest" />
                   </Row>
                 </div>
               </div>
