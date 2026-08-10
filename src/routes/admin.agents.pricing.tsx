@@ -24,7 +24,6 @@ const TABS = [
   { to: "/admin/agents/pricing/analyse", label: "Analyse & recommandations" },
   { to: "/admin/agents/pricing/regles", label: "Règles tarifaires" },
   { to: "/admin/agents/pricing/historique", label: "Historique des prix" },
-  { to: "/admin/agents/pricing/configuration", label: "Configuration" },
 ];
 
 function PricingLayout() {

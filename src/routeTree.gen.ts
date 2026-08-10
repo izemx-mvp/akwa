@@ -29,6 +29,7 @@ import { Route as AdminKnowledgeRouteImport } from './routes/admin.knowledge'
 import { Route as AdminExportRouteImport } from './routes/admin.export'
 import { Route as AdminCopilotRouteImport } from './routes/admin.copilot'
 import { Route as AdminContainerRouteImport } from './routes/admin.container'
+import { Route as AdminConfigurationAgentsRouteImport } from './routes/admin.configuration-agents'
 import { Route as AdminAgentsRouteImport } from './routes/admin.agents'
 import { Route as ClientDevisIndexRouteImport } from './routes/client.devis.index'
 import { Route as AdminProduitsIndexRouteImport } from './routes/admin.produits.index'
@@ -161,6 +162,12 @@ const AdminContainerRoute = AdminContainerRouteImport.update({
   path: '/container',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminConfigurationAgentsRoute =
+  AdminConfigurationAgentsRouteImport.update({
+    id: '/configuration-agents',
+    path: '/configuration-agents',
+    getParentRoute: () => AdminRoute,
+  } as any)
 const AdminAgentsRoute = AdminAgentsRouteImport.update({
   id: '/agents',
   path: '/agents',
@@ -331,6 +338,7 @@ export interface FileRoutesByFullPath {
   '/client': typeof ClientRouteWithChildren
   '/login': typeof LoginRoute
   '/admin/agents': typeof AdminAgentsRouteWithChildren
+  '/admin/configuration-agents': typeof AdminConfigurationAgentsRoute
   '/admin/container': typeof AdminContainerRouteWithChildren
   '/admin/copilot': typeof AdminCopilotRoute
   '/admin/export': typeof AdminExportRoute
@@ -381,6 +389,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/admin/configuration-agents': typeof AdminConfigurationAgentsRoute
   '/admin/copilot': typeof AdminCopilotRoute
   '/admin/export': typeof AdminExportRoute
   '/admin/knowledge': typeof AdminKnowledgeRoute
@@ -433,6 +442,7 @@ export interface FileRoutesById {
   '/client': typeof ClientRouteWithChildren
   '/login': typeof LoginRoute
   '/admin/agents': typeof AdminAgentsRouteWithChildren
+  '/admin/configuration-agents': typeof AdminConfigurationAgentsRoute
   '/admin/container': typeof AdminContainerRouteWithChildren
   '/admin/copilot': typeof AdminCopilotRoute
   '/admin/export': typeof AdminExportRoute
@@ -488,6 +498,7 @@ export interface FileRouteTypes {
     | '/client'
     | '/login'
     | '/admin/agents'
+    | '/admin/configuration-agents'
     | '/admin/container'
     | '/admin/copilot'
     | '/admin/export'
@@ -538,6 +549,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/login'
+    | '/admin/configuration-agents'
     | '/admin/copilot'
     | '/admin/export'
     | '/admin/knowledge'
@@ -589,6 +601,7 @@ export interface FileRouteTypes {
     | '/client'
     | '/login'
     | '/admin/agents'
+    | '/admin/configuration-agents'
     | '/admin/container'
     | '/admin/copilot'
     | '/admin/export'
@@ -784,6 +797,13 @@ declare module '@tanstack/react-router' {
       path: '/container'
       fullPath: '/admin/container'
       preLoaderRoute: typeof AdminContainerRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/configuration-agents': {
+      id: '/admin/configuration-agents'
+      path: '/configuration-agents'
+      fullPath: '/admin/configuration-agents'
+      preLoaderRoute: typeof AdminConfigurationAgentsRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/agents': {
@@ -1065,6 +1085,7 @@ const AdminContainerRouteWithChildren = AdminContainerRoute._addFileChildren(
 
 interface AdminRouteChildren {
   AdminAgentsRoute: typeof AdminAgentsRouteWithChildren
+  AdminConfigurationAgentsRoute: typeof AdminConfigurationAgentsRoute
   AdminContainerRoute: typeof AdminContainerRouteWithChildren
   AdminCopilotRoute: typeof AdminCopilotRoute
   AdminExportRoute: typeof AdminExportRoute
@@ -1093,6 +1114,7 @@ interface AdminRouteChildren {
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminAgentsRoute: AdminAgentsRouteWithChildren,
+  AdminConfigurationAgentsRoute: AdminConfigurationAgentsRoute,
   AdminContainerRoute: AdminContainerRouteWithChildren,
   AdminCopilotRoute: AdminCopilotRoute,
   AdminExportRoute: AdminExportRoute,
