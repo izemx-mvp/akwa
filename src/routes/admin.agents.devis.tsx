@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { FileText, Sparkles } from "lucide-react";
 import { AgentHeader, OrderContextPanel, Explain, CrossLink } from "@/components/admin/AgentShell";
 import { Chip, Kpi, Panel, quoteStatusTone } from "@/components/admin/ui";
-import { OrderContextPanel as _ } from "@/components/admin/AgentShell";
+
 import { eur, goodsTotal, useBackoffice } from "@/lib/backoffice-store";
 import { useAgentHub } from "@/lib/agent-hub";
 

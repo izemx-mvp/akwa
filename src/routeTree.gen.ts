@@ -51,6 +51,7 @@ import { Route as AdminClientsClientIdRouteImport } from './routes/admin.clients
 import { Route as AdminAgentsPricingRouteImport } from './routes/admin.agents.pricing'
 import { Route as AdminAgentsMargeRouteImport } from './routes/admin.agents.marge'
 import { Route as AdminAgentsExportRouteImport } from './routes/admin.agents.export'
+import { Route as AdminAgentsDevisRouteImport } from './routes/admin.agents.devis'
 import { Route as AdminAgentsContainerOptimizerRouteImport } from './routes/admin.agents.container-optimizer'
 import { Route as AdminAgentsAgentIdRouteImport } from './routes/admin.agents.$agentId'
 import { Route as AdminDevisGenererReferenceRouteImport } from './routes/admin.devis.generer.$reference'
@@ -268,6 +269,11 @@ const AdminAgentsExportRoute = AdminAgentsExportRouteImport.update({
   path: '/export',
   getParentRoute: () => AdminAgentsRoute,
 } as any)
+const AdminAgentsDevisRoute = AdminAgentsDevisRouteImport.update({
+  id: '/devis',
+  path: '/devis',
+  getParentRoute: () => AdminAgentsRoute,
+} as any)
 const AdminAgentsContainerOptimizerRoute =
   AdminAgentsContainerOptimizerRouteImport.update({
     id: '/container-optimizer',
@@ -310,6 +316,7 @@ export interface FileRoutesByFullPath {
   '/client/': typeof ClientIndexRoute
   '/admin/agents/$agentId': typeof AdminAgentsAgentIdRoute
   '/admin/agents/container-optimizer': typeof AdminAgentsContainerOptimizerRoute
+  '/admin/agents/devis': typeof AdminAgentsDevisRoute
   '/admin/agents/export': typeof AdminAgentsExportRoute
   '/admin/agents/marge': typeof AdminAgentsMargeRoute
   '/admin/agents/pricing': typeof AdminAgentsPricingRoute
@@ -353,6 +360,7 @@ export interface FileRoutesByTo {
   '/client': typeof ClientIndexRoute
   '/admin/agents/$agentId': typeof AdminAgentsAgentIdRoute
   '/admin/agents/container-optimizer': typeof AdminAgentsContainerOptimizerRoute
+  '/admin/agents/devis': typeof AdminAgentsDevisRoute
   '/admin/agents/export': typeof AdminAgentsExportRoute
   '/admin/agents/marge': typeof AdminAgentsMargeRoute
   '/admin/agents/pricing': typeof AdminAgentsPricingRoute
@@ -401,6 +409,7 @@ export interface FileRoutesById {
   '/client/': typeof ClientIndexRoute
   '/admin/agents/$agentId': typeof AdminAgentsAgentIdRoute
   '/admin/agents/container-optimizer': typeof AdminAgentsContainerOptimizerRoute
+  '/admin/agents/devis': typeof AdminAgentsDevisRoute
   '/admin/agents/export': typeof AdminAgentsExportRoute
   '/admin/agents/marge': typeof AdminAgentsMargeRoute
   '/admin/agents/pricing': typeof AdminAgentsPricingRoute
@@ -450,6 +459,7 @@ export interface FileRouteTypes {
     | '/client/'
     | '/admin/agents/$agentId'
     | '/admin/agents/container-optimizer'
+    | '/admin/agents/devis'
     | '/admin/agents/export'
     | '/admin/agents/marge'
     | '/admin/agents/pricing'
@@ -493,6 +503,7 @@ export interface FileRouteTypes {
     | '/client'
     | '/admin/agents/$agentId'
     | '/admin/agents/container-optimizer'
+    | '/admin/agents/devis'
     | '/admin/agents/export'
     | '/admin/agents/marge'
     | '/admin/agents/pricing'
@@ -540,6 +551,7 @@ export interface FileRouteTypes {
     | '/client/'
     | '/admin/agents/$agentId'
     | '/admin/agents/container-optimizer'
+    | '/admin/agents/devis'
     | '/admin/agents/export'
     | '/admin/agents/marge'
     | '/admin/agents/pricing'
@@ -867,6 +879,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAgentsExportRouteImport
       parentRoute: typeof AdminAgentsRoute
     }
+    '/admin/agents/devis': {
+      id: '/admin/agents/devis'
+      path: '/devis'
+      fullPath: '/admin/agents/devis'
+      preLoaderRoute: typeof AdminAgentsDevisRouteImport
+      parentRoute: typeof AdminAgentsRoute
+    }
     '/admin/agents/container-optimizer': {
       id: '/admin/agents/container-optimizer'
       path: '/container-optimizer'
@@ -894,6 +913,7 @@ declare module '@tanstack/react-router' {
 interface AdminAgentsRouteChildren {
   AdminAgentsAgentIdRoute: typeof AdminAgentsAgentIdRoute
   AdminAgentsContainerOptimizerRoute: typeof AdminAgentsContainerOptimizerRoute
+  AdminAgentsDevisRoute: typeof AdminAgentsDevisRoute
   AdminAgentsExportRoute: typeof AdminAgentsExportRoute
   AdminAgentsMargeRoute: typeof AdminAgentsMargeRoute
   AdminAgentsPricingRoute: typeof AdminAgentsPricingRoute
@@ -903,6 +923,7 @@ interface AdminAgentsRouteChildren {
 const AdminAgentsRouteChildren: AdminAgentsRouteChildren = {
   AdminAgentsAgentIdRoute: AdminAgentsAgentIdRoute,
   AdminAgentsContainerOptimizerRoute: AdminAgentsContainerOptimizerRoute,
+  AdminAgentsDevisRoute: AdminAgentsDevisRoute,
   AdminAgentsExportRoute: AdminAgentsExportRoute,
   AdminAgentsMargeRoute: AdminAgentsMargeRoute,
   AdminAgentsPricingRoute: AdminAgentsPricingRoute,
