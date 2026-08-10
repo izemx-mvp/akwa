@@ -343,43 +343,76 @@ export const MARGIN_THRESHOLD = 15;
 /* ------------------------------------------------------------------ */
 
 const suppliers: Supplier[] = [
-  { id: "SUP-001", name: "Huileries du Souss", country: "Maroc", contact: "Rachid Amrani", email: "contact@huileries-souss.ma", phone: "+212 528 22 41 09" },
-  { id: "SUP-002", name: "Conserveries Atlantique", country: "Maroc", contact: "Nadia Berrada", email: "achats@cons-atlantique.ma", phone: "+212 522 30 18 44" },
-  { id: "SUP-003", name: "Palmeraie Tafilalet", country: "Maroc", contact: "Omar Sabri", email: "export@tafilalet-dattes.ma", phone: "+212 535 57 62 10" },
-  { id: "SUP-004", name: "Épices du Sud SARL", country: "Maroc", contact: "Karima Idrissi", email: "commercial@epicesdusud.ma", phone: "+212 524 43 88 21" },
-  { id: "SUP-005", name: "Semouleries Chaouia", country: "Maroc", contact: "Youssef Naciri", email: "ventes@chaouia-semoule.ma", phone: "+212 523 31 77 05" },
-  { id: "SUP-006", name: "Thés & Infusions Maghreb", country: "Maroc", contact: "Salma Tazi", email: "info@the-maghreb.ma", phone: "+212 522 98 14 60" },
-  { id: "SUP-007", name: "Agro Doukkala", country: "Maroc", contact: "Hicham Filali", email: "contact@agrodoukkala.ma", phone: "+212 523 34 20 90" },
+  { id: "SUP-001", name: "Atlas Lubricants Industries", country: "Maroc", contact: "Rachid Amrani", email: "contact@atlas-lubricants.ma", phone: "+212 522 66 41 09" },
+  { id: "SUP-002", name: "Maghreb Petrochem", country: "Maroc", contact: "Nadia Berrada", email: "achats@maghreb-petrochem.ma", phone: "+212 522 30 18 44" },
+  { id: "SUP-003", name: "North Africa Lubes", country: "Maroc", contact: "Omar Sabri", email: "export@na-lubes.ma", phone: "+212 539 57 62 10" },
+  { id: "SUP-004", name: "Casablanca Industrial Oils", country: "Maroc", contact: "Karima Idrissi", email: "commercial@casa-industrial-oils.ma", phone: "+212 522 43 88 21" },
+  { id: "SUP-005", name: "Sahara Automotive Fluids", country: "Maroc", contact: "Youssef Naciri", email: "ventes@sahara-fluids.ma", phone: "+212 528 31 77 05" },
+  { id: "SUP-006", name: "MediLube Manufacturing", country: "Maroc", contact: "Salma Tazi", email: "info@medilube.ma", phone: "+212 522 98 14 60" },
+  { id: "SUP-007", name: "Tanger Additives Lab", country: "Maroc", contact: "Hicham Filali", email: "contact@tanger-additives.ma", phone: "+212 539 34 20 90" },
+  { id: "SUP-008", name: "Atlantic Base Oils", country: "Maroc", contact: "Sanaa Lahlou", email: "sales@atlantic-baseoils.ma", phone: "+212 522 27 19 33" },
+  { id: "SUP-009", name: "Souss Grease Works", country: "Maroc", contact: "Mehdi Chraibi", email: "contact@souss-grease.ma", phone: "+212 528 84 55 12" },
+  { id: "SUP-010", name: "Rabat Chemical Solutions", country: "Maroc", contact: "Imane Alaoui", email: "export@rabat-chem.ma", phone: "+212 537 71 40 28" },
 ];
 
 const catalog: {
   ref: string; name: string; cat: string; sub: string; brand: string; origin: string; emoji: string;
+  visc: string; norm: string; pack: string;
   buy: number; prev: number; sell: number; sup: string; avail?: Availability; status?: ProductStatus; toCheck?: boolean;
 }[] = [
-  { ref: "AKW-OLV-001", name: "Huile d'olive extra vierge 1L", cat: "Huile & épicerie", sub: "Huile d'olive", brand: "Atlas Gold", origin: "Maroc", emoji: "🫒", buy: 4.65, prev: 4.4, sell: 6.4, sup: "SUP-001" },
-  { ref: "AKW-OLV-002", name: "Huile d'olive vierge 5L", cat: "Huile & épicerie", sub: "Huile d'olive", brand: "Atlas Gold", origin: "Maroc", emoji: "🛢️", buy: 20.9, prev: 19.8, sell: 27.5, sup: "SUP-001" },
-  { ref: "AKW-OLV-005", name: "Huile d'argan alimentaire 250ml", cat: "Huile & épicerie", sub: "Huile d'argan", brand: "Souss Nature", origin: "Maroc", emoji: "🍯", buy: 9.2, prev: 8.6, sell: 13.5, sup: "SUP-001", toCheck: true },
-  { ref: "AKW-CNS-003", name: "Sardines à l'huile 125g", cat: "Conserves", sub: "Poisson", brand: "Océan Bleu", origin: "Maroc", emoji: "🐟", buy: 1.18, prev: 1.1, sell: 1.65, sup: "SUP-002" },
-  { ref: "AKW-CNS-008", name: "Conserves de tomates pelées 400g", cat: "Conserves", sub: "Légumes", brand: "Doukkala Farm", origin: "Maroc", emoji: "🍅", buy: 0.71, prev: 0.71, sell: 0.98, sup: "SUP-007" },
-  { ref: "AKW-CNS-012", name: "Maquereaux sauce tomate 200g", cat: "Conserves", sub: "Poisson", brand: "Océan Bleu", origin: "Maroc", emoji: "🥫", buy: 1.42, prev: 1.35, sell: 1.95, sup: "SUP-002", avail: "Stock limité" },
-  { ref: "AKW-DAT-002", name: "Dattes Medjool premium 1kg", cat: "Fruits secs", sub: "Dattes", brand: "Palmeraie Royale", origin: "Maroc", emoji: "🌴", buy: 6.35, prev: 5.9, sell: 8.9, sup: "SUP-003" },
-  { ref: "AKW-DAT-007", name: "Dattes Boufeggous 5kg", cat: "Fruits secs", sub: "Dattes", brand: "Palmeraie Royale", origin: "Maroc", emoji: "📦", buy: 22.4, prev: 21.9, sell: 29.9, sup: "SUP-003" },
-  { ref: "AKW-CPR-004", name: "Câpres fines au vinaigre 500g", cat: "Épicerie fine", sub: "Condiments", brand: "Terroir Rif", origin: "Maroc", emoji: "🫙", buy: 2.7, prev: 2.55, sell: 3.75, sup: "SUP-007" },
-  { ref: "AKW-EPC-011", name: "Épices ras el hanout 250g", cat: "Épices", sub: "Mélanges", brand: "Souk Épices", origin: "Maroc", emoji: "🌶️", buy: 1.62, prev: 1.5, sell: 2.4, sup: "SUP-004" },
-  { ref: "AKW-EPC-015", name: "Cumin moulu 500g", cat: "Épices", sub: "Mono-épices", brand: "Souk Épices", origin: "Maroc", emoji: "🧂", buy: 2.05, prev: 2.2, sell: 2.85, sup: "SUP-004" },
-  { ref: "AKW-EPC-018", name: "Safran pur filaments 2g", cat: "Épices", sub: "Épices rares", brand: "Taliouine Or", origin: "Maroc", emoji: "🌸", buy: 6.8, prev: 6.1, sell: 11.5, sup: "SUP-004", toCheck: true },
-  { ref: "AKW-CSC-006", name: "Couscous moyen 5kg", cat: "Céréales", sub: "Semoule", brand: "Chaouia", origin: "Maroc", emoji: "🌾", buy: 4.4, prev: 4.25, sell: 6.2, sup: "SUP-005" },
-  { ref: "AKW-CSC-010", name: "Couscous fin 1kg", cat: "Céréales", sub: "Semoule", brand: "Chaouia", origin: "Maroc", emoji: "🍚", buy: 0.95, prev: 0.92, sell: 1.35, sup: "SUP-005" },
-  { ref: "AKW-THE-009", name: "Thé vert gunpowder 500g", cat: "Boissons", sub: "Thé", brand: "Menthe Royale", origin: "Chine / Maroc", emoji: "🍵", buy: 2.85, prev: 2.7, sell: 4.0, sup: "SUP-006" },
-  { ref: "AKW-THE-016", name: "Thé à la menthe infusettes x100", cat: "Boissons", sub: "Thé", brand: "Menthe Royale", origin: "Maroc", emoji: "🌿", buy: 2.3, prev: 2.3, sell: 3.4, sup: "SUP-006", avail: "Rupture", status: "Inactif" },
-  { ref: "AKW-CNF-014", name: "Confiture d'abricot 380g", cat: "Épicerie fine", sub: "Confitures", brand: "Terroir Rif", origin: "Maroc", emoji: "🍑", buy: 1.5, prev: 1.42, sell: 2.15, sup: "SUP-007" },
-  { ref: "AKW-CNF-019", name: "Miel d'oranger 500g", cat: "Épicerie fine", sub: "Miel", brand: "Terroir Rif", origin: "Maroc", emoji: "🍯", buy: 5.4, prev: 5.0, sell: 7.9, sup: "SUP-007", avail: "Sur commande" },
-  { ref: "AKW-OLI-020", name: "Olives vertes cassées 5kg", cat: "Conserves", sub: "Olives", brand: "Terroir Rif", origin: "Maroc", emoji: "🫒", buy: 8.9, prev: 8.4, sell: 12.4, sup: "SUP-007" },
-  { ref: "AKW-HRS-021", name: "Harissa en tube 140g", cat: "Épices", sub: "Sauces", brand: "Souk Épices", origin: "Maroc", emoji: "🌶️", buy: 0.82, prev: 0.78, sell: 1.25, sup: "SUP-004" },
-  { ref: "AKW-AMD-022", name: "Amandes décortiquées 1kg", cat: "Fruits secs", sub: "Amandes", brand: "Palmeraie Royale", origin: "Maroc", emoji: "🌰", buy: 9.6, prev: 9.1, sell: 13.2, sup: "SUP-003", avail: "Stock limité" },
-  { ref: "AKW-PSS-023", name: "Pâtes couscous perlé 1kg", cat: "Céréales", sub: "Pâtes", brand: "Chaouia", origin: "Maroc", emoji: "🍝", buy: 1.15, prev: 1.15, sell: 1.65, sup: "SUP-005" },
-  { ref: "AKW-EAU-024", name: "Eau de fleur d'oranger 250ml", cat: "Épicerie fine", sub: "Arômes", brand: "Souss Nature", origin: "Maroc", emoji: "💧", buy: 1.05, prev: 0.98, sell: 1.6, sup: "SUP-001" },
-  { ref: "AKW-CNS-025", name: "Thon à l'huile d'olive 160g", cat: "Conserves", sub: "Poisson", brand: "Océan Bleu", origin: "Maroc", emoji: "🐠", buy: 1.95, prev: 1.8, sell: 2.75, sup: "SUP-002", toCheck: true },
+  /* --- Huiles moteur --- */
+  { ref: "AKW-ENG-5W30-001", name: "Huile moteur synthétique 5W-30 – 1L", cat: "Huiles moteur", sub: "Synthétique", brand: "AKWA Motion", origin: "Maroc", emoji: "🛢️", visc: "SAE 5W-30", norm: "API SP / ACEA C3", pack: "Bidon 1 L", buy: 3.85, prev: 3.62, sell: 5.2, sup: "SUP-001", toCheck: true },
+  { ref: "AKW-ENG-5W30-002", name: "Huile moteur synthétique 5W-30 – 4L", cat: "Huiles moteur", sub: "Synthétique", brand: "AKWA Motion", origin: "Maroc", emoji: "🛢️", visc: "SAE 5W-30", norm: "API SP / ACEA C3", pack: "Bidon 4 L", buy: 14.6, prev: 13.9, sell: 19.8, sup: "SUP-001" },
+  { ref: "AKW-ENG-5W30-003", name: "Huile moteur synthétique 5W-30 – 20L", cat: "Huiles moteur", sub: "Synthétique", brand: "AKWA Motion", origin: "Maroc", emoji: "🛢️", visc: "SAE 5W-30", norm: "API SP / ACEA C3", pack: "Fût 20 L", buy: 68.4, prev: 65.2, sell: 92.5, sup: "SUP-001" },
+  { ref: "AKW-ENG-5W40-004", name: "Huile moteur synthétique 5W-40 – 5L", cat: "Huiles moteur", sub: "Synthétique", brand: "AKWA Motion", origin: "Maroc", emoji: "🛢️", visc: "SAE 5W-40", norm: "API SN / ACEA A3/B4", pack: "Bidon 5 L", buy: 17.9, prev: 16.8, sell: 24.4, sup: "SUP-001" },
+  { ref: "AKW-ENG-5W40-005", name: "Huile moteur synthétique 5W-40 – 1L", cat: "Huiles moteur", sub: "Synthétique", brand: "AKWA Motion", origin: "Maroc", emoji: "🧴", visc: "SAE 5W-40", norm: "API SN / ACEA A3/B4", pack: "Bidon 1 L", buy: 3.95, prev: 3.7, sell: 5.35, sup: "SUP-002" },
+  { ref: "AKW-ENG-10W40-006", name: "Huile moteur semi-synthétique 10W-40 – 5L", cat: "Huiles moteur", sub: "Semi-synthétique", brand: "AKWA Motion", origin: "Maroc", emoji: "🛢️", visc: "SAE 10W-40", norm: "API SN / ACEA A3/B4", pack: "Bidon 5 L", buy: 13.2, prev: 12.4, sell: 18.1, sup: "SUP-002" },
+  { ref: "AKW-ENG-10W40-007", name: "Huile moteur semi-synthétique 10W-40 – 20L", cat: "Huiles moteur", sub: "Semi-synthétique", brand: "AKWA Motion", origin: "Maroc", emoji: "🛢️", visc: "SAE 10W-40", norm: "API SN", pack: "Fût 20 L", buy: 49.8, prev: 47.5, sell: 68.9, sup: "SUP-002" },
+  { ref: "AKW-ENG-15W40-010", name: "Huile moteur diesel 15W-40 – 20L", cat: "Huiles moteur", sub: "Diesel HD", brand: "AKWA Heavy Duty", origin: "Maroc", emoji: "🚛", visc: "SAE 15W-40", norm: "API CI-4 / ACEA E7", pack: "Fût 20 L", buy: 41.5, prev: 38.9, sell: 57.4, sup: "SUP-003", toCheck: true },
+  { ref: "AKW-ENG-15W40-011", name: "Huile moteur diesel 15W-40 – 208L", cat: "Huiles moteur", sub: "Diesel HD", brand: "AKWA Heavy Duty", origin: "Maroc", emoji: "🛢️", visc: "SAE 15W-40", norm: "API CI-4", pack: "Fût 208 L", buy: 398, prev: 372, sell: 545, sup: "SUP-003" },
+  { ref: "AKW-ENG-15W40-012", name: "Huile moteur diesel 15W-40 – 5L", cat: "Huiles moteur", sub: "Diesel HD", brand: "AKWA Heavy Duty", origin: "Maroc", emoji: "🧴", visc: "SAE 15W-40", norm: "API CI-4", pack: "Bidon 5 L", buy: 11.4, prev: 10.9, sell: 15.8, sup: "SUP-003" },
+  { ref: "AKW-ENG-20W50-013", name: "Huile moteur minérale 20W-50 – 5L", cat: "Huiles moteur", sub: "Minérale", brand: "AKWA Classic", origin: "Maroc", emoji: "🧴", visc: "SAE 20W-50", norm: "API SL", pack: "Bidon 5 L", buy: 9.85, prev: 9.4, sell: 13.6, sup: "SUP-004" },
+  { ref: "AKW-ENG-20W50-014", name: "Huile moteur minérale 20W-50 – 20L", cat: "Huiles moteur", sub: "Minérale", brand: "AKWA Classic", origin: "Maroc", emoji: "🛢️", visc: "SAE 20W-50", norm: "API SL", pack: "Fût 20 L", buy: 36.9, prev: 35.2, sell: 50.4, sup: "SUP-004" },
+  { ref: "AKW-ENG-MOTO-015", name: "Huile moteur moto 4T 10W-40 – 1L", cat: "Huiles moteur", sub: "Motocycle", brand: "AKWA Motion", origin: "Maroc", emoji: "🏍️", visc: "SAE 10W-40", norm: "API SN / JASO MA2", pack: "Bidon 1 L", buy: 4.35, prev: 4.1, sell: 6.1, sup: "SUP-006", avail: "Stock limité" },
+
+  /* --- Huiles transmission --- */
+  { ref: "AKW-ATF-D3-021", name: "ATF Dexron III – 1L", cat: "Huiles transmission", sub: "ATF", brand: "AKWA Drive", origin: "Maroc", emoji: "⚙️", visc: "ATF", norm: "Dexron III", pack: "Bidon 1 L", buy: 3.15, prev: 2.95, sell: 4.45, sup: "SUP-005" },
+  { ref: "AKW-ATF-D3-022", name: "ATF Dexron III – 20L", cat: "Huiles transmission", sub: "ATF", brand: "AKWA Drive", origin: "Maroc", emoji: "🛢️", visc: "ATF", norm: "Dexron III", pack: "Fût 20 L", buy: 56.2, prev: 53.4, sell: 78.5, sup: "SUP-005" },
+  { ref: "AKW-ATF-D6-023", name: "ATF Dexron VI – 1L", cat: "Huiles transmission", sub: "ATF", brand: "AKWA Drive", origin: "Maroc", emoji: "⚙️", visc: "ATF", norm: "Dexron VI", pack: "Bidon 1 L", buy: 4.25, prev: 3.95, sell: 5.95, sup: "SUP-005", toCheck: true },
+  { ref: "AKW-GEAR-75W90-030", name: "Gear Oil synthétique 75W-90 – 1L", cat: "Huiles transmission", sub: "Gear Oil", brand: "AKWA Drive", origin: "Maroc", emoji: "⚙️", visc: "SAE 75W-90", norm: "API GL-5", pack: "Bidon 1 L", buy: 5.6, prev: 5.25, sell: 7.85, sup: "SUP-003" },
+  { ref: "AKW-GEAR-80W90-031", name: "Gear Oil 80W-90 – 4L", cat: "Huiles transmission", sub: "Gear Oil", brand: "AKWA Drive", origin: "Maroc", emoji: "🛢️", visc: "SAE 80W-90", norm: "API GL-5", pack: "Bidon 4 L", buy: 12.8, prev: 12.1, sell: 17.6, sup: "SUP-003" },
+  { ref: "AKW-GEAR-85W140-032", name: "Gear Oil 85W-140 – 20L", cat: "Huiles transmission", sub: "Gear Oil", brand: "AKWA Heavy Duty", origin: "Maroc", emoji: "🛢️", visc: "SAE 85W-140", norm: "API GL-5", pack: "Fût 20 L", buy: 62.5, prev: 59.8, sell: 85.9, sup: "SUP-003" },
+  { ref: "AKW-GEAR-IND-033", name: "Huile transmission industrielle ISO VG 220 – 20L", cat: "Lubrifiants industriels", sub: "Transmission industrielle", brand: "AKWA Industrial", origin: "Maroc", emoji: "🏭", visc: "ISO VG 220", norm: "DIN 51517-3 CLP", pack: "Fût 20 L", buy: 58.4, prev: 56.1, sell: 79.9, sup: "SUP-004" },
+
+  /* --- Fluides automobiles --- */
+  { ref: "AKW-COOL-005", name: "Liquide de refroidissement -35 °C – 5L", cat: "Fluides automobiles", sub: "Refroidissement", brand: "AKWA Cool", origin: "Maroc", emoji: "❄️", visc: "—", norm: "ASTM D3306", pack: "Bidon 5 L", buy: 4.9, prev: 4.55, sell: 6.9, sup: "SUP-005" },
+  { ref: "AKW-COOL-006", name: "Antigel concentré G12+ – 20L", cat: "Fluides automobiles", sub: "Antigel", brand: "AKWA Cool", origin: "Maroc", emoji: "🧊", visc: "—", norm: "ASTM D3306 / G12+", pack: "Fût 20 L", buy: 27.8, prev: 26.4, sell: 38.5, sup: "SUP-005" },
+  { ref: "AKW-BRK-DOT3-010", name: "Liquide de frein DOT 3 – 500 ml", cat: "Fluides automobiles", sub: "Freinage", brand: "AKWA Safety", origin: "Maroc", emoji: "🛑", visc: "—", norm: "DOT 3 / FMVSS 116", pack: "Flacon 500 ml", buy: 1.55, prev: 1.45, sell: 2.35, sup: "SUP-006" },
+  { ref: "AKW-BRK-DOT4-011", name: "Liquide de frein DOT 4 – 500 ml", cat: "Fluides automobiles", sub: "Freinage", brand: "AKWA Safety", origin: "Maroc", emoji: "🛑", visc: "—", norm: "DOT 4 / FMVSS 116", pack: "Flacon 500 ml", buy: 1.85, prev: 1.72, sell: 2.75, sup: "SUP-006" },
+  { ref: "AKW-BRK-DOT51-012", name: "Liquide de frein DOT 5.1 – 1L", cat: "Fluides automobiles", sub: "Freinage", brand: "AKWA Safety", origin: "Maroc", emoji: "🛑", visc: "—", norm: "DOT 5.1", pack: "Flacon 1 L", buy: 4.6, prev: 4.35, sell: 6.6, sup: "SUP-006", avail: "Stock limité" },
+  { ref: "AKW-PSF-013", name: "Fluide direction assistée – 1L", cat: "Fluides automobiles", sub: "Direction assistée", brand: "AKWA Drive", origin: "Maroc", emoji: "🚗", visc: "—", norm: "Dexron III", pack: "Bidon 1 L", buy: 3.05, prev: 2.9, sell: 4.35, sup: "SUP-005" },
+  { ref: "AKW-ADB-014", name: "AdBlue 10L", cat: "Fluides automobiles", sub: "AdBlue", brand: "AKWA Clean", origin: "Maroc", emoji: "🫙", visc: "—", norm: "ISO 22241", pack: "Bidon 10 L", buy: 5.2, prev: 4.85, sell: 7.4, sup: "SUP-010" },
+  { ref: "AKW-ADB-015", name: "AdBlue 1000L IBC", cat: "Fluides automobiles", sub: "AdBlue", brand: "AKWA Clean", origin: "Maroc", emoji: "🫙", visc: "—", norm: "ISO 22241", pack: "IBC 1000 L", buy: 352, prev: 338, sell: 478, sup: "SUP-010", avail: "Sur commande" },
+  { ref: "AKW-WSH-016", name: "Liquide lave-glace -20 °C – 5L", cat: "Fluides automobiles", sub: "Lave-glace", brand: "AKWA Clean", origin: "Maroc", emoji: "💧", visc: "—", norm: "—", pack: "Bidon 5 L", buy: 1.95, prev: 1.85, sell: 2.95, sup: "SUP-010" },
+
+  /* --- Lubrifiants industriels & hydrauliques --- */
+  { ref: "AKW-HYD-46-018", name: "Huile hydraulique ISO VG 46 – 20L", cat: "Lubrifiants industriels", sub: "Hydraulique", brand: "AKWA Industrial", origin: "Maroc", emoji: "🏭", visc: "ISO VG 46", norm: "DIN 51524-2 HLP", pack: "Fût 20 L", buy: 44.2, prev: 41.8, sell: 61.5, sup: "SUP-004", toCheck: true },
+  { ref: "AKW-HYD-46-019", name: "Huile hydraulique ISO VG 46 – 208L", cat: "Lubrifiants industriels", sub: "Hydraulique", brand: "AKWA Industrial", origin: "Maroc", emoji: "🛢️", visc: "ISO VG 46", norm: "DIN 51524-2 HLP", pack: "Fût 208 L", buy: 425, prev: 402, sell: 589, sup: "SUP-004" },
+  { ref: "AKW-HYD-68-020", name: "Huile hydraulique ISO VG 68 – 20L", cat: "Lubrifiants industriels", sub: "Hydraulique", brand: "AKWA Industrial", origin: "Maroc", emoji: "🏭", visc: "ISO VG 68", norm: "DIN 51524-2 HLP", pack: "Fût 20 L", buy: 45.8, prev: 44.1, sell: 63.2, sup: "SUP-004" },
+  { ref: "AKW-CMP-024", name: "Huile compresseur ISO VG 100 – 20L", cat: "Lubrifiants industriels", sub: "Compresseur", brand: "AKWA Industrial", origin: "Maroc", emoji: "🏭", visc: "ISO VG 100", norm: "DIN 51506 VDL", pack: "Fût 20 L", buy: 52.4, prev: 50.2, sell: 72.8, sup: "SUP-008" },
+  { ref: "AKW-GREASE-LT-007", name: "Graisse lithium multiusage – 5 kg", cat: "Graisses", sub: "Lithium", brand: "AKWA Grease", origin: "Maroc", emoji: "🧈", visc: "NLGI 2", norm: "DIN 51825 KP2K-30", pack: "Seau 5 kg", buy: 14.9, prev: 14.1, sell: 20.9, sup: "SUP-009" },
+  { ref: "AKW-GREASE-LT-008", name: "Graisse lithium multiusage – 18 kg", cat: "Graisses", sub: "Lithium", brand: "AKWA Grease", origin: "Maroc", emoji: "🧈", visc: "NLGI 2", norm: "DIN 51825 KP2K-30", pack: "Seau 18 kg", buy: 48.6, prev: 46.9, sell: 68.4, sup: "SUP-009" },
+  { ref: "AKW-GREASE-HT-009", name: "Graisse haute température complexe – 5 kg", cat: "Graisses", sub: "Haute température", brand: "AKWA Grease", origin: "Maroc", emoji: "🔥", visc: "NLGI 2", norm: "DIN 51825 KP2P-30", pack: "Seau 5 kg", buy: 21.4, prev: 20.2, sell: 29.9, sup: "SUP-009", avail: "Stock limité" },
+
+  /* --- Additifs, nettoyants & entretien --- */
+  { ref: "AKW-ADD-INJ-040", name: "Nettoyant injecteur diesel – 300 ml", cat: "Additifs & nettoyants", sub: "Additifs carburant", brand: "AKWA Care", origin: "Maroc", emoji: "🧪", visc: "—", norm: "—", pack: "Flacon 300 ml", buy: 1.45, prev: 1.35, sell: 2.35, sup: "SUP-007" },
+  { ref: "AKW-ADD-FUEL-041", name: "Additif carburant essence – 250 ml", cat: "Additifs & nettoyants", sub: "Additifs carburant", brand: "AKWA Care", origin: "Maroc", emoji: "⚗️", visc: "—", norm: "—", pack: "Flacon 250 ml", buy: 1.28, prev: 1.22, sell: 2.1, sup: "SUP-007" },
+  { ref: "AKW-ADD-ENG-042", name: "Nettoyant moteur avant vidange – 400 ml", cat: "Additifs & nettoyants", sub: "Nettoyants moteur", brand: "AKWA Care", origin: "Maroc", emoji: "🧴", visc: "—", norm: "—", pack: "Flacon 400 ml", buy: 1.62, prev: 1.55, sell: 2.6, sup: "SUP-007" },
+  { ref: "AKW-ADD-OIL-043", name: "Additif huile anti-friction – 300 ml", cat: "Additifs & nettoyants", sub: "Additifs huile", brand: "AKWA Care", origin: "Maroc", emoji: "🧪", visc: "—", norm: "—", pack: "Flacon 300 ml", buy: 2.1, prev: 2.0, sell: 3.35, sup: "SUP-007" },
+  { ref: "AKW-CLN-BRK-044", name: "Nettoyant frein aérosol – 500 ml", cat: "Additifs & nettoyants", sub: "Aérosols", brand: "AKWA Care", origin: "Maroc", emoji: "🧯", visc: "—", norm: "ADR 2.1", pack: "Aérosol 500 ml", buy: 1.35, prev: 1.28, sell: 2.25, sup: "SUP-010" },
+  { ref: "AKW-CLN-DEG-045", name: "Dégrippant multifonction – 400 ml", cat: "Additifs & nettoyants", sub: "Aérosols", brand: "AKWA Care", origin: "Maroc", emoji: "🧯", visc: "—", norm: "ADR 2.1", pack: "Aérosol 400 ml", buy: 1.18, prev: 1.12, sell: 1.95, sup: "SUP-010" },
+  { ref: "AKW-ACC-FLT-046", name: "Filtre à huile universel (carton 24)", cat: "Entretien & accessoires", sub: "Filtration", brand: "AKWA Parts", origin: "Maroc", emoji: "🔧", visc: "—", norm: "—", pack: "Carton de 24", buy: 42.5, prev: 41.0, sell: 59.9, sup: "SUP-008", avail: "Sur commande" },
+  { ref: "AKW-ACC-PMP-047", name: "Pompe de transvasement manuelle fût 208L", cat: "Entretien & accessoires", sub: "Équipements", brand: "AKWA Parts", origin: "Maroc", emoji: "🔩", visc: "—", norm: "—", pack: "Unité", buy: 18.4, prev: 18.4, sell: 26.9, sup: "SUP-008", status: "Inactif", avail: "Rupture" },
 ];
 
 function makeProduct(c: (typeof catalog)[number], i: number): Product {
@@ -391,11 +424,13 @@ function makeProduct(c: (typeof catalog)[number], i: number): Product {
     brand: c.brand,
     category: c.cat,
     subCategory: c.sub,
+    viscosity: c.visc,
+    standard: c.norm,
     barcode: `611${(1000000 + i * 7331).toString().slice(0, 7)}${i}`,
     supplierSku: `${c.sup}-${c.ref.slice(-3)}`,
     origin: c.origin,
     saleUnit: "Unité",
-    packaging: `Carton de ${12 + (i % 3) * 6} unités`,
+    packaging: c.pack,
     status: c.status ?? "Actif",
     availability: c.avail ?? "Disponible",
     emoji: c.emoji,
@@ -422,13 +457,13 @@ function makeProduct(c: (typeof catalog)[number], i: number): Product {
       cartonsPerPallet: 60 + (i % 4) * 10,
       unitsPerPallet: (12 + (i % 3) * 6) * (60 + (i % 4) * 10),
       palletType: "Europe 120 × 80 (EUR1)",
-      storageTemp: c.cat === "Conserves" ? "5 °C à 25 °C" : "15 °C à 22 °C",
-      storageConditions: "À l'abri de la lumière et de l'humidité",
-      shelfLife: `${12 + (i % 4) * 6} mois`,
-      hsCode: `${1509 + (i % 9)}.${10 + (i % 8)}`,
-      dangerous: false,
-      healthCertificate: c.cat === "Conserves" || c.cat === "Épicerie fine",
-      phytoCertificate: c.cat === "Fruits secs" || c.cat === "Céréales" || c.cat === "Épices",
+      storageTemp: "5 °C à 40 °C",
+      storageConditions: "Local ventilé, à l'abri du gel, de la chaleur et des sources d'ignition",
+      shelfLife: `${36 + (i % 3) * 12} mois`,
+      hsCode: c.cat === "Fluides automobiles" ? "3820.00" : c.cat === "Graisses" ? "2710.19.99" : c.cat === "Additifs & nettoyants" ? "3811.21" : "2710.19.81",
+      dangerous: c.norm.includes("ADR") || c.sub === "Freinage",
+      sdsRequired: true,
+      adrRegulated: c.norm.includes("ADR"),
     },
     suppliers: [
       {
@@ -454,7 +489,8 @@ function makeProduct(c: (typeof catalog)[number], i: number): Product {
     ],
     documents: [
       { id: uid(), name: `Fiche technique ${c.ref}.pdf`, type: "Fiche technique", addedAt: iso("2026-03-12T10:00:00"), addedBy: CURRENT_USER.name },
-      { id: uid(), name: `Certificat sanitaire ${c.ref}.pdf`, type: "Certificat", addedAt: iso("2026-05-04T10:00:00"), addedBy: "Yassine Bennani" },
+      { id: uid(), name: `SDS – Fiche de données de sécurité ${c.ref}.pdf`, type: "SDS", addedAt: iso("2026-05-04T10:00:00"), addedBy: "Yassine Bennani" },
+      { id: uid(), name: `Certificate of Analysis ${c.ref}.pdf`, type: "Certificat", addedAt: iso("2026-05-06T10:00:00"), addedBy: "Yassine Bennani" },
     ],
     updatedAt: iso("2026-08-0" + (1 + (i % 8)) + "T14:20:00"),
     history: [
@@ -872,7 +908,7 @@ export const boStore = {
   getSupplier: (id: string) => suppliers.find((s) => s.id === id),
   createProduct(input: Partial<Product> & { ref: string; name: string }) {
     const base = makeProduct(
-      { ref: input.ref, name: input.name, cat: input.category ?? "Épicerie fine", sub: input.subCategory ?? "Divers", brand: input.brand ?? "AKWA", origin: input.origin ?? "Maroc", emoji: input.emoji ?? "📦", buy: input.purchasePrice ?? 1, prev: input.purchasePrice ?? 1, sell: input.salePrice ?? 1.5, sup: input.suppliers?.[0]?.supplierId ?? "SUP-001" },
+      { ref: input.ref, name: input.name, cat: input.category ?? "Huiles moteur", sub: input.subCategory ?? "Divers", brand: input.brand ?? "AKWA Motion", origin: input.origin ?? "Maroc", emoji: input.emoji ?? "🛢️", visc: input.viscosity ?? "—", norm: input.standard ?? "—", pack: input.packaging ?? "Bidon 1 L", buy: input.purchasePrice ?? 1, prev: input.purchasePrice ?? 1, sell: input.salePrice ?? 1.5, sup: input.suppliers?.[0]?.supplierId ?? "SUP-001" },
       products.length,
     );
     const created: Product = { ...base, ...input, updatedAt: now(), history: [{ at: now(), user: CURRENT_USER.name, action: "Produit créé" }, ...base.history.slice(1)] };
