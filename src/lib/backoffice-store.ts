@@ -689,14 +689,12 @@ const item = (ref: string, quantity: number, unit: string, unitPrice?: number): 
 };
 
 const atlasItems: OrderItem[] = [
-  item("AKW-OLV-001", 2400, "bouteilles"),
-  item("AKW-CNS-003", 4800, "boîtes"),
-  item("AKW-CNS-008", 3000, "boîtes"),
-  item("AKW-DAT-002", 900, "sachets"),
-  item("AKW-CPR-004", 400, "bocaux"),
-  item("AKW-EPC-011", 800, "sachets"),
-  item("AKW-CSC-006", 400, "sacs"),
-  item("AKW-THE-009", 280, "paquets"),
+  item("AKW-ENG-5W30-001", 2400, "bidons 1L", 5.5),
+  item("AKW-ENG-10W40-006", 800, "bidons 5L", 21),
+  item("AKW-ATF-D3-021", 1200, "bidons 1L", 4.75),
+  item("AKW-GEAR-80W90-031", 500, "bidons 4L", 18),
+  item("AKW-COOL-005", 600, "bidons 5L", 7),
+  item("AKW-BRK-DOT4-011", 1000, "flacons 500ml", 3.9),
 ];
 
 let orders: AdminOrder[] = [
@@ -706,13 +704,13 @@ let orders: AdminOrder[] = [
     status: "Commande reçue", commercial: CURRENT_USER.name, exportManager: "Yassine Bennani",
     incoterm: "CIF", currency: "EUR", portDeparture: "Casablanca", portDestination: "Abidjan",
     items: atlasItems,
-    costs: { goods: 31400, preparation: 850, localTransport: 1100, freight: 3900, insurance: 650, documents: 300, other: 250 },
+    costs: { goods: 34770, preparation: 1250, localTransport: 1100, freight: 4100, insurance: 650, documents: 450, other: 250 },
     quoteDeadline: iso("2026-08-12T18:00:00"), shipDeadline: iso("2026-08-26T00:00:00"),
-    risk: "Faible", missingDocs: ["Certificat d'origine signé"],
+    risk: "Faible", missingDocs: ["Certificat d'origine signé", "SDS liquide de frein DOT 4"],
     internalNotes: [
-      { id: uid(), at: iso("2026-08-10T09:40:00"), author: CURRENT_USER.name, text: "Confirmer disponibilité sardines avant génération du devis.", tag: "Approvisionnement", mentions: ["Yassine Bennani"] },
-      { id: uid(), at: iso("2026-08-10T09:52:00"), author: "Yassine Bennani", text: "Possibilité de négocier le fret jusqu'à 3 700 €.", tag: "Fret", mentions: [] },
-      { id: uid(), at: iso("2026-08-10T10:05:00"), author: CURRENT_USER.name, text: "Client souhaite réception avant début septembre.", tag: "Délai", mentions: [] },
+      { id: uid(), at: iso("2026-08-10T09:40:00"), author: CURRENT_USER.name, text: "Confirmer le stock 5W-30 1L avant génération du devis.", tag: "Approvisionnement", mentions: ["Yassine Bennani"] },
+      { id: uid(), at: iso("2026-08-10T09:52:00"), author: "Yassine Bennani", text: "Fret Casablanca → Abidjan négociable jusqu'à 4 350 € pour 2 × 40' HC.", tag: "Fret", mentions: [] },
+      { id: uid(), at: iso("2026-08-10T10:05:00"), author: CURRENT_USER.name, text: "Séparer le DOT 4 (ADR classe 3 exclue) des palettes d'huile moteur.", tag: "Conformité", mentions: [] },
     ],
   },
   {
@@ -720,7 +718,7 @@ let orders: AdminOrder[] = [
     receivedAt: iso("2026-08-05T11:00:00"), channel: "Portail client", priority: "Normale",
     status: "Devis envoyé – En attente client", commercial: "Yassine Bennani", exportManager: "Yassine Bennani",
     incoterm: "FOB", currency: "EUR", portDeparture: "Casablanca", portDestination: "Dakar",
-    items: [item("AKW-OLV-002", 320, "bidons"), item("AKW-CNS-003", 6000, "boîtes", 1.62), item("AKW-CSC-006", 1200, "sacs", 6.1), item("AKW-EPC-011", 2200, "sachets", 2.3)],
+    items: [item("AKW-ENG-10W40-006", 1200, "bidons 5L", 17.9), item("AKW-ENG-15W40-010", 400, "fûts 20L", 56.5), item("AKW-COOL-005", 900, "bidons 5L", 6.8), item("AKW-BRK-DOT4-011", 1500, "flacons 500ml", 2.7)],
     costs: { goods: 21800, preparation: 700, localTransport: 900, freight: 3100, insurance: 480, documents: 280, other: 200 },
     quoteDeadline: iso("2026-08-07T18:00:00"), shipDeadline: iso("2026-08-22T00:00:00"),
     risk: "Modéré", missingDocs: [], internalNotes: [], quoteFamily: "DEV-AKW-2026-0193", validatedAt: iso("2026-08-05T14:00:00"), validatedBy: CURRENT_USER.name,
@@ -729,19 +727,19 @@ let orders: AdminOrder[] = [
     reference: "AKW-EXP-2026-0201", clientId: "CMR-003", destination: "Douala, Cameroun",
     receivedAt: iso("2026-08-08T15:30:00"), channel: "Email", priority: "Normale",
     status: "Commande reçue", commercial: CURRENT_USER.name, exportManager: "Yassine Bennani",
-    incoterm: "CFR", currency: "EUR", portDeparture: "Casablanca", portDestination: "Douala",
-    items: [item("AKW-DAT-002", 1500, "sachets", 8.7), item("AKW-CNF-014", 2000, "bocaux", 2.15), item("AKW-THE-009", 1000, "paquets", 4.2)],
-    costs: { goods: 15900, preparation: 620, localTransport: 780, freight: 3400, insurance: 420, documents: 260, other: 180 },
+    incoterm: "CFR", currency: "EUR", portDeparture: "Tanger Med", portDestination: "Douala",
+    items: [item("AKW-ENG-15W40-011", 60, "fûts 208L", 540), item("AKW-GREASE-LT-008", 220, "seaux 18kg", 67.5), item("AKW-GEAR-85W140-032", 120, "fûts 20L", 84)],
+    costs: { goods: 32800, preparation: 620, localTransport: 780, freight: 3400, insurance: 420, documents: 260, other: 180 },
     quoteDeadline: iso("2026-08-11T18:00:00"), shipDeadline: iso("2026-08-29T00:00:00"),
-    risk: "Modéré", missingDocs: ["Fiche technique dattes"], internalNotes: [],
+    risk: "Modéré", missingDocs: ["Fiche technique 15W-40"], internalNotes: [],
   },
   {
     reference: "AKW-EXP-2026-0176", clientId: "MLI-004", destination: "Bamako, Mali",
     receivedAt: iso("2026-06-02T08:45:00"), channel: "Commercial terrain", priority: "Haute",
     status: "Devis accepté", commercial: "Yassine Bennani", exportManager: "Yassine Bennani",
     incoterm: "DAP", currency: "EUR", portDeparture: "Casablanca", portDestination: "Abidjan (transit Bamako)",
-    items: [item("AKW-EPC-011", 2200, "sachets", 2.35), item("AKW-CNF-014", 1800, "bocaux", 2.05), item("AKW-CPR-004", 900, "bocaux", 3.55)],
-    costs: { goods: 9800, preparation: 640, localTransport: 1180, freight: 3200, insurance: 380, documents: 240, other: 160 },
+    items: [item("AKW-ENG-15W40-010", 600, "fûts 20L", 56), item("AKW-HYD-46-018", 300, "fûts 20L", 60.5), item("AKW-GREASE-LT-007", 400, "seaux 5kg", 20.4)],
+    costs: { goods: 39800, preparation: 640, localTransport: 1180, freight: 3200, insurance: 380, documents: 240, other: 160 },
     quoteDeadline: iso("2026-06-05T18:00:00"), shipDeadline: iso("2026-06-25T00:00:00"),
     risk: "Faible", missingDocs: [], internalNotes: [], quoteFamily: "DEV-AKW-2026-0176", validatedAt: iso("2026-06-02T12:00:00"), validatedBy: "Yassine Bennani",
   },
@@ -750,8 +748,8 @@ let orders: AdminOrder[] = [
     receivedAt: iso("2026-06-25T10:10:00"), channel: "Portail client", priority: "Basse",
     status: "Révision devis", commercial: CURRENT_USER.name, exportManager: "Yassine Bennani",
     incoterm: "CIF", currency: "EUR", portDeparture: "Casablanca", portDestination: "Conakry",
-    items: [item("AKW-CNS-003", 3200, "boîtes", 1.7), item("AKW-OLV-001", 800, "bouteilles", 6.6)],
-    costs: { goods: 8600, preparation: 480, localTransport: 700, freight: 2900, insurance: 300, documents: 220, other: 140 },
+    items: [item("AKW-ENG-20W50-013", 1800, "bidons 5L", 13.9), item("AKW-BRK-DOT3-010", 2400, "flacons 500ml", 2.4)],
+    costs: { goods: 21500, preparation: 480, localTransport: 700, freight: 2900, insurance: 300, documents: 220, other: 140 },
     quoteDeadline: iso("2026-06-28T18:00:00"), shipDeadline: iso("2026-07-20T00:00:00"),
     risk: "Élevé", missingDocs: ["Acompte 50 %"], internalNotes: [], quoteFamily: "DEV-AKW-2026-0169",
   },
@@ -760,12 +758,50 @@ let orders: AdminOrder[] = [
     receivedAt: iso("2026-08-09T17:05:00"), channel: "Téléphone", priority: "Normale",
     status: "Commande reçue", commercial: CURRENT_USER.name, exportManager: "Yassine Bennani",
     incoterm: "FOB", currency: "EUR", portDeparture: "Casablanca", portDestination: "Nouakchott",
-    items: [item("AKW-CSC-010", 4000, "paquets"), item("AKW-CNS-012", 2500, "boîtes")],
-    costs: { goods: 8400, preparation: 380, localTransport: 950, freight: 1800, insurance: 260, documents: 200, other: 120 },
+    items: [item("AKW-WSH-016", 3000, "bidons 5L"), item("AKW-ADB-014", 1500, "bidons 10L")],
+    costs: { goods: 13600, preparation: 380, localTransport: 950, freight: 1800, insurance: 260, documents: 200, other: 120 },
     quoteDeadline: iso("2026-08-13T18:00:00"), shipDeadline: iso("2026-09-02T00:00:00"),
     risk: "Modéré", missingDocs: [], internalNotes: [],
   },
 ];
+
+/* Historique de commandes export supplémentaires (lubrifiants & fluides). */
+const extraOrders: { ref: string; client: string; dest: string; port: string; status: OrderStatus; refs: [string, number, string][]; date: string }[] = [
+  { ref: "AKW-EXP-2026-0142", client: "CIV-007", dest: "Abidjan, Côte d'Ivoire", port: "Abidjan", status: "Livrée", refs: [["AKW-ENG-5W40-004", 1400, "bidons 5L"], ["AKW-ATF-D6-023", 900, "bidons 1L"]], date: "2026-03-11" },
+  { ref: "AKW-EXP-2026-0148", client: "CIV-008", dest: "San Pedro, Côte d'Ivoire", port: "San Pedro", status: "Livrée", refs: [["AKW-ENG-15W40-011", 45, "fûts 208L"], ["AKW-GEAR-85W140-032", 90, "fûts 20L"]], date: "2026-03-24" },
+  { ref: "AKW-EXP-2026-0153", client: "SEN-009", dest: "Dakar, Sénégal", port: "Dakar", status: "Livrée", refs: [["AKW-ENG-5W30-002", 2200, "bidons 4L"], ["AKW-COOL-006", 300, "fûts 20L"]], date: "2026-04-08" },
+  { ref: "AKW-EXP-2026-0158", client: "SEN-010", dest: "Dakar, Sénégal", port: "Dakar", status: "Livrée", refs: [["AKW-ADB-015", 24, "IBC 1000L"], ["AKW-ENG-15W40-010", 380, "fûts 20L"]], date: "2026-04-27" },
+  { ref: "AKW-EXP-2026-0161", client: "GHA-011", dest: "Tema, Ghana", port: "Tema", status: "En transit", refs: [["AKW-ATF-D6-023", 1800, "bidons 1L"], ["AKW-PSF-013", 1200, "bidons 1L"]], date: "2026-05-14" },
+  { ref: "AKW-EXP-2026-0164", client: "GHA-012", dest: "Accra, Ghana", port: "Tema", status: "En transit", refs: [["AKW-GREASE-LT-007", 700, "seaux 5kg"], ["AKW-GREASE-HT-009", 250, "seaux 5kg"]], date: "2026-05-29" },
+  { ref: "AKW-EXP-2026-0172", client: "CMR-013", dest: "Yaoundé, Cameroun", port: "Douala", status: "En préparation", refs: [["AKW-ADD-INJ-040", 4800, "flacons"], ["AKW-CLN-BRK-044", 3600, "aérosols"]], date: "2026-06-16" },
+  { ref: "AKW-EXP-2026-0180", client: "BEN-014", dest: "Cotonou, Bénin", port: "Cotonou", status: "En préparation", refs: [["AKW-ENG-10W40-007", 420, "fûts 20L"], ["AKW-WSH-016", 1500, "bidons 5L"]], date: "2026-07-03" },
+  { ref: "AKW-EXP-2026-0184", client: "MLI-015", dest: "Sikasso, Mali", port: "Abidjan (transit)", status: "Devis accepté", refs: [["AKW-ENG-15W40-010", 520, "fûts 20L"], ["AKW-HYD-68-020", 260, "fûts 20L"]], date: "2026-07-21" },
+  { ref: "AKW-EXP-2026-0189", client: "CIV-018", dest: "Bouaké, Côte d'Ivoire", port: "Abidjan", status: "Devis envoyé – En attente client", refs: [["AKW-ENG-15W40-012", 2600, "bidons 5L"], ["AKW-ADD-OIL-043", 1800, "flacons"]], date: "2026-08-03" },
+  { ref: "AKW-EXP-2026-0196", client: "GHA-019", dest: "Takoradi, Ghana", port: "Tema", status: "Commande validée par AKWA", refs: [["AKW-HYD-46-019", 48, "fûts 208L"], ["AKW-CMP-024", 180, "fûts 20L"]], date: "2026-08-06" },
+  { ref: "AKW-EXP-2026-0203", client: "BEN-020", dest: "Porto-Novo, Bénin", port: "Cotonou", status: "En attente", refs: [["AKW-COOL-005", 2200, "bidons 5L"], ["AKW-BRK-DOT51-012", 800, "flacons 1L"]], date: "2026-08-09" },
+];
+
+extraOrders.forEach((o, k) => {
+  const items = o.refs.map(([r, q, u]) => item(r, q, u));
+  const goods = goodsCost(items);
+  orders.push({
+    reference: o.ref, clientId: o.client, destination: o.dest,
+    receivedAt: iso(`${o.date}T${9 + (k % 8)}:15:00`), channel: k % 3 === 0 ? "Email" : "Portail client",
+    priority: k % 4 === 0 ? "Haute" : "Normale", status: o.status,
+    commercial: k % 2 ? CURRENT_USER.name : "Yassine Bennani", exportManager: "Yassine Bennani",
+    incoterm: ["CIF", "FOB", "CFR", "DAP"][k % 4], currency: "EUR",
+    portDeparture: k % 3 === 0 ? "Tanger Med" : "Casablanca", portDestination: o.port,
+    items,
+    costs: {
+      goods: Math.round(goods), preparation: 420 + k * 30, localTransport: 620 + k * 25,
+      freight: 2600 + k * 120, insurance: 280 + k * 15, documents: 220, other: 120,
+    },
+    quoteDeadline: iso(`${o.date}T18:00:00`), shipDeadline: iso(`${o.date}T00:00:00`),
+    risk: k % 5 === 0 ? "Élevé" : k % 2 ? "Faible" : "Modéré",
+    missingDocs: k % 4 === 0 ? ["SDS produit"] : [],
+    internalNotes: [],
+  });
+});
 
 /* ------------------------------------------------------------------ */
 /* Seeds — devis AKWA                                                  */
