@@ -1064,6 +1064,16 @@ export const boStore = {
     log("Statut commande modifié", ref, { to: status, from: detail });
     refresh();
   },
+  /** Verrouille les prix de vente retenus après validation du pricing. */
+  applyPricing(ref: string, prices: { ref: string; price: number }[]) {
+    orders = orders.map((o) =>
+      o.reference === ref
+        ? { ...o, items: o.items.map((i) => ({ ...i, unitPrice: prices.find((p) => p.ref === i.ref)?.price ?? i.unitPrice })) }
+        : o,
+    );
+    log("Pricing validé", ref, { to: `${prices.length} lignes verrouillées` });
+    refresh();
+  },
   validateOrder(ref: string) {
     orders = orders.map((o) =>
       o.reference === ref ? { ...o, status: "Commande validée par AKWA" as OrderStatus, validatedAt: now(), validatedBy: CURRENT_USER.name } : o,
