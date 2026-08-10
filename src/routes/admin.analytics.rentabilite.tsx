@@ -84,12 +84,12 @@ function ProfitView() {
             ))}
           </div>
           <div className="mt-4 space-y-2 text-xs">
-            {[
-              ["Critique", `< ${thresholds.critical} %`, "danger" as const],
-              ["À surveiller", `${thresholds.critical}–${thresholds.watch} %`, "warning" as const],
-              ["Correct", `${thresholds.watch}–${thresholds.ok} %`, "info" as const],
-              ["Bonne rentabilité", `> ${thresholds.ok} %`, "success" as const],
-            ].map(([l, r, tone]) => (
+            {([
+              ["Critique", `< ${thresholds.critical} %`, "danger"],
+              ["À surveiller", `${thresholds.critical}–${thresholds.watch} %`, "warning"],
+              ["Correct", `${thresholds.watch}–${thresholds.ok} %`, "info"],
+              ["Bonne rentabilité", `> ${thresholds.ok} %`, "success"],
+            ] as const).map(([l, r, tone]) => (
               <div key={l} className="flex items-center justify-between rounded-lg border border-border p-2">
                 <Tag tone={tone}>{l}</Tag>
                 <span className="text-muted-foreground">{r}</span>
