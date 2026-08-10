@@ -106,7 +106,7 @@ function ProductDetail() {
         <Kpi label="Marge unitaire" value={eur2(Number(val("salePrice", p.salePrice)) - Number(val("purchasePrice", p.purchasePrice)))} icon={Percent} tone="bg-ai/15 text-ai" />
         <Kpi label="Taux de marge" value={pct(marginPct)} sub={marginPct < 25 ? "Sous l'objectif 25 %" : "Conforme à l'objectif"} icon={Percent}
           tone={marginPct < 25 ? "bg-warning/15 text-warning" : "bg-success/15 text-success"} />
-        <Kpi label="Poids / volume" value={`${p.logistics.weightKg} kg`} sub={`${p.logistics.volumeM3} m³ par unité`} icon={Truck} />
+        <Kpi label="Poids / volume" value={`${p.logistics.grossWeight} kg`} sub={`${p.logistics.volume} m³ par carton`} icon={Truck} />
       </div>
 
       <Tabs defaultValue="general">
@@ -192,22 +192,21 @@ function ProductDetail() {
         <TabsContent value="logistique" className="mt-4">
           <Panel title="Données logistiques" description="Utilisées par l'optimisation conteneur et le calcul du fret.">
             <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-4">
-              <Field label="Poids net" value={`${p.logistics.netWeightKg} kg`} />
-              <Field label="Poids brut" value={`${p.logistics.weightKg} kg`} />
-              <Field label="Volume unitaire" value={`${p.logistics.volumeM3} m³`} />
+              <Field label="Poids unitaire" value={`${p.logistics.unitWeight} kg`} />
+              <Field label="Poids brut" value={`${p.logistics.grossWeight} kg`} />
+              <Field label="Volume par carton" value={`${p.logistics.volume} m³`} />
               <Field label="Dimensions" value={p.logistics.dimensions} />
               <Field label="Unités par carton" value={p.logistics.unitsPerCarton} />
               <Field label="Cartons par palette" value={p.logistics.cartonsPerPallet} />
               <Field label="Unités par palette" value={p.logistics.unitsPerPallet} />
-              <Field label="Palettes par 40' HC" value={p.logistics.palletsPer40HC} />
-              <Field label="Type de stockage" value={p.logistics.storage} />
-              <Field label="Température" value={p.logistics.temperature} />
+              <Field label="Type de palette" value={p.logistics.palletType} />
+              <Field label="Température de stockage" value={p.logistics.storageTemp} />
+              <Field label="Conditions de stockage" value={p.logistics.storageConditions} />
               <Field label="Durée de conservation" value={p.logistics.shelfLife} />
-              <Field label="Délai de préparation" value={p.logistics.prepDelay} />
               <Field label="Code HS douane" value={p.logistics.hsCode} mono />
-              <Field label="Certifications" value={p.logistics.certifications.join(", ")} />
-              <Field label="Restrictions export" value={p.logistics.restrictions || "Aucune"} />
-              <Field label="Quantité min. commande" value={`${p.logistics.moq} ${p.saleUnit}`} />
+              <Field label="Marchandise dangereuse" value={p.logistics.dangerous ? "Oui" : "Non"} />
+              <Field label="Certificat sanitaire" value={p.logistics.healthCertificate ? "Requis" : "Non requis"} />
+              <Field label="Certificat phytosanitaire" value={p.logistics.phytoCertificate ? "Requis" : "Non requis"} />
             </div>
           </Panel>
         </TabsContent>
@@ -231,7 +230,7 @@ function ProductDetail() {
                       <Field label="Contact" value={`${sup.contact} · ${sup.phone}`} />
                       <Field label="Pays" value={sup.country} />
                       <Field label="Délai" value={s.leadTime} />
-                      <Field label="Conditions" value={sup.paymentTerms} />
+                      <Field label="Conditions" value={s.paymentTerms} />
                     </div>
                   </div>
                 );
