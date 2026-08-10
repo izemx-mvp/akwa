@@ -13,6 +13,7 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogT
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { Kpi, Panel, Field, Chip, Crumbs, Bar, orderStatusTone, quoteStatusTone } from "@/components/admin/ui";
+import { OrderBillingPanel } from "@/components/admin/OrderBillingPanel";
 import {
   useBackoffice, boStore, eur, eur2, pct, dShort, dTime, goodsTotal, goodsCost, orderCostTotal, quoteTotalTTC,
   MARGIN_THRESHOLD, type OrderStatus,
@@ -271,6 +272,8 @@ function OrderDetail() {
               {quotes.length === 0 && <p className="py-8 text-center text-sm text-muted-foreground">Aucun devis généré pour cette commande.</p>}
             </div>
           </Panel>
+
+          <OrderBillingPanel orderRef={o.reference} />
         </TabsContent>
 
         <TabsContent value="notes" className="mt-4">

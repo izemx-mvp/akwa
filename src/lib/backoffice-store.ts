@@ -786,7 +786,7 @@ extraOrders.forEach((o, k) => {
   const goods = goodsCost(items);
   orders.push({
     reference: o.ref, clientId: o.client, destination: o.dest,
-    receivedAt: iso(`${o.date}T${9 + (k % 8)}:15:00`), channel: k % 3 === 0 ? "Email" : "Portail client",
+    receivedAt: iso(`${o.date}T${String(9 + (k % 8)).padStart(2, "0")}:15:00`), channel: k % 3 === 0 ? "Email" : "Portail client",
     priority: k % 4 === 0 ? "Haute" : "Normale", status: o.status,
     commercial: k % 2 ? CURRENT_USER.name : "Yassine Bennani", exportManager: "Yassine Bennani",
     incoterm: ["CIF", "FOB", "CFR", "DAP"][k % 4], currency: "EUR",

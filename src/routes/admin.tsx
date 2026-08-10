@@ -7,7 +7,7 @@ import { CURRENT_USER, useBackoffice } from "@/lib/backoffice-store";
 import {
   LayoutDashboard, ShoppingCart, FileText, Package, Users, Bot, Bell, Settings,
   Briefcase, Ship, Wallet, Boxes, BarChart3, Tag, TrendingUp, FileCheck, Container,
-  History, BookOpen, MessageSquare, ShieldCheck, Upload, PlusCircle, LineChart,
+  History, BookOpen, Receipt, Settings2, MessageSquare, ShieldCheck, Upload, PlusCircle, LineChart,
 } from "lucide-react";
 
 const dashboard: NavItem[] = [{ to: "/admin", label: "Tableau de bord", icon: LayoutDashboard }];
@@ -59,6 +59,14 @@ function AdminLayout() {
       ],
     },
     {
+      label: "Facturation",
+      icon: Receipt,
+      items: [
+        { to: "/admin/facturation/factures", label: "Factures", icon: FileText },
+        { to: "/admin/facturation/paiements", label: "Paiements", icon: Wallet },
+      ],
+    },
+    {
       label: "Finance",
       icon: Wallet,
       items: [
@@ -86,6 +94,7 @@ function AdminLayout() {
       items: [
         { to: "/admin/copilot", label: "Copilote interne", icon: MessageSquare },
         { to: "/admin/knowledge", label: "Base de connaissances", icon: BookOpen },
+        { to: "/admin/configuration-agents", label: "Configuration agents", icon: Settings2 },
         { to: "/admin/notifications", label: "Notifications", icon: Bell, badge: alerts ? String(alerts) : undefined },
       ],
     },

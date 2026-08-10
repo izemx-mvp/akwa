@@ -5,7 +5,6 @@ import { Chip, Kpi, Panel, quoteStatusTone } from "@/components/admin/ui";
 
 import { eur, goodsTotal, useBackoffice } from "@/lib/backoffice-store";
 import { useAgentHub } from "@/lib/agent-hub";
-import { AgentConfigPanel } from "@/components/admin/AgentConfigPanel";
 import { AppliedPricingCard } from "@/components/admin/pricing/AppliedPricingCard";
 
 export const Route = createFileRoute("/admin/agents/devis")({
@@ -122,7 +121,6 @@ function AgentDevis() {
           </Panel>
         </div>
       </div>
-      <AgentConfigPanel agent="devis" />
     </div>
   );
 }

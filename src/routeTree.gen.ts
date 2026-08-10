@@ -26,9 +26,11 @@ import { Route as AdminOrdersRouteImport } from './routes/admin.orders'
 import { Route as AdminNotificationsRouteImport } from './routes/admin.notifications'
 import { Route as AdminMarginsRouteImport } from './routes/admin.margins'
 import { Route as AdminKnowledgeRouteImport } from './routes/admin.knowledge'
+import { Route as AdminFacturationRouteImport } from './routes/admin.facturation'
 import { Route as AdminExportRouteImport } from './routes/admin.export'
 import { Route as AdminCopilotRouteImport } from './routes/admin.copilot'
 import { Route as AdminContainerRouteImport } from './routes/admin.container'
+import { Route as AdminConfigurationAgentsRouteImport } from './routes/admin.configuration-agents'
 import { Route as AdminAgentsRouteImport } from './routes/admin.agents'
 import { Route as ClientDevisIndexRouteImport } from './routes/client.devis.index'
 import { Route as AdminProduitsIndexRouteImport } from './routes/admin.produits.index'
@@ -55,11 +57,13 @@ import { Route as AdminAgentsExportRouteImport } from './routes/admin.agents.exp
 import { Route as AdminAgentsDevisRouteImport } from './routes/admin.agents.devis'
 import { Route as AdminAgentsContainerOptimizerRouteImport } from './routes/admin.agents.container-optimizer'
 import { Route as AdminAgentsAgentIdRouteImport } from './routes/admin.agents.$agentId'
+import { Route as AdminFacturationPaiementsIndexRouteImport } from './routes/admin.facturation.paiements.index'
+import { Route as AdminFacturationFacturesIndexRouteImport } from './routes/admin.facturation.factures.index'
 import { Route as AdminAgentsPricingIndexRouteImport } from './routes/admin.agents.pricing.index'
+import { Route as AdminFacturationFacturesInvoiceIdRouteImport } from './routes/admin.facturation.factures.$invoiceId'
 import { Route as AdminDevisGenererReferenceRouteImport } from './routes/admin.devis.generer.$reference'
 import { Route as AdminAgentsPricingReglesRouteImport } from './routes/admin.agents.pricing.regles'
 import { Route as AdminAgentsPricingHistoriqueRouteImport } from './routes/admin.agents.pricing.historique'
-import { Route as AdminAgentsPricingConfigurationRouteImport } from './routes/admin.agents.pricing.configuration'
 import { Route as AdminAgentsPricingAnalyseRouteImport } from './routes/admin.agents.pricing.analyse'
 
 const LoginRoute = LoginRouteImport.update({
@@ -147,6 +151,11 @@ const AdminKnowledgeRoute = AdminKnowledgeRouteImport.update({
   path: '/knowledge',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminFacturationRoute = AdminFacturationRouteImport.update({
+  id: '/facturation',
+  path: '/facturation',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminExportRoute = AdminExportRouteImport.update({
   id: '/export',
   path: '/export',
@@ -162,6 +171,12 @@ const AdminContainerRoute = AdminContainerRouteImport.update({
   path: '/container',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminConfigurationAgentsRoute =
+  AdminConfigurationAgentsRouteImport.update({
+    id: '/configuration-agents',
+    path: '/configuration-agents',
+    getParentRoute: () => AdminRoute,
+  } as any)
 const AdminAgentsRoute = AdminAgentsRouteImport.update({
   id: '/agents',
   path: '/agents',
@@ -296,11 +311,29 @@ const AdminAgentsAgentIdRoute = AdminAgentsAgentIdRouteImport.update({
   path: '/$agentId',
   getParentRoute: () => AdminAgentsRoute,
 } as any)
+const AdminFacturationPaiementsIndexRoute =
+  AdminFacturationPaiementsIndexRouteImport.update({
+    id: '/paiements/',
+    path: '/paiements/',
+    getParentRoute: () => AdminFacturationRoute,
+  } as any)
+const AdminFacturationFacturesIndexRoute =
+  AdminFacturationFacturesIndexRouteImport.update({
+    id: '/factures/',
+    path: '/factures/',
+    getParentRoute: () => AdminFacturationRoute,
+  } as any)
 const AdminAgentsPricingIndexRoute = AdminAgentsPricingIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AdminAgentsPricingRoute,
 } as any)
+const AdminFacturationFacturesInvoiceIdRoute =
+  AdminFacturationFacturesInvoiceIdRouteImport.update({
+    id: '/factures/$invoiceId',
+    path: '/factures/$invoiceId',
+    getParentRoute: () => AdminFacturationRoute,
+  } as any)
 const AdminDevisGenererReferenceRoute =
   AdminDevisGenererReferenceRouteImport.update({
     id: '/devis/generer/$reference',
@@ -319,12 +352,6 @@ const AdminAgentsPricingHistoriqueRoute =
     path: '/historique',
     getParentRoute: () => AdminAgentsPricingRoute,
   } as any)
-const AdminAgentsPricingConfigurationRoute =
-  AdminAgentsPricingConfigurationRouteImport.update({
-    id: '/configuration',
-    path: '/configuration',
-    getParentRoute: () => AdminAgentsPricingRoute,
-  } as any)
 const AdminAgentsPricingAnalyseRoute =
   AdminAgentsPricingAnalyseRouteImport.update({
     id: '/analyse',
@@ -338,9 +365,11 @@ export interface FileRoutesByFullPath {
   '/client': typeof ClientRouteWithChildren
   '/login': typeof LoginRoute
   '/admin/agents': typeof AdminAgentsRouteWithChildren
+  '/admin/configuration-agents': typeof AdminConfigurationAgentsRoute
   '/admin/container': typeof AdminContainerRouteWithChildren
   '/admin/copilot': typeof AdminCopilotRoute
   '/admin/export': typeof AdminExportRoute
+  '/admin/facturation': typeof AdminFacturationRouteWithChildren
   '/admin/knowledge': typeof AdminKnowledgeRoute
   '/admin/margins': typeof AdminMarginsRoute
   '/admin/notifications': typeof AdminNotificationsRoute
@@ -380,17 +409,21 @@ export interface FileRoutesByFullPath {
   '/admin/produits/': typeof AdminProduitsIndexRoute
   '/client/devis/': typeof ClientDevisIndexRoute
   '/admin/agents/pricing/analyse': typeof AdminAgentsPricingAnalyseRoute
-  '/admin/agents/pricing/configuration': typeof AdminAgentsPricingConfigurationRoute
   '/admin/agents/pricing/historique': typeof AdminAgentsPricingHistoriqueRoute
   '/admin/agents/pricing/regles': typeof AdminAgentsPricingReglesRoute
   '/admin/devis/generer/$reference': typeof AdminDevisGenererReferenceRoute
+  '/admin/facturation/factures/$invoiceId': typeof AdminFacturationFacturesInvoiceIdRoute
   '/admin/agents/pricing/': typeof AdminAgentsPricingIndexRoute
+  '/admin/facturation/factures/': typeof AdminFacturationFacturesIndexRoute
+  '/admin/facturation/paiements/': typeof AdminFacturationPaiementsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/admin/configuration-agents': typeof AdminConfigurationAgentsRoute
   '/admin/copilot': typeof AdminCopilotRoute
   '/admin/export': typeof AdminExportRoute
+  '/admin/facturation': typeof AdminFacturationRouteWithChildren
   '/admin/knowledge': typeof AdminKnowledgeRoute
   '/admin/margins': typeof AdminMarginsRoute
   '/admin/notifications': typeof AdminNotificationsRoute
@@ -429,11 +462,13 @@ export interface FileRoutesByTo {
   '/admin/produits': typeof AdminProduitsIndexRoute
   '/client/devis': typeof ClientDevisIndexRoute
   '/admin/agents/pricing/analyse': typeof AdminAgentsPricingAnalyseRoute
-  '/admin/agents/pricing/configuration': typeof AdminAgentsPricingConfigurationRoute
   '/admin/agents/pricing/historique': typeof AdminAgentsPricingHistoriqueRoute
   '/admin/agents/pricing/regles': typeof AdminAgentsPricingReglesRoute
   '/admin/devis/generer/$reference': typeof AdminDevisGenererReferenceRoute
+  '/admin/facturation/factures/$invoiceId': typeof AdminFacturationFacturesInvoiceIdRoute
   '/admin/agents/pricing': typeof AdminAgentsPricingIndexRoute
+  '/admin/facturation/factures': typeof AdminFacturationFacturesIndexRoute
+  '/admin/facturation/paiements': typeof AdminFacturationPaiementsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -442,9 +477,11 @@ export interface FileRoutesById {
   '/client': typeof ClientRouteWithChildren
   '/login': typeof LoginRoute
   '/admin/agents': typeof AdminAgentsRouteWithChildren
+  '/admin/configuration-agents': typeof AdminConfigurationAgentsRoute
   '/admin/container': typeof AdminContainerRouteWithChildren
   '/admin/copilot': typeof AdminCopilotRoute
   '/admin/export': typeof AdminExportRoute
+  '/admin/facturation': typeof AdminFacturationRouteWithChildren
   '/admin/knowledge': typeof AdminKnowledgeRoute
   '/admin/margins': typeof AdminMarginsRoute
   '/admin/notifications': typeof AdminNotificationsRoute
@@ -484,11 +521,13 @@ export interface FileRoutesById {
   '/admin/produits/': typeof AdminProduitsIndexRoute
   '/client/devis/': typeof ClientDevisIndexRoute
   '/admin/agents/pricing/analyse': typeof AdminAgentsPricingAnalyseRoute
-  '/admin/agents/pricing/configuration': typeof AdminAgentsPricingConfigurationRoute
   '/admin/agents/pricing/historique': typeof AdminAgentsPricingHistoriqueRoute
   '/admin/agents/pricing/regles': typeof AdminAgentsPricingReglesRoute
   '/admin/devis/generer/$reference': typeof AdminDevisGenererReferenceRoute
+  '/admin/facturation/factures/$invoiceId': typeof AdminFacturationFacturesInvoiceIdRoute
   '/admin/agents/pricing/': typeof AdminAgentsPricingIndexRoute
+  '/admin/facturation/factures/': typeof AdminFacturationFacturesIndexRoute
+  '/admin/facturation/paiements/': typeof AdminFacturationPaiementsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -498,9 +537,11 @@ export interface FileRouteTypes {
     | '/client'
     | '/login'
     | '/admin/agents'
+    | '/admin/configuration-agents'
     | '/admin/container'
     | '/admin/copilot'
     | '/admin/export'
+    | '/admin/facturation'
     | '/admin/knowledge'
     | '/admin/margins'
     | '/admin/notifications'
@@ -540,17 +581,21 @@ export interface FileRouteTypes {
     | '/admin/produits/'
     | '/client/devis/'
     | '/admin/agents/pricing/analyse'
-    | '/admin/agents/pricing/configuration'
     | '/admin/agents/pricing/historique'
     | '/admin/agents/pricing/regles'
     | '/admin/devis/generer/$reference'
+    | '/admin/facturation/factures/$invoiceId'
     | '/admin/agents/pricing/'
+    | '/admin/facturation/factures/'
+    | '/admin/facturation/paiements/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/login'
+    | '/admin/configuration-agents'
     | '/admin/copilot'
     | '/admin/export'
+    | '/admin/facturation'
     | '/admin/knowledge'
     | '/admin/margins'
     | '/admin/notifications'
@@ -589,11 +634,13 @@ export interface FileRouteTypes {
     | '/admin/produits'
     | '/client/devis'
     | '/admin/agents/pricing/analyse'
-    | '/admin/agents/pricing/configuration'
     | '/admin/agents/pricing/historique'
     | '/admin/agents/pricing/regles'
     | '/admin/devis/generer/$reference'
+    | '/admin/facturation/factures/$invoiceId'
     | '/admin/agents/pricing'
+    | '/admin/facturation/factures'
+    | '/admin/facturation/paiements'
   id:
     | '__root__'
     | '/'
@@ -601,9 +648,11 @@ export interface FileRouteTypes {
     | '/client'
     | '/login'
     | '/admin/agents'
+    | '/admin/configuration-agents'
     | '/admin/container'
     | '/admin/copilot'
     | '/admin/export'
+    | '/admin/facturation'
     | '/admin/knowledge'
     | '/admin/margins'
     | '/admin/notifications'
@@ -643,11 +692,13 @@ export interface FileRouteTypes {
     | '/admin/produits/'
     | '/client/devis/'
     | '/admin/agents/pricing/analyse'
-    | '/admin/agents/pricing/configuration'
     | '/admin/agents/pricing/historique'
     | '/admin/agents/pricing/regles'
     | '/admin/devis/generer/$reference'
+    | '/admin/facturation/factures/$invoiceId'
     | '/admin/agents/pricing/'
+    | '/admin/facturation/factures/'
+    | '/admin/facturation/paiements/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -778,6 +829,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminKnowledgeRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/facturation': {
+      id: '/admin/facturation'
+      path: '/facturation'
+      fullPath: '/admin/facturation'
+      preLoaderRoute: typeof AdminFacturationRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/export': {
       id: '/admin/export'
       path: '/export'
@@ -797,6 +855,13 @@ declare module '@tanstack/react-router' {
       path: '/container'
       fullPath: '/admin/container'
       preLoaderRoute: typeof AdminContainerRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/configuration-agents': {
+      id: '/admin/configuration-agents'
+      path: '/configuration-agents'
+      fullPath: '/admin/configuration-agents'
+      preLoaderRoute: typeof AdminConfigurationAgentsRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/agents': {
@@ -981,12 +1046,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAgentsAgentIdRouteImport
       parentRoute: typeof AdminAgentsRoute
     }
+    '/admin/facturation/paiements/': {
+      id: '/admin/facturation/paiements/'
+      path: '/paiements'
+      fullPath: '/admin/facturation/paiements/'
+      preLoaderRoute: typeof AdminFacturationPaiementsIndexRouteImport
+      parentRoute: typeof AdminFacturationRoute
+    }
+    '/admin/facturation/factures/': {
+      id: '/admin/facturation/factures/'
+      path: '/factures'
+      fullPath: '/admin/facturation/factures/'
+      preLoaderRoute: typeof AdminFacturationFacturesIndexRouteImport
+      parentRoute: typeof AdminFacturationRoute
+    }
     '/admin/agents/pricing/': {
       id: '/admin/agents/pricing/'
       path: '/'
       fullPath: '/admin/agents/pricing/'
       preLoaderRoute: typeof AdminAgentsPricingIndexRouteImport
       parentRoute: typeof AdminAgentsPricingRoute
+    }
+    '/admin/facturation/factures/$invoiceId': {
+      id: '/admin/facturation/factures/$invoiceId'
+      path: '/factures/$invoiceId'
+      fullPath: '/admin/facturation/factures/$invoiceId'
+      preLoaderRoute: typeof AdminFacturationFacturesInvoiceIdRouteImport
+      parentRoute: typeof AdminFacturationRoute
     }
     '/admin/devis/generer/$reference': {
       id: '/admin/devis/generer/$reference'
@@ -1009,13 +1095,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAgentsPricingHistoriqueRouteImport
       parentRoute: typeof AdminAgentsPricingRoute
     }
-    '/admin/agents/pricing/configuration': {
-      id: '/admin/agents/pricing/configuration'
-      path: '/configuration'
-      fullPath: '/admin/agents/pricing/configuration'
-      preLoaderRoute: typeof AdminAgentsPricingConfigurationRouteImport
-      parentRoute: typeof AdminAgentsPricingRoute
-    }
     '/admin/agents/pricing/analyse': {
       id: '/admin/agents/pricing/analyse'
       path: '/analyse'
@@ -1028,7 +1107,6 @@ declare module '@tanstack/react-router' {
 
 interface AdminAgentsPricingRouteChildren {
   AdminAgentsPricingAnalyseRoute: typeof AdminAgentsPricingAnalyseRoute
-  AdminAgentsPricingConfigurationRoute: typeof AdminAgentsPricingConfigurationRoute
   AdminAgentsPricingHistoriqueRoute: typeof AdminAgentsPricingHistoriqueRoute
   AdminAgentsPricingReglesRoute: typeof AdminAgentsPricingReglesRoute
   AdminAgentsPricingIndexRoute: typeof AdminAgentsPricingIndexRoute
@@ -1036,7 +1114,6 @@ interface AdminAgentsPricingRouteChildren {
 
 const AdminAgentsPricingRouteChildren: AdminAgentsPricingRouteChildren = {
   AdminAgentsPricingAnalyseRoute: AdminAgentsPricingAnalyseRoute,
-  AdminAgentsPricingConfigurationRoute: AdminAgentsPricingConfigurationRoute,
   AdminAgentsPricingHistoriqueRoute: AdminAgentsPricingHistoriqueRoute,
   AdminAgentsPricingReglesRoute: AdminAgentsPricingReglesRoute,
   AdminAgentsPricingIndexRoute: AdminAgentsPricingIndexRoute,
@@ -1085,11 +1162,29 @@ const AdminContainerRouteWithChildren = AdminContainerRoute._addFileChildren(
   AdminContainerRouteChildren,
 )
 
+interface AdminFacturationRouteChildren {
+  AdminFacturationFacturesInvoiceIdRoute: typeof AdminFacturationFacturesInvoiceIdRoute
+  AdminFacturationFacturesIndexRoute: typeof AdminFacturationFacturesIndexRoute
+  AdminFacturationPaiementsIndexRoute: typeof AdminFacturationPaiementsIndexRoute
+}
+
+const AdminFacturationRouteChildren: AdminFacturationRouteChildren = {
+  AdminFacturationFacturesInvoiceIdRoute:
+    AdminFacturationFacturesInvoiceIdRoute,
+  AdminFacturationFacturesIndexRoute: AdminFacturationFacturesIndexRoute,
+  AdminFacturationPaiementsIndexRoute: AdminFacturationPaiementsIndexRoute,
+}
+
+const AdminFacturationRouteWithChildren =
+  AdminFacturationRoute._addFileChildren(AdminFacturationRouteChildren)
+
 interface AdminRouteChildren {
   AdminAgentsRoute: typeof AdminAgentsRouteWithChildren
+  AdminConfigurationAgentsRoute: typeof AdminConfigurationAgentsRoute
   AdminContainerRoute: typeof AdminContainerRouteWithChildren
   AdminCopilotRoute: typeof AdminCopilotRoute
   AdminExportRoute: typeof AdminExportRoute
+  AdminFacturationRoute: typeof AdminFacturationRouteWithChildren
   AdminKnowledgeRoute: typeof AdminKnowledgeRoute
   AdminMarginsRoute: typeof AdminMarginsRoute
   AdminNotificationsRoute: typeof AdminNotificationsRoute
@@ -1115,9 +1210,11 @@ interface AdminRouteChildren {
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminAgentsRoute: AdminAgentsRouteWithChildren,
+  AdminConfigurationAgentsRoute: AdminConfigurationAgentsRoute,
   AdminContainerRoute: AdminContainerRouteWithChildren,
   AdminCopilotRoute: AdminCopilotRoute,
   AdminExportRoute: AdminExportRoute,
+  AdminFacturationRoute: AdminFacturationRouteWithChildren,
   AdminKnowledgeRoute: AdminKnowledgeRoute,
   AdminMarginsRoute: AdminMarginsRoute,
   AdminNotificationsRoute: AdminNotificationsRoute,
