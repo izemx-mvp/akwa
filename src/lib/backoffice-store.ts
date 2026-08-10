@@ -57,6 +57,8 @@ export type Product = {
   brand: string;
   category: string;
   subCategory: string;
+  viscosity: string;
+  standard: string;
   barcode: string;
   supplierSku: string;
   origin: string;
