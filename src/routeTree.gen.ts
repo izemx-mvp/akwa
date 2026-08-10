@@ -54,6 +54,7 @@ import { Route as AdminCommandesReferenceRouteImport } from './routes/admin.comm
 import { Route as AdminClientsClientIdRouteImport } from './routes/admin.clients.$clientId'
 import { Route as AdminAnalyticsRentabiliteRouteImport } from './routes/admin.analytics.rentabilite'
 import { Route as AdminAnalyticsProduitsRouteImport } from './routes/admin.analytics.produits'
+import { Route as AdminAnalyticsExportRouteImport } from './routes/admin.analytics.export'
 import { Route as AdminAnalyticsCommercialRouteImport } from './routes/admin.analytics.commercial'
 import { Route as AdminAnalyticsClientsRouteImport } from './routes/admin.analytics.clients'
 import { Route as AdminAgentsPricingRouteImport } from './routes/admin.agents.pricing'
@@ -302,6 +303,11 @@ const AdminAnalyticsProduitsRoute = AdminAnalyticsProduitsRouteImport.update({
   path: '/produits',
   getParentRoute: () => AdminAnalyticsRoute,
 } as any)
+const AdminAnalyticsExportRoute = AdminAnalyticsExportRouteImport.update({
+  id: '/export',
+  path: '/export',
+  getParentRoute: () => AdminAnalyticsRoute,
+} as any)
 const AdminAnalyticsCommercialRoute =
   AdminAnalyticsCommercialRouteImport.update({
     id: '/commercial',
@@ -431,6 +437,7 @@ export interface FileRoutesByFullPath {
   '/admin/agents/pricing': typeof AdminAgentsPricingRouteWithChildren
   '/admin/analytics/clients': typeof AdminAnalyticsClientsRoute
   '/admin/analytics/commercial': typeof AdminAnalyticsCommercialRoute
+  '/admin/analytics/export': typeof AdminAnalyticsExportRoute
   '/admin/analytics/produits': typeof AdminAnalyticsProduitsRoute
   '/admin/analytics/rentabilite': typeof AdminAnalyticsRentabiliteRoute
   '/admin/clients/$clientId': typeof AdminClientsClientIdRoute
@@ -489,6 +496,7 @@ export interface FileRoutesByTo {
   '/admin/agents/marge': typeof AdminAgentsMargeRoute
   '/admin/analytics/clients': typeof AdminAnalyticsClientsRoute
   '/admin/analytics/commercial': typeof AdminAnalyticsCommercialRoute
+  '/admin/analytics/export': typeof AdminAnalyticsExportRoute
   '/admin/analytics/produits': typeof AdminAnalyticsProduitsRoute
   '/admin/analytics/rentabilite': typeof AdminAnalyticsRentabiliteRoute
   '/admin/clients/$clientId': typeof AdminClientsClientIdRoute
@@ -554,6 +562,7 @@ export interface FileRoutesById {
   '/admin/agents/pricing': typeof AdminAgentsPricingRouteWithChildren
   '/admin/analytics/clients': typeof AdminAnalyticsClientsRoute
   '/admin/analytics/commercial': typeof AdminAnalyticsCommercialRoute
+  '/admin/analytics/export': typeof AdminAnalyticsExportRoute
   '/admin/analytics/produits': typeof AdminAnalyticsProduitsRoute
   '/admin/analytics/rentabilite': typeof AdminAnalyticsRentabiliteRoute
   '/admin/clients/$clientId': typeof AdminClientsClientIdRoute
@@ -620,6 +629,7 @@ export interface FileRouteTypes {
     | '/admin/agents/pricing'
     | '/admin/analytics/clients'
     | '/admin/analytics/commercial'
+    | '/admin/analytics/export'
     | '/admin/analytics/produits'
     | '/admin/analytics/rentabilite'
     | '/admin/clients/$clientId'
@@ -678,6 +688,7 @@ export interface FileRouteTypes {
     | '/admin/agents/marge'
     | '/admin/analytics/clients'
     | '/admin/analytics/commercial'
+    | '/admin/analytics/export'
     | '/admin/analytics/produits'
     | '/admin/analytics/rentabilite'
     | '/admin/clients/$clientId'
@@ -742,6 +753,7 @@ export interface FileRouteTypes {
     | '/admin/agents/pricing'
     | '/admin/analytics/clients'
     | '/admin/analytics/commercial'
+    | '/admin/analytics/export'
     | '/admin/analytics/produits'
     | '/admin/analytics/rentabilite'
     | '/admin/clients/$clientId'
@@ -1097,6 +1109,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAnalyticsProduitsRouteImport
       parentRoute: typeof AdminAnalyticsRoute
     }
+    '/admin/analytics/export': {
+      id: '/admin/analytics/export'
+      path: '/export'
+      fullPath: '/admin/analytics/export'
+      preLoaderRoute: typeof AdminAnalyticsExportRouteImport
+      parentRoute: typeof AdminAnalyticsRoute
+    }
     '/admin/analytics/commercial': {
       id: '/admin/analytics/commercial'
       path: '/commercial'
@@ -1265,6 +1284,7 @@ const AdminAgentsRouteWithChildren = AdminAgentsRoute._addFileChildren(
 interface AdminAnalyticsRouteChildren {
   AdminAnalyticsClientsRoute: typeof AdminAnalyticsClientsRoute
   AdminAnalyticsCommercialRoute: typeof AdminAnalyticsCommercialRoute
+  AdminAnalyticsExportRoute: typeof AdminAnalyticsExportRoute
   AdminAnalyticsProduitsRoute: typeof AdminAnalyticsProduitsRoute
   AdminAnalyticsRentabiliteRoute: typeof AdminAnalyticsRentabiliteRoute
   AdminAnalyticsIndexRoute: typeof AdminAnalyticsIndexRoute
@@ -1273,6 +1293,7 @@ interface AdminAnalyticsRouteChildren {
 const AdminAnalyticsRouteChildren: AdminAnalyticsRouteChildren = {
   AdminAnalyticsClientsRoute: AdminAnalyticsClientsRoute,
   AdminAnalyticsCommercialRoute: AdminAnalyticsCommercialRoute,
+  AdminAnalyticsExportRoute: AdminAnalyticsExportRoute,
   AdminAnalyticsProduitsRoute: AdminAnalyticsProduitsRoute,
   AdminAnalyticsRentabiliteRoute: AdminAnalyticsRentabiliteRoute,
   AdminAnalyticsIndexRoute: AdminAnalyticsIndexRoute,
