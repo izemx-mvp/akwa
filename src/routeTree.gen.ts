@@ -39,6 +39,7 @@ import { Route as AdminDevisIndexRouteImport } from './routes/admin.devis.index'
 import { Route as AdminContainerIndexRouteImport } from './routes/admin.container.index'
 import { Route as AdminCommandesIndexRouteImport } from './routes/admin.commandes.index'
 import { Route as AdminClientsIndexRouteImport } from './routes/admin.clients.index'
+import { Route as AdminAnalyticsIndexRouteImport } from './routes/admin.analytics.index'
 import { Route as AdminAgentsIndexRouteImport } from './routes/admin.agents.index'
 import { Route as ClientDevisQuoteIdRouteImport } from './routes/client.devis.$quoteId'
 import { Route as ClientCommandesReferenceRouteImport } from './routes/client.commandes.$reference'
@@ -218,6 +219,11 @@ const AdminClientsIndexRoute = AdminClientsIndexRouteImport.update({
   path: '/clients/',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminAnalyticsIndexRoute = AdminAnalyticsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminAnalyticsRoute,
+} as any)
 const AdminAgentsIndexRoute = AdminAgentsIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -371,7 +377,7 @@ export interface FileRoutesByFullPath {
   '/client': typeof ClientRouteWithChildren
   '/login': typeof LoginRoute
   '/admin/agents': typeof AdminAgentsRouteWithChildren
-  '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/analytics': typeof AdminAnalyticsRouteWithChildren
   '/admin/configuration-agents': typeof AdminConfigurationAgentsRoute
   '/admin/container': typeof AdminContainerRouteWithChildren
   '/admin/copilot': typeof AdminCopilotRoute
@@ -409,6 +415,7 @@ export interface FileRoutesByFullPath {
   '/client/commandes/$reference': typeof ClientCommandesReferenceRoute
   '/client/devis/$quoteId': typeof ClientDevisQuoteIdRoute
   '/admin/agents/': typeof AdminAgentsIndexRoute
+  '/admin/analytics/': typeof AdminAnalyticsIndexRoute
   '/admin/clients/': typeof AdminClientsIndexRoute
   '/admin/commandes/': typeof AdminCommandesIndexRoute
   '/admin/container/': typeof AdminContainerIndexRoute
@@ -427,7 +434,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
-  '/admin/analytics': typeof AdminAnalyticsRoute
   '/admin/configuration-agents': typeof AdminConfigurationAgentsRoute
   '/admin/copilot': typeof AdminCopilotRoute
   '/admin/export': typeof AdminExportRoute
@@ -463,6 +469,7 @@ export interface FileRoutesByTo {
   '/client/commandes/$reference': typeof ClientCommandesReferenceRoute
   '/client/devis/$quoteId': typeof ClientDevisQuoteIdRoute
   '/admin/agents': typeof AdminAgentsIndexRoute
+  '/admin/analytics': typeof AdminAnalyticsIndexRoute
   '/admin/clients': typeof AdminClientsIndexRoute
   '/admin/commandes': typeof AdminCommandesIndexRoute
   '/admin/container': typeof AdminContainerIndexRoute
@@ -485,7 +492,7 @@ export interface FileRoutesById {
   '/client': typeof ClientRouteWithChildren
   '/login': typeof LoginRoute
   '/admin/agents': typeof AdminAgentsRouteWithChildren
-  '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/analytics': typeof AdminAnalyticsRouteWithChildren
   '/admin/configuration-agents': typeof AdminConfigurationAgentsRoute
   '/admin/container': typeof AdminContainerRouteWithChildren
   '/admin/copilot': typeof AdminCopilotRoute
@@ -523,6 +530,7 @@ export interface FileRoutesById {
   '/client/commandes/$reference': typeof ClientCommandesReferenceRoute
   '/client/devis/$quoteId': typeof ClientDevisQuoteIdRoute
   '/admin/agents/': typeof AdminAgentsIndexRoute
+  '/admin/analytics/': typeof AdminAnalyticsIndexRoute
   '/admin/clients/': typeof AdminClientsIndexRoute
   '/admin/commandes/': typeof AdminCommandesIndexRoute
   '/admin/container/': typeof AdminContainerIndexRoute
@@ -584,6 +592,7 @@ export interface FileRouteTypes {
     | '/client/commandes/$reference'
     | '/client/devis/$quoteId'
     | '/admin/agents/'
+    | '/admin/analytics/'
     | '/admin/clients/'
     | '/admin/commandes/'
     | '/admin/container/'
@@ -602,7 +611,6 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/login'
-    | '/admin/analytics'
     | '/admin/configuration-agents'
     | '/admin/copilot'
     | '/admin/export'
@@ -638,6 +646,7 @@ export interface FileRouteTypes {
     | '/client/commandes/$reference'
     | '/client/devis/$quoteId'
     | '/admin/agents'
+    | '/admin/analytics'
     | '/admin/clients'
     | '/admin/commandes'
     | '/admin/container'
@@ -697,6 +706,7 @@ export interface FileRouteTypes {
     | '/client/commandes/$reference'
     | '/client/devis/$quoteId'
     | '/admin/agents/'
+    | '/admin/analytics/'
     | '/admin/clients/'
     | '/admin/commandes/'
     | '/admin/container/'
@@ -931,6 +941,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/clients/'
       preLoaderRoute: typeof AdminClientsIndexRouteImport
       parentRoute: typeof AdminRoute
+    }
+    '/admin/analytics/': {
+      id: '/admin/analytics/'
+      path: '/'
+      fullPath: '/admin/analytics/'
+      preLoaderRoute: typeof AdminAnalyticsIndexRouteImport
+      parentRoute: typeof AdminAnalyticsRoute
     }
     '/admin/agents/': {
       id: '/admin/agents/'
@@ -1167,6 +1184,18 @@ const AdminAgentsRouteWithChildren = AdminAgentsRoute._addFileChildren(
   AdminAgentsRouteChildren,
 )
 
+interface AdminAnalyticsRouteChildren {
+  AdminAnalyticsIndexRoute: typeof AdminAnalyticsIndexRoute
+}
+
+const AdminAnalyticsRouteChildren: AdminAnalyticsRouteChildren = {
+  AdminAnalyticsIndexRoute: AdminAnalyticsIndexRoute,
+}
+
+const AdminAnalyticsRouteWithChildren = AdminAnalyticsRoute._addFileChildren(
+  AdminAnalyticsRouteChildren,
+)
+
 interface AdminContainerRouteChildren {
   AdminContainerOrderIdRoute: typeof AdminContainerOrderIdRoute
   AdminContainerIndexRoute: typeof AdminContainerIndexRoute
@@ -1199,7 +1228,7 @@ const AdminFacturationRouteWithChildren =
 
 interface AdminRouteChildren {
   AdminAgentsRoute: typeof AdminAgentsRouteWithChildren
-  AdminAnalyticsRoute: typeof AdminAnalyticsRoute
+  AdminAnalyticsRoute: typeof AdminAnalyticsRouteWithChildren
   AdminConfigurationAgentsRoute: typeof AdminConfigurationAgentsRoute
   AdminContainerRoute: typeof AdminContainerRouteWithChildren
   AdminCopilotRoute: typeof AdminCopilotRoute
@@ -1230,7 +1259,7 @@ interface AdminRouteChildren {
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminAgentsRoute: AdminAgentsRouteWithChildren,
-  AdminAnalyticsRoute: AdminAnalyticsRoute,
+  AdminAnalyticsRoute: AdminAnalyticsRouteWithChildren,
   AdminConfigurationAgentsRoute: AdminConfigurationAgentsRoute,
   AdminContainerRoute: AdminContainerRouteWithChildren,
   AdminCopilotRoute: AdminCopilotRoute,
