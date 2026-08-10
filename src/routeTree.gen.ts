@@ -49,6 +49,7 @@ import { Route as AdminContainerOrderIdRouteImport } from './routes/admin.contai
 import { Route as AdminCommandesReferenceRouteImport } from './routes/admin.commandes.$reference'
 import { Route as AdminClientsClientIdRouteImport } from './routes/admin.clients.$clientId'
 import { Route as AdminAgentsPricingRouteImport } from './routes/admin.agents.pricing'
+import { Route as AdminAgentsMargeRouteImport } from './routes/admin.agents.marge'
 import { Route as AdminAgentsAgentIdRouteImport } from './routes/admin.agents.$agentId'
 import { Route as AdminDevisGenererReferenceRouteImport } from './routes/admin.devis.generer.$reference'
 
@@ -255,6 +256,11 @@ const AdminAgentsPricingRoute = AdminAgentsPricingRouteImport.update({
   path: '/pricing',
   getParentRoute: () => AdminAgentsRoute,
 } as any)
+const AdminAgentsMargeRoute = AdminAgentsMargeRouteImport.update({
+  id: '/marge',
+  path: '/marge',
+  getParentRoute: () => AdminAgentsRoute,
+} as any)
 const AdminAgentsAgentIdRoute = AdminAgentsAgentIdRouteImport.update({
   id: '/$agentId',
   path: '/$agentId',
@@ -290,6 +296,7 @@ export interface FileRoutesByFullPath {
   '/admin/': typeof AdminIndexRoute
   '/client/': typeof ClientIndexRoute
   '/admin/agents/$agentId': typeof AdminAgentsAgentIdRoute
+  '/admin/agents/marge': typeof AdminAgentsMargeRoute
   '/admin/agents/pricing': typeof AdminAgentsPricingRoute
   '/admin/clients/$clientId': typeof AdminClientsClientIdRoute
   '/admin/commandes/$reference': typeof AdminCommandesReferenceRoute
@@ -330,6 +337,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminIndexRoute
   '/client': typeof ClientIndexRoute
   '/admin/agents/$agentId': typeof AdminAgentsAgentIdRoute
+  '/admin/agents/marge': typeof AdminAgentsMargeRoute
   '/admin/agents/pricing': typeof AdminAgentsPricingRoute
   '/admin/clients/$clientId': typeof AdminClientsClientIdRoute
   '/admin/commandes/$reference': typeof AdminCommandesReferenceRoute
@@ -375,6 +383,7 @@ export interface FileRoutesById {
   '/admin/': typeof AdminIndexRoute
   '/client/': typeof ClientIndexRoute
   '/admin/agents/$agentId': typeof AdminAgentsAgentIdRoute
+  '/admin/agents/marge': typeof AdminAgentsMargeRoute
   '/admin/agents/pricing': typeof AdminAgentsPricingRoute
   '/admin/clients/$clientId': typeof AdminClientsClientIdRoute
   '/admin/commandes/$reference': typeof AdminCommandesReferenceRoute
@@ -421,6 +430,7 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/client/'
     | '/admin/agents/$agentId'
+    | '/admin/agents/marge'
     | '/admin/agents/pricing'
     | '/admin/clients/$clientId'
     | '/admin/commandes/$reference'
@@ -461,6 +471,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/client'
     | '/admin/agents/$agentId'
+    | '/admin/agents/marge'
     | '/admin/agents/pricing'
     | '/admin/clients/$clientId'
     | '/admin/commandes/$reference'
@@ -505,6 +516,7 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/client/'
     | '/admin/agents/$agentId'
+    | '/admin/agents/marge'
     | '/admin/agents/pricing'
     | '/admin/clients/$clientId'
     | '/admin/commandes/$reference'
@@ -816,6 +828,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAgentsPricingRouteImport
       parentRoute: typeof AdminAgentsRoute
     }
+    '/admin/agents/marge': {
+      id: '/admin/agents/marge'
+      path: '/marge'
+      fullPath: '/admin/agents/marge'
+      preLoaderRoute: typeof AdminAgentsMargeRouteImport
+      parentRoute: typeof AdminAgentsRoute
+    }
     '/admin/agents/$agentId': {
       id: '/admin/agents/$agentId'
       path: '/$agentId'
@@ -835,12 +854,14 @@ declare module '@tanstack/react-router' {
 
 interface AdminAgentsRouteChildren {
   AdminAgentsAgentIdRoute: typeof AdminAgentsAgentIdRoute
+  AdminAgentsMargeRoute: typeof AdminAgentsMargeRoute
   AdminAgentsPricingRoute: typeof AdminAgentsPricingRoute
   AdminAgentsIndexRoute: typeof AdminAgentsIndexRoute
 }
 
 const AdminAgentsRouteChildren: AdminAgentsRouteChildren = {
   AdminAgentsAgentIdRoute: AdminAgentsAgentIdRoute,
+  AdminAgentsMargeRoute: AdminAgentsMargeRoute,
   AdminAgentsPricingRoute: AdminAgentsPricingRoute,
   AdminAgentsIndexRoute: AdminAgentsIndexRoute,
 }

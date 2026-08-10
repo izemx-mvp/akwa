@@ -73,7 +73,7 @@ function AgentMarge() {
                 <CartesianGrid strokeDasharray="3 3" stroke="oklch(0.92 0.015 245)" />
                 <XAxis dataKey="name" fontSize={11} stroke="oklch(0.5 0.04 250)" />
                 <YAxis fontSize={11} stroke="oklch(0.5 0.04 250)" />
-                <Tooltip formatter={(v: number) => eur(Math.abs(v))} contentStyle={{ borderRadius: 8 }} />
+                <Tooltip formatter={(v) => eur(Math.abs(Number(v)))} contentStyle={{ borderRadius: 8 }} />
                 <Bar dataKey="value" radius={[6, 6, 0, 0]}>
                   {waterfall.map((w) => <Cell key={w.name} fill={w.tone} />)}
                 </Bar>
