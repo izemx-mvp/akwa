@@ -26,6 +26,7 @@ import { Route as AdminOrdersRouteImport } from './routes/admin.orders'
 import { Route as AdminNotificationsRouteImport } from './routes/admin.notifications'
 import { Route as AdminMarginsRouteImport } from './routes/admin.margins'
 import { Route as AdminKnowledgeRouteImport } from './routes/admin.knowledge'
+import { Route as AdminFacturationRouteImport } from './routes/admin.facturation'
 import { Route as AdminExportRouteImport } from './routes/admin.export'
 import { Route as AdminCopilotRouteImport } from './routes/admin.copilot'
 import { Route as AdminContainerRouteImport } from './routes/admin.container'
@@ -145,6 +146,11 @@ const AdminMarginsRoute = AdminMarginsRouteImport.update({
 const AdminKnowledgeRoute = AdminKnowledgeRouteImport.update({
   id: '/knowledge',
   path: '/knowledge',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminFacturationRoute = AdminFacturationRouteImport.update({
+  id: '/facturation',
+  path: '/facturation',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminExportRoute = AdminExportRouteImport.update({
@@ -342,6 +348,7 @@ export interface FileRoutesByFullPath {
   '/admin/container': typeof AdminContainerRouteWithChildren
   '/admin/copilot': typeof AdminCopilotRoute
   '/admin/export': typeof AdminExportRoute
+  '/admin/facturation': typeof AdminFacturationRoute
   '/admin/knowledge': typeof AdminKnowledgeRoute
   '/admin/margins': typeof AdminMarginsRoute
   '/admin/notifications': typeof AdminNotificationsRoute
@@ -392,6 +399,7 @@ export interface FileRoutesByTo {
   '/admin/configuration-agents': typeof AdminConfigurationAgentsRoute
   '/admin/copilot': typeof AdminCopilotRoute
   '/admin/export': typeof AdminExportRoute
+  '/admin/facturation': typeof AdminFacturationRoute
   '/admin/knowledge': typeof AdminKnowledgeRoute
   '/admin/margins': typeof AdminMarginsRoute
   '/admin/notifications': typeof AdminNotificationsRoute
@@ -446,6 +454,7 @@ export interface FileRoutesById {
   '/admin/container': typeof AdminContainerRouteWithChildren
   '/admin/copilot': typeof AdminCopilotRoute
   '/admin/export': typeof AdminExportRoute
+  '/admin/facturation': typeof AdminFacturationRoute
   '/admin/knowledge': typeof AdminKnowledgeRoute
   '/admin/margins': typeof AdminMarginsRoute
   '/admin/notifications': typeof AdminNotificationsRoute
@@ -502,6 +511,7 @@ export interface FileRouteTypes {
     | '/admin/container'
     | '/admin/copilot'
     | '/admin/export'
+    | '/admin/facturation'
     | '/admin/knowledge'
     | '/admin/margins'
     | '/admin/notifications'
@@ -552,6 +562,7 @@ export interface FileRouteTypes {
     | '/admin/configuration-agents'
     | '/admin/copilot'
     | '/admin/export'
+    | '/admin/facturation'
     | '/admin/knowledge'
     | '/admin/margins'
     | '/admin/notifications'
@@ -605,6 +616,7 @@ export interface FileRouteTypes {
     | '/admin/container'
     | '/admin/copilot'
     | '/admin/export'
+    | '/admin/facturation'
     | '/admin/knowledge'
     | '/admin/margins'
     | '/admin/notifications'
@@ -776,6 +788,13 @@ declare module '@tanstack/react-router' {
       path: '/knowledge'
       fullPath: '/admin/knowledge'
       preLoaderRoute: typeof AdminKnowledgeRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/facturation': {
+      id: '/admin/facturation'
+      path: '/facturation'
+      fullPath: '/admin/facturation'
+      preLoaderRoute: typeof AdminFacturationRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/export': {
@@ -1089,6 +1108,7 @@ interface AdminRouteChildren {
   AdminContainerRoute: typeof AdminContainerRouteWithChildren
   AdminCopilotRoute: typeof AdminCopilotRoute
   AdminExportRoute: typeof AdminExportRoute
+  AdminFacturationRoute: typeof AdminFacturationRoute
   AdminKnowledgeRoute: typeof AdminKnowledgeRoute
   AdminMarginsRoute: typeof AdminMarginsRoute
   AdminNotificationsRoute: typeof AdminNotificationsRoute
@@ -1118,6 +1138,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminContainerRoute: AdminContainerRouteWithChildren,
   AdminCopilotRoute: AdminCopilotRoute,
   AdminExportRoute: AdminExportRoute,
+  AdminFacturationRoute: AdminFacturationRoute,
   AdminKnowledgeRoute: AdminKnowledgeRoute,
   AdminMarginsRoute: AdminMarginsRoute,
   AdminNotificationsRoute: AdminNotificationsRoute,
