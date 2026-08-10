@@ -71,6 +71,7 @@ function OrderCockpit() {
   return (
     <div className="max-w-[1500px] space-y-4">
       <OrderHeader order={order} onGoTab={goTab} />
+      <OrderQuoteCard orderRef={reference} />
 
       <Tabs value={tab} onValueChange={setTab}>
         <div className="sticky top-0 z-20 -mx-1 bg-background/85 px-1 py-2 backdrop-blur supports-[backdrop-filter]:bg-background/70">
