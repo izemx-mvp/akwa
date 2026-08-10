@@ -1,14 +1,22 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useSyncExternalStore, useState, useMemo } from "react";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useSyncExternalStore, useMemo } from "react";
 import { orders as seedOrders, products, formatCurrency, type Order } from "@/lib/mock-data";
 import { ordersStore, type SubmittedOrder } from "@/lib/orders-store";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { Eye, FileText, Ship } from "lucide-react";
+import { Eye, Ship } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/client/orders")({
+  head: () => ({
+    meta: [
+      { title: "Mes commandes export — Portail client AKWA" },
+      { name: "description", content: "Suivez vos bons de commande, devis et expéditions AKWA et ouvrez le cockpit détaillé de chaque commande." },
+      { property: "og:title", content: "Mes commandes export — Portail client AKWA" },
+      { property: "og:description", content: "Statuts, valeurs, remplissage conteneur et suivi détaillé de chaque commande." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+    ],
+  }),
   component: MyOrders,
 });
 
@@ -19,7 +27,7 @@ type Row = {
   createdAt: string;
   lines: { productId: string; quantity: number; unitPrice: number }[];
   containerFillPct: number;
-  stage: string; // unified stage label key
+  stage: string;
   isProvisional: boolean;
   submitted?: SubmittedOrder;
 };
@@ -47,7 +55,7 @@ function useSubmitted() {
 
 function MyOrders() {
   const submitted = useSubmitted();
-  const [detail, setDetail] = useState<Row | null>(null);
+  const navigate = useNavigate();
 
   const rows: Row[] = useMemo(() => {
     const sub = submitted.map<Row>((o) => ({
@@ -79,7 +87,7 @@ function MyOrders() {
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Mes commandes</h1>
         <p className="text-sm text-muted-foreground">
-          Suivez vos bons de commande, devis reçus et expéditions.
+          Cliquez sur une commande pour ouvrir son cockpit de suivi détaillé.
         </p>
       </div>
 
@@ -122,10 +130,17 @@ function MyOrders() {
           </thead>
           <tbody className="divide-y divide-border">
             {rows.map((r) => {
-              const value = r.lines.reduce((s, l) => s + l.quantity * (l.unitPrice || 0), 0);
+              const value = r.lines.reduce((s, l) => {
+                const p = products.find((x) => x.id === l.productId);
+                return s + l.quantity * (l.unitPrice || p?.unitPrice || 0);
+              }, 0);
               const meta = stageMeta[r.stage] ?? { label: r.stage, cls: "bg-muted text-muted-foreground" };
               return (
-                <tr key={r.id} className="hover:bg-muted/30 transition-smooth">
+                <tr
+                  key={r.id}
+                  onClick={() => navigate({ to: "/client/commandes/$reference", params: { reference: r.reference } })}
+                  className="cursor-pointer hover:bg-muted/30 transition-smooth"
+                >
                   <td className="px-5 py-3 font-medium">{r.reference}</td>
                   <td className="px-5 py-3 text-muted-foreground">{r.destination}</td>
                   <td className="px-5 py-3 text-muted-foreground">
@@ -143,10 +158,12 @@ function MyOrders() {
                     <span className={cn("text-[11px] font-medium px-2 py-0.5 rounded", meta.cls)}>{meta.label}</span>
                   </td>
                   <td className="px-5 py-3 text-muted-foreground text-xs">{r.createdAt}</td>
-                  <td className="px-5 py-3 text-right">
-                    <Button size="sm" variant="outline" className="gap-1.5" onClick={() => setDetail(r)}>
-                      <Eye className="h-3.5 w-3.5" /> Détails
-                    </Button>
+                  <td className="px-5 py-3 text-right" onClick={(e) => e.stopPropagation()}>
+                    <Link to="/client/commandes/$reference" params={{ reference: r.reference }}>
+                      <Button size="sm" variant="outline" className="gap-1.5">
+                        <Eye className="h-3.5 w-3.5" /> Détails
+                      </Button>
+                    </Link>
                   </td>
                 </tr>
               );
@@ -154,78 +171,6 @@ function MyOrders() {
           </tbody>
         </table>
       </div>
-
-      <Dialog open={!!detail} onOpenChange={(v) => !v && setDetail(null)}>
-        <DialogContent className="max-w-2xl">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <FileText className="h-4 w-4" /> {detail?.reference}
-            </DialogTitle>
-            <DialogDescription>
-              {detail?.destination} • Créée le {detail?.createdAt}
-            </DialogDescription>
-          </DialogHeader>
-          {detail && (
-            <div className="space-y-4">
-              <div className="flex items-center gap-2">
-                <Badge className={stageMeta[detail.stage]?.cls}>{stageMeta[detail.stage]?.label}</Badge>
-                {detail.submitted && detail.submitted.quotes.length > 0 ? (
-                  <Badge variant="secondary">{detail.submitted.quotes.length} devis reçu(s)</Badge>
-                ) : detail.isProvisional ? (
-                  <span className="text-xs text-muted-foreground">⏳ En attente du devis AKWA AI</span>
-                ) : null}
-              </div>
-
-              <div className="rounded-lg border border-border overflow-hidden">
-                <table className="w-full text-sm">
-                  <thead className="bg-muted/40 text-xs text-muted-foreground">
-                    <tr>
-                      <th className="text-left px-3 py-2">Produit</th>
-                      <th className="text-right px-3 py-2">Quantité</th>
-                      {!detail.isProvisional && <th className="text-right px-3 py-2">PU</th>}
-                      {!detail.isProvisional && <th className="text-right px-3 py-2">Total</th>}
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-border">
-                    {detail.lines.map((l) => {
-                      const p = products.find((x) => x.id === l.productId);
-                      return (
-                        <tr key={l.productId}>
-                          <td className="px-3 py-2">{p?.image} {p?.name}</td>
-                          <td className="px-3 py-2 text-right">{l.quantity}</td>
-                          {!detail.isProvisional && <td className="px-3 py-2 text-right">{formatCurrency(l.unitPrice || 0)}</td>}
-                          {!detail.isProvisional && <td className="px-3 py-2 text-right font-semibold">{formatCurrency((l.unitPrice || 0) * l.quantity)}</td>}
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-
-              {detail.submitted && detail.submitted.quotes.length > 0 && (
-                <div className="rounded-lg border border-ai/30 bg-ai/5 p-4 text-sm space-y-2">
-                  <div className="font-semibold flex items-center gap-2">
-                    <FileText className="h-4 w-4 text-ai" /> Dernier devis AKWA AI — V{detail.submitted.quotes[0].version}
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-muted-foreground">Total proposé</span>
-                    <span className="text-lg font-bold">{formatCurrency(detail.submitted.quotes[0].total)}</span>
-                  </div>
-                  <p className="text-xs text-muted-foreground">
-                    Rendez-vous dans <strong>Mes devis</strong> pour accepter ou refuser.
-                  </p>
-                </div>
-              )}
-
-              {detail.isProvisional && (!detail.submitted || detail.submitted.quotes.length === 0) && (
-                <div className="rounded-lg border border-warning/30 bg-warning/5 p-4 text-sm">
-                  ⏳ Aucun devis reçu pour le moment. L'admin AKWA AI va appliquer un pricing intelligent puis vous envoyer une proposition.
-                </div>
-              )}
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
