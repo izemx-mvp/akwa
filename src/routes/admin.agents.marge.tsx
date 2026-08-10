@@ -5,7 +5,6 @@ import { AgentHeader, OrderContextPanel, Explain, Factors, CrossLink, ToneBar } 
 import { Bar as MiniBar, Chip, Kpi, Panel } from "@/components/admin/ui";
 import { orderContext, useAgentHub } from "@/lib/agent-hub";
 import { eur, pct, goodsTotal, orderCostTotal, useBackoffice } from "@/lib/backoffice-store";
-import { AgentConfigPanel } from "@/components/admin/AgentConfigPanel";
 
 export const Route = createFileRoute("/admin/agents/marge")({
   head: () => ({
@@ -167,7 +166,6 @@ function AgentMarge() {
           </table>
         </div>
       </Panel>
-      <AgentConfigPanel agent="marge" />
     </div>
   );
 }
