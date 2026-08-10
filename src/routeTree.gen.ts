@@ -30,6 +30,7 @@ import { Route as AdminCopilotRouteImport } from './routes/admin.copilot'
 import { Route as AdminContainerRouteImport } from './routes/admin.container'
 import { Route as AdminAgentsRouteImport } from './routes/admin.agents'
 import { Route as ClientDevisIndexRouteImport } from './routes/client.devis.index'
+import { Route as AdminProduitsIndexRouteImport } from './routes/admin.produits.index'
 import { Route as AdminContainerIndexRouteImport } from './routes/admin.container.index'
 import { Route as AdminAgentsIndexRouteImport } from './routes/admin.agents.index'
 import { Route as ClientDevisQuoteIdRouteImport } from './routes/client.devis.$quoteId'
@@ -144,6 +145,11 @@ const ClientDevisIndexRoute = ClientDevisIndexRouteImport.update({
   path: '/devis/',
   getParentRoute: () => ClientRoute,
 } as any)
+const AdminProduitsIndexRoute = AdminProduitsIndexRouteImport.update({
+  id: '/produits/',
+  path: '/produits/',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminContainerIndexRoute = AdminContainerIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -217,6 +223,7 @@ export interface FileRoutesByFullPath {
   '/client/devis/$quoteId': typeof ClientDevisQuoteIdRoute
   '/admin/agents/': typeof AdminAgentsIndexRoute
   '/admin/container/': typeof AdminContainerIndexRoute
+  '/admin/produits/': typeof AdminProduitsIndexRoute
   '/client/devis/': typeof ClientDevisIndexRoute
 }
 export interface FileRoutesByTo {
@@ -244,6 +251,7 @@ export interface FileRoutesByTo {
   '/client/devis/$quoteId': typeof ClientDevisQuoteIdRoute
   '/admin/agents': typeof AdminAgentsIndexRoute
   '/admin/container': typeof AdminContainerIndexRoute
+  '/admin/produits': typeof AdminProduitsIndexRoute
   '/client/devis': typeof ClientDevisIndexRoute
 }
 export interface FileRoutesById {
@@ -276,6 +284,7 @@ export interface FileRoutesById {
   '/client/devis/$quoteId': typeof ClientDevisQuoteIdRoute
   '/admin/agents/': typeof AdminAgentsIndexRoute
   '/admin/container/': typeof AdminContainerIndexRoute
+  '/admin/produits/': typeof AdminProduitsIndexRoute
   '/client/devis/': typeof ClientDevisIndexRoute
 }
 export interface FileRouteTypes {
@@ -309,6 +318,7 @@ export interface FileRouteTypes {
     | '/client/devis/$quoteId'
     | '/admin/agents/'
     | '/admin/container/'
+    | '/admin/produits/'
     | '/client/devis/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -336,6 +346,7 @@ export interface FileRouteTypes {
     | '/client/devis/$quoteId'
     | '/admin/agents'
     | '/admin/container'
+    | '/admin/produits'
     | '/client/devis'
   id:
     | '__root__'
@@ -367,6 +378,7 @@ export interface FileRouteTypes {
     | '/client/devis/$quoteId'
     | '/admin/agents/'
     | '/admin/container/'
+    | '/admin/produits/'
     | '/client/devis/'
   fileRoutesById: FileRoutesById
 }
@@ -526,6 +538,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ClientDevisIndexRouteImport
       parentRoute: typeof ClientRoute
     }
+    '/admin/produits/': {
+      id: '/admin/produits/'
+      path: '/produits'
+      fullPath: '/admin/produits/'
+      preLoaderRoute: typeof AdminProduitsIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/container/': {
       id: '/admin/container/'
       path: '/'
@@ -627,6 +646,7 @@ interface AdminRouteChildren {
   AdminIndexRoute: typeof AdminIndexRoute
   AdminOrderDetailsOrderIdRoute: typeof AdminOrderDetailsOrderIdRoute
   AdminPricingWorkflowOrderIdRoute: typeof AdminPricingWorkflowOrderIdRoute
+  AdminProduitsIndexRoute: typeof AdminProduitsIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
@@ -643,6 +663,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminIndexRoute: AdminIndexRoute,
   AdminOrderDetailsOrderIdRoute: AdminOrderDetailsOrderIdRoute,
   AdminPricingWorkflowOrderIdRoute: AdminPricingWorkflowOrderIdRoute,
+  AdminProduitsIndexRoute: AdminProduitsIndexRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
