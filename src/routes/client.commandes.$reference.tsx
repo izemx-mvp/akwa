@@ -11,7 +11,7 @@ import { TabDocuments } from "@/components/order/TabDocuments";
 import { TabPaiements } from "@/components/order/TabPaiements";
 import { TabEchanges } from "@/components/order/TabEchanges";
 import { TabHistorique } from "@/components/order/TabHistorique";
-import { useExportOrder } from "@/lib/export-order-store";
+import { useExportOrderView } from "@/lib/order-variants";
 
 export const Route = createFileRoute("/client/commandes/$reference")({
   head: () => ({
@@ -39,7 +39,8 @@ const TABS = [
 ] as const;
 
 function OrderCockpit() {
-  const order = useExportOrder();
+  const { reference } = Route.useParams();
+  const order = useExportOrderView(reference);
   const [tab, setTab] = useState<string>("overview");
   const [loading, setLoading] = useState(true);
 
