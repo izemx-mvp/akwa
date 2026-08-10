@@ -92,10 +92,26 @@ export function AppShell({
                 <Bell className="h-4 w-4" />
               </Button>
             )}
-            <div className="h-8 w-8 rounded-full bg-gradient-primary flex items-center justify-center text-xs font-semibold text-primary-foreground">
-              AK
-            </div>
+            {user ? (
+              <div className="flex items-center gap-2 rounded-lg border border-border bg-background/60 py-1 pl-2 pr-1">
+                <div className="hidden text-right leading-tight sm:block">
+                  <div className="text-xs font-semibold">{user.name}</div>
+                  <div className="text-[10px] text-muted-foreground">{user.role}</div>
+                </div>
+                <div className="h-8 w-8 rounded-full bg-gradient-primary flex items-center justify-center text-xs font-semibold text-primary-foreground">
+                  {user.initials}
+                </div>
+                <Button variant="ghost" size="icon" onClick={handleSignOut} aria-label="Se déconnecter" className="h-8 w-8">
+                  <LogOut className="h-4 w-4" />
+                </Button>
+              </div>
+            ) : (
+              <div className="h-8 w-8 rounded-full bg-gradient-primary flex items-center justify-center text-xs font-semibold text-primary-foreground">
+                AK
+              </div>
+            )}
           </div>
+
         </header>
         <div className="flex-1 p-5 md:p-7 overflow-x-hidden">{children}</div>
       </main>
