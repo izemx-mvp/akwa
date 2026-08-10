@@ -59,6 +59,7 @@ import { Route as AdminAgentsContainerOptimizerRouteImport } from './routes/admi
 import { Route as AdminAgentsAgentIdRouteImport } from './routes/admin.agents.$agentId'
 import { Route as AdminFacturationFacturesIndexRouteImport } from './routes/admin.facturation.factures.index'
 import { Route as AdminAgentsPricingIndexRouteImport } from './routes/admin.agents.pricing.index'
+import { Route as AdminFacturationFacturesInvoiceIdRouteImport } from './routes/admin.facturation.factures.$invoiceId'
 import { Route as AdminDevisGenererReferenceRouteImport } from './routes/admin.devis.generer.$reference'
 import { Route as AdminAgentsPricingReglesRouteImport } from './routes/admin.agents.pricing.regles'
 import { Route as AdminAgentsPricingHistoriqueRouteImport } from './routes/admin.agents.pricing.historique'
@@ -320,6 +321,12 @@ const AdminAgentsPricingIndexRoute = AdminAgentsPricingIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminAgentsPricingRoute,
 } as any)
+const AdminFacturationFacturesInvoiceIdRoute =
+  AdminFacturationFacturesInvoiceIdRouteImport.update({
+    id: '/factures/$invoiceId',
+    path: '/factures/$invoiceId',
+    getParentRoute: () => AdminFacturationRoute,
+  } as any)
 const AdminDevisGenererReferenceRoute =
   AdminDevisGenererReferenceRouteImport.update({
     id: '/devis/generer/$reference',
@@ -398,6 +405,7 @@ export interface FileRoutesByFullPath {
   '/admin/agents/pricing/historique': typeof AdminAgentsPricingHistoriqueRoute
   '/admin/agents/pricing/regles': typeof AdminAgentsPricingReglesRoute
   '/admin/devis/generer/$reference': typeof AdminDevisGenererReferenceRoute
+  '/admin/facturation/factures/$invoiceId': typeof AdminFacturationFacturesInvoiceIdRoute
   '/admin/agents/pricing/': typeof AdminAgentsPricingIndexRoute
   '/admin/facturation/factures/': typeof AdminFacturationFacturesIndexRoute
 }
@@ -449,6 +457,7 @@ export interface FileRoutesByTo {
   '/admin/agents/pricing/historique': typeof AdminAgentsPricingHistoriqueRoute
   '/admin/agents/pricing/regles': typeof AdminAgentsPricingReglesRoute
   '/admin/devis/generer/$reference': typeof AdminDevisGenererReferenceRoute
+  '/admin/facturation/factures/$invoiceId': typeof AdminFacturationFacturesInvoiceIdRoute
   '/admin/agents/pricing': typeof AdminAgentsPricingIndexRoute
   '/admin/facturation/factures': typeof AdminFacturationFacturesIndexRoute
 }
@@ -506,6 +515,7 @@ export interface FileRoutesById {
   '/admin/agents/pricing/historique': typeof AdminAgentsPricingHistoriqueRoute
   '/admin/agents/pricing/regles': typeof AdminAgentsPricingReglesRoute
   '/admin/devis/generer/$reference': typeof AdminDevisGenererReferenceRoute
+  '/admin/facturation/factures/$invoiceId': typeof AdminFacturationFacturesInvoiceIdRoute
   '/admin/agents/pricing/': typeof AdminAgentsPricingIndexRoute
   '/admin/facturation/factures/': typeof AdminFacturationFacturesIndexRoute
 }
@@ -564,6 +574,7 @@ export interface FileRouteTypes {
     | '/admin/agents/pricing/historique'
     | '/admin/agents/pricing/regles'
     | '/admin/devis/generer/$reference'
+    | '/admin/facturation/factures/$invoiceId'
     | '/admin/agents/pricing/'
     | '/admin/facturation/factures/'
   fileRoutesByTo: FileRoutesByTo
@@ -615,6 +626,7 @@ export interface FileRouteTypes {
     | '/admin/agents/pricing/historique'
     | '/admin/agents/pricing/regles'
     | '/admin/devis/generer/$reference'
+    | '/admin/facturation/factures/$invoiceId'
     | '/admin/agents/pricing'
     | '/admin/facturation/factures'
   id:
@@ -671,6 +683,7 @@ export interface FileRouteTypes {
     | '/admin/agents/pricing/historique'
     | '/admin/agents/pricing/regles'
     | '/admin/devis/generer/$reference'
+    | '/admin/facturation/factures/$invoiceId'
     | '/admin/agents/pricing/'
     | '/admin/facturation/factures/'
   fileRoutesById: FileRoutesById
@@ -1034,6 +1047,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAgentsPricingIndexRouteImport
       parentRoute: typeof AdminAgentsPricingRoute
     }
+    '/admin/facturation/factures/$invoiceId': {
+      id: '/admin/facturation/factures/$invoiceId'
+      path: '/factures/$invoiceId'
+      fullPath: '/admin/facturation/factures/$invoiceId'
+      preLoaderRoute: typeof AdminFacturationFacturesInvoiceIdRouteImport
+      parentRoute: typeof AdminFacturationRoute
+    }
     '/admin/devis/generer/$reference': {
       id: '/admin/devis/generer/$reference'
       path: '/devis/generer/$reference'
@@ -1123,10 +1143,13 @@ const AdminContainerRouteWithChildren = AdminContainerRoute._addFileChildren(
 )
 
 interface AdminFacturationRouteChildren {
+  AdminFacturationFacturesInvoiceIdRoute: typeof AdminFacturationFacturesInvoiceIdRoute
   AdminFacturationFacturesIndexRoute: typeof AdminFacturationFacturesIndexRoute
 }
 
 const AdminFacturationRouteChildren: AdminFacturationRouteChildren = {
+  AdminFacturationFacturesInvoiceIdRoute:
+    AdminFacturationFacturesInvoiceIdRoute,
   AdminFacturationFacturesIndexRoute: AdminFacturationFacturesIndexRoute,
 }
 
