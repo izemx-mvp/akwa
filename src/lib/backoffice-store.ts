@@ -519,11 +519,13 @@ function monthly(base: number, seed: number) {
   });
 }
 
+const CATS = ["Huiles moteur", "Huiles transmission", "Fluides automobiles", "Lubrifiants industriels", "Graisses", "Additifs & nettoyants"];
+
 const clients: Client[] = [
   {
-    id: "MAD-001", name: "Maison Atlas Distribution", legalName: "Maison Atlas Distribution SARL", ice: "CI-2024-8891234",
+    id: "MAD-001", name: "Abidjan Lubricants Group", legalName: "Abidjan Lubricants Group SA", ice: "CI-2024-8891234",
     country: "Côte d'Ivoire", city: "Abidjan", address: "Zone industrielle de Yopougon, Lot 42", zip: "01 BP 3345",
-    website: "www.atlas-distribution.ci", email: "contact@atlas-distribution.ci", phone: "+225 27 21 45 88 10",
+    website: "www.abidjan-lubricants.ci", email: "contact@abidjan-lubricants.ci", phone: "+225 27 21 45 88 10",
     contactMain: "Jean Kouassi", contactFinance: "Aïcha Traoré", contactLogistics: "Marc Adjé",
     language: "Français", currency: "EUR", incoterm: "CIF", paymentTerms: "50 % à la commande / 50 % avant embarquement",
     transport: "Maritime conteneur complet", since: iso("2024-03-04T00:00:00"), manager: CURRENT_USER.name,
@@ -532,25 +534,25 @@ const clients: Client[] = [
     paid: 596200, balance: 88300, quoteAcceptRate: 87, avgPaymentDelay: 27, lastOrder: iso("2026-08-02T00:00:00"),
     monthly: monthly(42000, 1),
     byCategory: [
-      { name: "Conserves", value: 214000 }, { name: "Huile & épicerie", value: 186000 },
-      { name: "Fruits secs", value: 118000 }, { name: "Épices", value: 92500 }, { name: "Céréales", value: 74000 },
+      { name: "Huiles moteur", value: 314000 }, { name: "Huiles transmission", value: 126000 },
+      { name: "Fluides automobiles", value: 118000 }, { name: "Lubrifiants industriels", value: 72500 }, { name: "Additifs & nettoyants", value: 54000 },
     ],
     topProducts: [
-      { name: "Sardines à l'huile 125g", value: 96400 }, { name: "Huile d'olive extra vierge 1L", value: 88200 },
-      { name: "Dattes Medjool premium 1kg", value: 61500 }, { name: "Couscous moyen 5kg", value: 42300 },
+      { name: "Huile moteur synthétique 5W-30 – 1L", value: 96400 }, { name: "Huile moteur diesel 15W-40 – 20L", value: 88200 },
+      { name: "ATF Dexron III – 1L", value: 61500 }, { name: "Liquide de refroidissement -35 °C – 5L", value: 42300 },
     ],
     destinations: [{ name: "Abidjan", value: 512000 }, { name: "Bouaké", value: 118500 }, { name: "San Pedro", value: 54000 }],
     notes: [
-      { id: uid(), at: iso("2026-07-18T10:12:00"), author: CURRENT_USER.name, category: "Commercial", text: "Client stratégique Afrique de l'Ouest — prioriser les réponses sous 24 h." },
-      { id: uid(), at: iso("2026-07-02T09:40:00"), author: "Yassine Bennani", category: "Logistique", text: "Très sensible aux délais de livraison, prévenir en cas de décalage d'ETD." },
+      { id: uid(), at: iso("2026-07-18T10:12:00"), author: CURRENT_USER.name, category: "Commercial", text: "Distributeur stratégique Afrique de l'Ouest — prioriser les réponses sous 24 h." },
+      { id: uid(), at: iso("2026-07-02T09:40:00"), author: "Yassine Bennani", category: "Logistique", text: "Exige les SDS à jour pour chaque référence avant embarquement." },
       { id: uid(), at: iso("2026-06-11T15:05:00"), author: CURRENT_USER.name, category: "Financier", text: "Préférence pour des conditions de paiement 50/50." },
-      { id: uid(), at: iso("2026-05-28T11:20:00"), author: CURRENT_USER.name, category: "Commercial", text: "Demande souvent une négociation du fret maritime." },
+      { id: uid(), at: iso("2026-05-28T11:20:00"), author: CURRENT_USER.name, category: "Commercial", text: "Négocie systématiquement le fret maritime sur les FCL 40' HC." },
     ],
   },
   {
-    id: "SDG-002", name: "Sénégal Import Négoce", legalName: "SIN SUARL", ice: "SN-2023-114455",
+    id: "SDG-002", name: "Dakar Auto Services", legalName: "Dakar Auto Services SUARL", ice: "SN-2023-114455",
     country: "Sénégal", city: "Dakar", address: "Km 4,5 Boulevard du Centenaire", zip: "BP 21455",
-    website: "www.sin-dakar.sn", email: "achats@sin-dakar.sn", phone: "+221 33 869 44 21",
+    website: "www.dakar-auto-services.sn", email: "achats@dakar-auto-services.sn", phone: "+221 33 869 44 21",
     contactMain: "Fatou Ndiaye", contactFinance: "Cheikh Fall", contactLogistics: "Ibrahima Sow",
     language: "Français", currency: "EUR", incoterm: "FOB", paymentTerms: "30 % à la commande / 70 % à réception",
     transport: "Maritime groupage", since: iso("2023-09-15T00:00:00"), manager: "Yassine Bennani",
@@ -558,15 +560,15 @@ const clients: Client[] = [
     revenueTotal: 512300, revenueYear: 241800, ordersCount: 14, activeOrders: 2, margin: 88600,
     paid: 448000, balance: 64300, quoteAcceptRate: 74, avgPaymentDelay: 41, lastOrder: iso("2026-07-28T00:00:00"),
     monthly: monthly(31000, 2),
-    byCategory: [{ name: "Conserves", value: 188000 }, { name: "Céréales", value: 142000 }, { name: "Épices", value: 96000 }, { name: "Huile & épicerie", value: 86300 }],
-    topProducts: [{ name: "Sardines à l'huile 125g", value: 121000 }, { name: "Couscous moyen 5kg", value: 78500 }, { name: "Épices ras el hanout 250g", value: 44000 }],
+    byCategory: [{ name: "Huiles moteur", value: 246000 }, { name: "Fluides automobiles", value: 142000 }, { name: "Additifs & nettoyants", value: 66000 }, { name: "Graisses", value: 58300 }],
+    topProducts: [{ name: "Huile moteur semi-synthétique 10W-40 – 5L", value: 121000 }, { name: "Liquide de frein DOT 4 – 500 ml", value: 78500 }, { name: "AdBlue 10L", value: 44000 }],
     destinations: [{ name: "Dakar", value: 452000 }, { name: "Thiès", value: 60300 }],
     notes: [{ id: uid(), at: iso("2026-06-20T14:00:00"), author: "Yassine Bennani", category: "Risque", text: "Retards de paiement récurrents de 10 à 15 jours — exiger un acompte." }],
   },
   {
-    id: "CMR-003", name: "Douala Food Services", legalName: "DFS SA", ice: "CM-2025-778812",
+    id: "CMR-003", name: "Douala Automotive Distribution", legalName: "DAD SA", ice: "CM-2025-778812",
     country: "Cameroun", city: "Douala", address: "Rue Njo-Njo, Bonapriso", zip: "BP 5521",
-    website: "www.doualafood.cm", email: "info@doualafood.cm", phone: "+237 233 42 18 77",
+    website: "www.douala-automotive.cm", email: "info@douala-automotive.cm", phone: "+237 233 42 18 77",
     contactMain: "Paul Mbarga", contactFinance: "Estelle Ngo", contactLogistics: "Alain Etoa",
     language: "Français", currency: "EUR", incoterm: "CFR", paymentTerms: "Paiement à 45 jours",
     transport: "Maritime conteneur complet", since: iso("2025-01-22T00:00:00"), manager: CURRENT_USER.name,
@@ -574,15 +576,15 @@ const clients: Client[] = [
     revenueTotal: 296400, revenueYear: 164200, ordersCount: 9, activeOrders: 1, margin: 51200,
     paid: 254000, balance: 42400, quoteAcceptRate: 68, avgPaymentDelay: 52, lastOrder: iso("2026-07-15T00:00:00"),
     monthly: monthly(21000, 3),
-    byCategory: [{ name: "Fruits secs", value: 118000 }, { name: "Épicerie fine", value: 96400 }, { name: "Boissons", value: 82000 }],
-    topProducts: [{ name: "Dattes Medjool premium 1kg", value: 92000 }, { name: "Confiture d'abricot 380g", value: 51000 }],
+    byCategory: [{ name: "Huiles moteur", value: 148000 }, { name: "Huiles transmission", value: 86400 }, { name: "Graisses", value: 62000 }],
+    topProducts: [{ name: "Huile moteur diesel 15W-40 – 208L", value: 92000 }, { name: "Graisse lithium multiusage – 18 kg", value: 51000 }],
     destinations: [{ name: "Douala", value: 296400 }],
     notes: [],
   },
   {
-    id: "MLI-004", name: "Bamako Trading Group", legalName: "BTG SARL", ice: "ML-2022-330091",
+    id: "MLI-004", name: "Bamako Automotive Supply", legalName: "BAS SARL", ice: "ML-2022-330091",
     country: "Mali", city: "Bamako", address: "Quartier du Fleuve, Rue 312", zip: "BP 1180",
-    website: "www.btg-mali.ml", email: "contact@btg-mali.ml", phone: "+223 20 22 66 41",
+    website: "www.bamako-auto-supply.ml", email: "contact@bamako-auto-supply.ml", phone: "+223 20 22 66 41",
     contactMain: "Moussa Diarra", contactFinance: "Awa Coulibaly", contactLogistics: "Sekou Keita",
     language: "Français", currency: "EUR", incoterm: "DAP", paymentTerms: "Paiement comptant",
     transport: "Maritime + routier", since: iso("2022-11-08T00:00:00"), manager: "Yassine Bennani",
@@ -590,15 +592,15 @@ const clients: Client[] = [
     revenueTotal: 731900, revenueYear: 288400, ordersCount: 22, activeOrders: 2, margin: 141300,
     paid: 705000, balance: 26900, quoteAcceptRate: 91, avgPaymentDelay: 18, lastOrder: iso("2026-08-05T00:00:00"),
     monthly: monthly(38000, 4),
-    byCategory: [{ name: "Céréales", value: 264000 }, { name: "Épices", value: 188000 }, { name: "Conserves", value: 152000 }, { name: "Épicerie fine", value: 127900 }],
-    topProducts: [{ name: "Couscous moyen 5kg", value: 164000 }, { name: "Épices ras el hanout 250g", value: 98000 }],
+    byCategory: [{ name: "Huiles moteur", value: 324000 }, { name: "Lubrifiants industriels", value: 188000 }, { name: "Fluides automobiles", value: 132000 }, { name: "Graisses", value: 87900 }],
+    topProducts: [{ name: "Huile moteur diesel 15W-40 – 20L", value: 164000 }, { name: "Huile hydraulique ISO VG 46 – 20L", value: 98000 }],
     destinations: [{ name: "Bamako", value: 640000 }, { name: "Sikasso", value: 91900 }],
     notes: [{ id: uid(), at: iso("2026-04-02T08:30:00"), author: CURRENT_USER.name, category: "Commercial", text: "Client VIP — remise fret négociée de 5 % sur les FCL." }],
   },
   {
-    id: "GUI-005", name: "Conakry Distribution", legalName: "CD SARL", ice: "GN-2025-556677",
+    id: "GUI-005", name: "Conakry Motors Distribution", legalName: "CMD SARL", ice: "GN-2025-556677",
     country: "Guinée", city: "Conakry", address: "Kaloum, Avenue de la République", zip: "BP 890",
-    website: "www.conakry-dist.gn", email: "achats@conakry-dist.gn", phone: "+224 622 45 11 09",
+    website: "www.conakry-motors.gn", email: "achats@conakry-motors.gn", phone: "+224 622 45 11 09",
     contactMain: "Mariama Barry", contactFinance: "Ousmane Camara", contactLogistics: "Alpha Diallo",
     language: "Français", currency: "EUR", incoterm: "CIF", paymentTerms: "50 % / 50 %",
     transport: "Maritime groupage", since: iso("2025-06-12T00:00:00"), manager: CURRENT_USER.name,
@@ -606,15 +608,15 @@ const clients: Client[] = [
     revenueTotal: 148700, revenueYear: 98200, ordersCount: 6, activeOrders: 1, margin: 24100,
     paid: 108000, balance: 40700, quoteAcceptRate: 62, avgPaymentDelay: 64, lastOrder: iso("2026-06-30T00:00:00"),
     monthly: monthly(12000, 5),
-    byCategory: [{ name: "Conserves", value: 78000 }, { name: "Huile & épicerie", value: 44700 }, { name: "Épices", value: 26000 }],
-    topProducts: [{ name: "Sardines à l'huile 125g", value: 62000 }],
+    byCategory: [{ name: "Huiles moteur", value: 78000 }, { name: "Fluides automobiles", value: 44700 }, { name: "Additifs & nettoyants", value: 26000 }],
+    topProducts: [{ name: "Huile moteur minérale 20W-50 – 5L", value: 62000 }],
     destinations: [{ name: "Conakry", value: 148700 }],
     notes: [{ id: uid(), at: iso("2026-05-15T16:10:00"), author: "Yassine Bennani", category: "Risque", text: "Solde à recevoir élevé — bloquer toute nouvelle expédition sans acompte." }],
   },
   {
-    id: "MRT-006", name: "Nouakchott Négoce", legalName: "NN SARL", ice: "MR-2026-112233",
+    id: "MRT-006", name: "Nouakchott Fleet Parts", legalName: "NFP SARL", ice: "MR-2026-112233",
     country: "Mauritanie", city: "Nouakchott", address: "Tevragh Zeina, Îlot K", zip: "BP 4412",
-    website: "www.nn-negoce.mr", email: "contact@nn-negoce.mr", phone: "+222 45 29 88 41",
+    website: "www.nfp-parts.mr", email: "contact@nfp-parts.mr", phone: "+222 45 29 88 41",
     contactMain: "Ahmed Ould Salem", contactFinance: "Leila Mint", contactLogistics: "Sidi Mohamed",
     language: "Français", currency: "EUR", incoterm: "FOB", paymentTerms: "Paiement comptant",
     transport: "Routier", since: iso("2026-07-02T00:00:00"), manager: CURRENT_USER.name,
@@ -622,12 +624,59 @@ const clients: Client[] = [
     revenueTotal: 38200, revenueYear: 38200, ordersCount: 2, activeOrders: 1, margin: 6900,
     paid: 20000, balance: 18200, quoteAcceptRate: 50, avgPaymentDelay: 22, lastOrder: iso("2026-07-24T00:00:00"),
     monthly: monthly(5000, 6),
-    byCategory: [{ name: "Céréales", value: 22000 }, { name: "Conserves", value: 16200 }],
-    topProducts: [{ name: "Couscous fin 1kg", value: 18400 }],
+    byCategory: [{ name: "Huiles moteur", value: 22000 }, { name: "Fluides automobiles", value: 16200 }],
+    topProducts: [{ name: "Liquide lave-glace -20 °C – 5L", value: 18400 }],
     destinations: [{ name: "Nouakchott", value: 38200 }],
     notes: [],
   },
 ];
+
+/* Portefeuille B2B complémentaire — distributeurs, grossistes, réseaux de garages et flottes. */
+const extraClients: {
+  id: string; name: string; country: string; city: string; segment: string; priority: Client["priority"];
+  risk: Client["paymentRisk"]; score: number; rev: number; incoterm: string; top: string;
+}[] = [
+  { id: "CIV-007", name: "AutoParts Distribution Côte d'Ivoire", country: "Côte d'Ivoire", city: "Abidjan", segment: "Distributeur pièces détachées", priority: "Important", risk: "Faible", score: 84, rev: 421000, incoterm: "CIF", top: "Huile moteur synthétique 5W-40 – 5L" },
+  { id: "CIV-008", name: "Ivoire Heavy Duty Parts", country: "Côte d'Ivoire", city: "San Pedro", segment: "Grossiste poids lourd", priority: "Standard", risk: "Modéré", score: 69, rev: 187500, incoterm: "CFR", top: "Huile moteur diesel 15W-40 – 208L" },
+  { id: "SEN-009", name: "West Africa Motors Supply", country: "Sénégal", city: "Dakar", segment: "Importateur automobile", priority: "Stratégique", risk: "Faible", score: 90, rev: 552000, incoterm: "CIF", top: "Huile moteur synthétique 5W-30 – 4L" },
+  { id: "SEN-010", name: "Senegal Fleet Solutions", country: "Sénégal", city: "Thiès", segment: "Gestionnaire de flotte", priority: "Important", risk: "Modéré", score: 73, rev: 264000, incoterm: "DAP", top: "AdBlue 1000L IBC" },
+  { id: "GHA-011", name: "Ghana Auto Trade", country: "Ghana", city: "Tema", segment: "Distributeur", priority: "Important", risk: "Faible", score: 81, rev: 338000, incoterm: "FOB", top: "ATF Dexron VI – 1L" },
+  { id: "GHA-012", name: "Accra Lubricants Wholesale", country: "Ghana", city: "Accra", segment: "Grossiste lubrifiants", priority: "Standard", risk: "Modéré", score: 66, rev: 152000, incoterm: "CIF", top: "Graisse lithium multiusage – 5 kg" },
+  { id: "CMR-013", name: "Yaoundé Garage Network", country: "Cameroun", city: "Yaoundé", segment: "Réseau de garages", priority: "Standard", risk: "Modéré", score: 64, rev: 118400, incoterm: "CFR", top: "Nettoyant injecteur diesel – 300 ml" },
+  { id: "BEN-014", name: "Cotonou Motors Distribution", country: "Bénin", city: "Cotonou", segment: "Distributeur", priority: "Standard", risk: "Modéré", score: 62, rev: 96500, incoterm: "CIF", top: "Huile moteur semi-synthétique 10W-40 – 20L" },
+  { id: "MLI-015", name: "Sikasso Transport Lubrifiants", country: "Mali", city: "Sikasso", segment: "Société de transport", priority: "Important", risk: "Faible", score: 79, rev: 214000, incoterm: "DAP", top: "Huile moteur diesel 15W-40 – 20L" },
+  { id: "GUI-016", name: "Kankan Auto Négoce", country: "Guinée", city: "Kankan", segment: "Grossiste", priority: "Standard", risk: "Élevé", score: 54, rev: 74000, incoterm: "CIF", top: "Liquide de frein DOT 3 – 500 ml" },
+  { id: "MRT-017", name: "Nouadhibou Marine & Fleet", country: "Mauritanie", city: "Nouadhibou", segment: "Gestionnaire de flotte", priority: "Standard", risk: "Modéré", score: 61, rev: 88000, incoterm: "FOB", top: "Huile hydraulique ISO VG 68 – 20L" },
+  { id: "CIV-018", name: "Bouaké Fleet Services", country: "Côte d'Ivoire", city: "Bouaké", segment: "Société de transport", priority: "Important", risk: "Faible", score: 77, rev: 196000, incoterm: "DAP", top: "Huile moteur diesel 15W-40 – 5L" },
+  { id: "GHA-019", name: "Takoradi Industrial Lubes", country: "Ghana", city: "Takoradi", segment: "Distributeur industriel", priority: "Standard", risk: "Modéré", score: 68, rev: 143000, incoterm: "CFR", top: "Huile hydraulique ISO VG 46 – 208L" },
+  { id: "BEN-020", name: "Porto-Novo Auto Import", country: "Bénin", city: "Porto-Novo", segment: "Importateur automobile", priority: "Standard", risk: "Modéré", score: 60, rev: 68000, incoterm: "CIF", top: "Liquide de refroidissement -35 °C – 5L" },
+];
+
+extraClients.forEach((e, k) => {
+  const slug = e.name.toLowerCase().replace(/[^a-z]+/g, "-").slice(0, 24);
+  clients.push({
+    id: e.id, name: e.name, legalName: `${e.name} SARL`, ice: `${e.id}-${2020 + (k % 6)}`,
+    country: e.country, city: e.city, address: `Zone industrielle ${e.city}, Lot ${12 + k}`, zip: `BP ${1000 + k * 37}`,
+    website: `www.${slug}.com`, email: `achats@${slug}.com`, phone: `+2${20 + k} ${20 + k} ${30 + k} ${40 + k} ${50 + k}`,
+    contactMain: ["Kwame Mensah", "Ibrahim Touré", "Aminata Cissé", "Yao N'Guessan", "Serge Dossou"][k % 5],
+    contactFinance: ["Rose Adjovi", "Salif Konaté", "Nana Owusu"][k % 3],
+    contactLogistics: ["Boubacar Sy", "Eric Kodjo", "Fanta Camara"][k % 3],
+    language: "Français", currency: "EUR", incoterm: e.incoterm,
+    paymentTerms: k % 3 === 0 ? "50 % à la commande / 50 % avant embarquement" : k % 3 === 1 ? "30 % / 70 % à réception" : "Paiement à 45 jours",
+    transport: k % 2 ? "Maritime conteneur complet" : "Maritime groupage",
+    since: iso(`202${3 + (k % 3)}-0${1 + (k % 8)}-1${k % 9}T00:00:00`), manager: k % 2 ? CURRENT_USER.name : "Yassine Bennani",
+    status: "Actif", priority: e.priority, paymentRisk: e.risk, score: e.score,
+    revenueTotal: e.rev, revenueYear: Math.round(e.rev * 0.46), ordersCount: 4 + (k % 12), activeOrders: k % 3,
+    margin: Math.round(e.rev * 0.19), paid: Math.round(e.rev * 0.88), balance: Math.round(e.rev * 0.12),
+    quoteAcceptRate: 55 + ((k * 7) % 40), avgPaymentDelay: 18 + ((k * 5) % 45),
+    lastOrder: iso(`2026-0${5 + (k % 4)}-1${k % 9}T00:00:00`),
+    monthly: monthly(Math.round(e.rev / 14), 7 + k),
+    byCategory: CATS.slice(0, 4).map((c, j) => ({ name: c, value: Math.round((e.rev * (4 - j)) / 12) })),
+    topProducts: [{ name: e.top, value: Math.round(e.rev * 0.31) }],
+    destinations: [{ name: e.city, value: e.rev }],
+    notes: [{ id: uid(), at: iso("2026-06-05T09:00:00"), author: CURRENT_USER.name, category: "Commercial", text: `Segment : ${e.segment}. Demande régulière de fiches techniques et SDS produits.` }],
+  });
+});
 
 /* ------------------------------------------------------------------ */
 /* Seeds — commandes                                                   */
