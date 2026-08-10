@@ -43,6 +43,7 @@ import { Route as AdminProduitsImportRouteImport } from './routes/admin.produits
 import { Route as AdminProduitsRefRouteImport } from './routes/admin.produits.$ref'
 import { Route as AdminPricingWorkflowOrderIdRouteImport } from './routes/admin.pricing-workflow.$orderId'
 import { Route as AdminOrderDetailsOrderIdRouteImport } from './routes/admin.order-details.$orderId'
+import { Route as AdminDevisQuoteIdRouteImport } from './routes/admin.devis.$quoteId'
 import { Route as AdminContainerOrderIdRouteImport } from './routes/admin.container.$orderId'
 import { Route as AdminCommandesReferenceRouteImport } from './routes/admin.commandes.$reference'
 import { Route as AdminClientsClientIdRouteImport } from './routes/admin.clients.$clientId'
@@ -222,6 +223,11 @@ const AdminOrderDetailsOrderIdRoute =
     path: '/order-details/$orderId',
     getParentRoute: () => AdminRoute,
   } as any)
+const AdminDevisQuoteIdRoute = AdminDevisQuoteIdRouteImport.update({
+  id: '/devis/$quoteId',
+  path: '/devis/$quoteId',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminContainerOrderIdRoute = AdminContainerOrderIdRouteImport.update({
   id: '/$orderId',
   path: '/$orderId',
@@ -274,6 +280,7 @@ export interface FileRoutesByFullPath {
   '/admin/clients/$clientId': typeof AdminClientsClientIdRoute
   '/admin/commandes/$reference': typeof AdminCommandesReferenceRoute
   '/admin/container/$orderId': typeof AdminContainerOrderIdRoute
+  '/admin/devis/$quoteId': typeof AdminDevisQuoteIdRoute
   '/admin/order-details/$orderId': typeof AdminOrderDetailsOrderIdRoute
   '/admin/pricing-workflow/$orderId': typeof AdminPricingWorkflowOrderIdRoute
   '/admin/produits/$ref': typeof AdminProduitsRefRoute
@@ -311,6 +318,7 @@ export interface FileRoutesByTo {
   '/admin/clients/$clientId': typeof AdminClientsClientIdRoute
   '/admin/commandes/$reference': typeof AdminCommandesReferenceRoute
   '/admin/container/$orderId': typeof AdminContainerOrderIdRoute
+  '/admin/devis/$quoteId': typeof AdminDevisQuoteIdRoute
   '/admin/order-details/$orderId': typeof AdminOrderDetailsOrderIdRoute
   '/admin/pricing-workflow/$orderId': typeof AdminPricingWorkflowOrderIdRoute
   '/admin/produits/$ref': typeof AdminProduitsRefRoute
@@ -353,6 +361,7 @@ export interface FileRoutesById {
   '/admin/clients/$clientId': typeof AdminClientsClientIdRoute
   '/admin/commandes/$reference': typeof AdminCommandesReferenceRoute
   '/admin/container/$orderId': typeof AdminContainerOrderIdRoute
+  '/admin/devis/$quoteId': typeof AdminDevisQuoteIdRoute
   '/admin/order-details/$orderId': typeof AdminOrderDetailsOrderIdRoute
   '/admin/pricing-workflow/$orderId': typeof AdminPricingWorkflowOrderIdRoute
   '/admin/produits/$ref': typeof AdminProduitsRefRoute
@@ -396,6 +405,7 @@ export interface FileRouteTypes {
     | '/admin/clients/$clientId'
     | '/admin/commandes/$reference'
     | '/admin/container/$orderId'
+    | '/admin/devis/$quoteId'
     | '/admin/order-details/$orderId'
     | '/admin/pricing-workflow/$orderId'
     | '/admin/produits/$ref'
@@ -433,6 +443,7 @@ export interface FileRouteTypes {
     | '/admin/clients/$clientId'
     | '/admin/commandes/$reference'
     | '/admin/container/$orderId'
+    | '/admin/devis/$quoteId'
     | '/admin/order-details/$orderId'
     | '/admin/pricing-workflow/$orderId'
     | '/admin/produits/$ref'
@@ -474,6 +485,7 @@ export interface FileRouteTypes {
     | '/admin/clients/$clientId'
     | '/admin/commandes/$reference'
     | '/admin/container/$orderId'
+    | '/admin/devis/$quoteId'
     | '/admin/order-details/$orderId'
     | '/admin/pricing-workflow/$orderId'
     | '/admin/produits/$ref'
@@ -738,6 +750,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminOrderDetailsOrderIdRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/devis/$quoteId': {
+      id: '/admin/devis/$quoteId'
+      path: '/devis/$quoteId'
+      fullPath: '/admin/devis/$quoteId'
+      preLoaderRoute: typeof AdminDevisQuoteIdRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/container/$orderId': {
       id: '/admin/container/$orderId'
       path: '/$orderId'
@@ -818,6 +837,7 @@ interface AdminRouteChildren {
   AdminIndexRoute: typeof AdminIndexRoute
   AdminClientsClientIdRoute: typeof AdminClientsClientIdRoute
   AdminCommandesReferenceRoute: typeof AdminCommandesReferenceRoute
+  AdminDevisQuoteIdRoute: typeof AdminDevisQuoteIdRoute
   AdminOrderDetailsOrderIdRoute: typeof AdminOrderDetailsOrderIdRoute
   AdminPricingWorkflowOrderIdRoute: typeof AdminPricingWorkflowOrderIdRoute
   AdminProduitsRefRoute: typeof AdminProduitsRefRoute
@@ -844,6 +864,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminIndexRoute: AdminIndexRoute,
   AdminClientsClientIdRoute: AdminClientsClientIdRoute,
   AdminCommandesReferenceRoute: AdminCommandesReferenceRoute,
+  AdminDevisQuoteIdRoute: AdminDevisQuoteIdRoute,
   AdminOrderDetailsOrderIdRoute: AdminOrderDetailsOrderIdRoute,
   AdminPricingWorkflowOrderIdRoute: AdminPricingWorkflowOrderIdRoute,
   AdminProduitsRefRoute: AdminProduitsRefRoute,
