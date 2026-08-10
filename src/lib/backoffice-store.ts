@@ -42,8 +42,8 @@ export type ProductLogistics = {
   shelfLife: string;
   hsCode: string;
   dangerous: boolean;
-  healthCertificate: boolean;
-  phytoCertificate: boolean;
+  sdsRequired: boolean;
+  adrRegulated: boolean;
 };
 
 export type PricePoint = { date: string; price: number };
