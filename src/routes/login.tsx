@@ -2,7 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { auth } from "@/lib/auth";
-import { ArrowRight, Briefcase, ShieldCheck, Sparkles, TrendingUp, Package, BarChart3 } from "lucide-react";
+import { ArrowRight, Briefcase, ShieldCheck, Sparkles, Layers, Zap, ChartNoAxesCombined } from "lucide-react";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
@@ -30,29 +30,48 @@ function LoginPage() {
         <div className="relative z-10">
           <Logo variant="light" />
         </div>
-        <div className="relative z-10 max-w-md">
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur px-3 py-1 text-xs font-medium mb-5">
-            <Sparkles className="h-3.5 w-3.5" /> Plateforme d'opérations augmentée par IA
+        <div className="relative z-10 max-w-xl">
+          <div className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur px-3 py-1 text-xs font-medium mb-6 border border-white/10">
+            <Sparkles className="h-3.5 w-3.5" /> La plateforme intelligente de pilotage Export
           </div>
-          <h1 className="text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
-            Pricing, commandes & optimisation <span className="text-primary-glow">intelligents</span> pour l'export
+          <h1 className="text-4xl lg:text-[3.25rem] font-bold tracking-tight leading-[1.08]">
+            Toute votre activité export.
+            <br />
+            <span className="text-primary-glow">Une seule plateforme.</span>
+            <br />
+            Une intelligence augmentée.
           </h1>
-          <p className="mt-5 text-white/70 text-base leading-relaxed">
-            AKWA AI déploie des agents autonomes sur le pricing, le chargement, les marges et la douane — chaque décision export devient une décision optimisée.
+          <p className="mt-6 text-white/70 text-base leading-relaxed max-w-lg">
+            AKWA AI centralise et digitalise l'ensemble du cycle export, de la commande client jusqu'à la facturation et l'expédition. Une plateforme unique qui connecte clients, équipes, produits, pricing, devis, opérations et données pour gagner en visibilité, en rapidité et en performance.
           </p>
-          <div className="mt-8 grid grid-cols-3 gap-3 max-w-sm">
+
+          <div className="mt-6 flex flex-wrap items-center gap-2 text-[11px] text-white/45">
+            <span>Du portail client au back-office AKWA, toute la chaîne export est connectée.</span>
+          </div>
+          <div className="mt-3 flex items-center gap-2 text-[11px] text-white/70">
+            <span className="rounded-md border border-white/10 bg-white/5 px-2 py-1">Portail Client</span>
+            <span className="text-primary-glow">↔</span>
+            <span className="rounded-md border border-white/15 bg-white/10 px-2 py-1 font-medium">AKWA AI</span>
+            <span className="text-primary-glow">↔</span>
+            <span className="rounded-md border border-white/10 bg-white/5 px-2 py-1">Back-office AKWA</span>
+          </div>
+
+          <div className="mt-8 grid grid-cols-2 gap-3 max-w-lg">
             {[
-              { icon: TrendingUp, label: "Pricing Advisor" },
-              { icon: Package, label: "Container Optimizer" },
-              { icon: BarChart3, label: "Margin Analyst" },
+              { icon: Layers, title: "Centraliser", text: "Clients, produits, commandes, devis, factures et opérations réunis dans un même environnement." },
+              { icon: Zap, title: "Automatiser", text: "Fluidifier les processus, réduire les tâches manuelles et accélérer le traitement des opérations export." },
+              { icon: Sparkles, title: "Optimiser par l'IA", text: "Des agents spécialisés accompagnent les équipes dans le pricing, la marge, les devis, le chargement et les opérations export." },
+              { icon: ChartNoAxesCombined, title: "Piloter", text: "Suivre les performances, les clients, les revenus, les marges et les opérations grâce à une donnée centralisée." },
             ].map((a) => (
-              <div key={a.label} className="rounded-lg bg-white/5 backdrop-blur border border-white/10 p-3">
+              <div key={a.title} className="rounded-xl bg-white/5 backdrop-blur border border-white/10 p-4 hover:border-white/20 transition-smooth">
                 <a.icon className="h-4 w-4 text-primary-glow mb-2" />
-                <div className="text-[11px] text-white/80 leading-tight">{a.label}</div>
+                <div className="text-sm font-semibold leading-tight">{a.title}</div>
+                <div className="mt-1 text-[11px] text-white/60 leading-snug">{a.text}</div>
               </div>
             ))}
           </div>
         </div>
+
         <div className="relative z-10 text-xs text-white/50">© AKWA AI · Suite d'intelligence export</div>
       </div>
 
