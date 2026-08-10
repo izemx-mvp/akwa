@@ -94,6 +94,7 @@ function AdminLayout() {
       items: [
         { to: "/admin/copilot", label: "Copilote interne", icon: MessageSquare },
         { to: "/admin/knowledge", label: "Base de connaissances", icon: BookOpen },
+        { to: "/admin/configuration-agents", label: "Configuration agents", icon: Settings2 },
         { to: "/admin/notifications", label: "Notifications", icon: Bell, badge: alerts ? String(alerts) : undefined },
       ],
     },
